@@ -16,6 +16,8 @@
 
 package com.hippo.yorozuya;
 
+import android.support.annotation.NonNull;
+
 import java.io.File;
 
 public final class FileUtils {
@@ -50,5 +52,38 @@ public final class FileUtils {
         int exp = (int) (Math.log(bytes) / Math.log(unit));
         String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+    }
+
+    /**
+     * Try to delete file, dir and it's children
+     *
+     * @param file the file to delete
+     * The dir to deleted
+     */
+    public static boolean delete(File file) {
+        boolean success = true;
+        File[] files = file.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                success &= delete(f);
+            }
+        }
+        /*
+        final File to = new File(file.getAbsolutePath()
+                + System.currentTimeMillis());
+        if (file.renameTo(to)) {
+            success &= to.delete();
+        } else
+            success &= file.delete();
+        }
+        */
+        success &= file.delete();
+        return success;
+    }
+
+    public static String ensureFilename(@NonNull String filename) {
+        filename = filename.replaceAll("[\\\\/:*?\"<>\\|]", "");
+        filename = filename.length() > 127 ? filename.substring(0,  127) : filename;
+        return filename.replace("^[\\s]+", "").replace("[\\s]+$", "");
     }
 }

@@ -56,7 +56,7 @@ public class Say {
             FileWriter fw = null;
             try {
                 fw = new FileWriter(sSayFile, true);
-                fw.append(sDataFormat.format(new Date(mTime))).append("    ")
+                fw.append(sDataFormat.format(new Date(mTime))).append("  ")
                         .append(mTag).append("\n").append(mMsg).append("\n");
                 if (mTr != null) {
                     fw.append(Log.getStackTraceString(mTr)).append("\n");

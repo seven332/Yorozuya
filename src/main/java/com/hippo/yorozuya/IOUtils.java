@@ -17,6 +17,7 @@
 package com.hippo.yorozuya;
 
 import java.io.Closeable;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -61,5 +62,31 @@ public class IOUtils {
             count += n;
         }
         return count;
+    }
+
+    /**
+     * Returns the ASCII characters up to but not including the next "\r\n", or
+     * "\n".
+     *
+     * @throws java.io.EOFException if the stream is exhausted before the next
+     *             newline character.
+     */
+    public static String readAsciiLine(final InputStream in) throws IOException {
+        final StringBuilder result = new StringBuilder(80);
+        while (true) {
+            final int c = in.read();
+            if (c == -1) {
+                throw new EOFException();
+            } else if (c == '\n') {
+                break;
+            }
+
+            result.append((char)c);
+        }
+        final int length = result.length();
+        if (length > 0 && result.charAt(length - 1) == '\r') {
+            result.setLength(length - 1);
+        }
+        return result.toString();
     }
 }

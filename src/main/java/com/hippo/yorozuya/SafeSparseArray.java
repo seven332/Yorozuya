@@ -24,6 +24,20 @@ public class SafeSparseArray<E> extends SparseArray<E> {
     /**
      * {@inheritDoc}
      */
+    public SafeSparseArray() {
+        super();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public SafeSparseArray(int initialCapacity) {
+        super(initialCapacity);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized E get(int key) {
         return super.get(key);
