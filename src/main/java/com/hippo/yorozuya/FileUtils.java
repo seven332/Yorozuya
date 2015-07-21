@@ -17,6 +17,7 @@
 package com.hippo.yorozuya;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import java.io.File;
 
@@ -85,5 +86,36 @@ public final class FileUtils {
         filename = filename.replaceAll("[\\\\/:*?\"<>\\|]", "");
         filename = filename.length() > 127 ? filename.substring(0,  127) : filename;
         return filename.replace("^[\\s]+", "").replace("[\\s]+$", "");
+    }
+
+    /**
+     * Get extension from filename
+     *
+     * @param filename the complete filename
+     * @return null for can't find extension, "" empty String for ending with . dot
+     */
+    public static String getExtensionFromFilename(String filename) {
+        int index = filename.lastIndexOf('.');
+        if (index != -1) {
+            return filename.substring(index + 1);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get name from filename
+     *
+     * @param filename the complete filename
+     * @return null for start with . dot
+     */
+    public static String getNameFromFilename(String filename) {
+        int index = filename.lastIndexOf('.');
+        if (index != -1) {
+            String name = filename.substring(0, index);
+            return TextUtils.isEmpty(name) ? null : name;
+        } else {
+            return filename;
+        }
     }
 }

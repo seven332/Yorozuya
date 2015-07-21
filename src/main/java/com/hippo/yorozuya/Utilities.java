@@ -17,6 +17,9 @@
 package com.hippo.yorozuya;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+
+import java.util.regex.Pattern;
 
 public final class Utilities {
 
@@ -34,5 +37,35 @@ public final class Utilities {
             }
         }
         return false;
+    }
+
+    public static String getNameFromUrl(String url) {
+        if (!TextUtils.isEmpty(url)) {
+            int fragment = url.lastIndexOf('#');
+            if (fragment > 0) {
+                url = url.substring(0, fragment);
+            }
+
+            int query = url.lastIndexOf('?');
+            if (query > 0) {
+                url = url.substring(0, query);
+            }
+
+            int filenamePos = url.lastIndexOf('/');
+            String filename =
+                    0 <= filenamePos ? url.substring(filenamePos + 1) : url;
+
+            // if the filename contains special characters, we don't
+            // consider it valid for our matching purposes:
+            if (!filename.isEmpty() &&
+                    Pattern.matches("[a-zA-Z_0-9\\.\\-\\(\\)\\%]+", filename)) {
+                int dotPos = filename.lastIndexOf('.');
+                if (0 < dotPos) {
+                    return filename.substring(0, dotPos);
+                }
+            }
+        }
+
+        return null;
     }
 }
