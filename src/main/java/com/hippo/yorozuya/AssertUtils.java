@@ -18,6 +18,12 @@ package com.hippo.yorozuya;
 
 public class AssertUtils {
 
+    public static void assertTrue(boolean cond) {
+        if (!cond) {
+            throw new AssertError("Condition has to be true.");
+        }
+    }
+
     public static void assertNull(String message, Object object) {
         if (object != null) {
             throw new AssertError(message);

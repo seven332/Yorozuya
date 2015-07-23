@@ -31,4 +31,14 @@ public class ColorUtils {
         hsv[2] *= 0.9f;
         return Color.HSVToColor(hsv);
     }
+
+    /**
+     * Check is it the color opaque
+     *
+     * @param color the color
+     * @return true if it is opaque
+     */
+    public static boolean isOpaque(int color) {
+        return color >>> 24 == 0xFF;
+    }
 }
