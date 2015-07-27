@@ -16,26 +16,20 @@
 
 package com.hippo.yorozuya;
 
-import android.support.annotation.NonNull;
+import android.os.Process;
 
-import java.util.concurrent.ThreadFactory;
+public class PriorityThread extends Thread {
 
-/**
- * A thread factory that creates threads with a given thread priority.
- */
-public class PriorityThreadFactory implements ThreadFactory {
+    private int mPriority;
 
-    private final int mPriority;
-    private final IdGenerator mIdGenerator = new IdGenerator();
-    private final String mName;
-
-    public PriorityThreadFactory(String name, int priority) {
-        mName = name;
+    public PriorityThread(Runnable runnable, String name, int priority) {
+        super(runnable, name);
         mPriority = priority;
     }
 
     @Override
-    public Thread newThread(@NonNull Runnable r) {
-        return new PriorityThread(r, mName + '-' + mIdGenerator.nextId(), mPriority);
+    public void run() {
+        Process.setThreadPriority(mPriority);
+        super.run();
     }
 }
