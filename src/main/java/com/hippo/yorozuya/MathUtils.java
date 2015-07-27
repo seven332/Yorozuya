@@ -205,6 +205,10 @@ public final class MathUtils {
         return start + (stop - start) * amount;
     }
 
+    public static float delerp(float start, float stop, float value) {
+        return (value - start) / (stop - start);
+    }
+
     public static float norm(float start, float stop, float value) {
         return (value - start) / (stop - start);
     }
@@ -287,6 +291,14 @@ public final class MathUtils {
             y2 = h;
         }
         return dist(x, y, x2, y2);
+    }
+
+    public static float positiveModulo(float x, float y) {
+        float result = x % y;
+        if (x < 0) {
+            result += y;
+        }
+        return result;
     }
 
     public static int random(int howbig) {
