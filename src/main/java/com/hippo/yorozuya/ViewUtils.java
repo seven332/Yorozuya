@@ -306,7 +306,7 @@ public final class ViewUtils {
                 result = specSize;
                 break;
             case View.MeasureSpec.AT_MOST:
-                result = size == 0 ? specSize : size;
+                return size == 0 ? specSize : Math.min(size, specSize);
         }
         return result;
     }
