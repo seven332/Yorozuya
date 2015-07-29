@@ -268,4 +268,13 @@ public class StringUtils {
 
         return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
     }
+
+    public static boolean endsWith(String string, String[] suffixs) {
+        for (int i = 0, n = suffixs.length; i < n; i++) {
+            if (string.endsWith(suffixs[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
