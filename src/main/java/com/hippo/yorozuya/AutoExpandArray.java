@@ -21,7 +21,7 @@ public class AutoExpandArray<E> {
     private static final int MIN_CAPACITY_INCREMENT = 12;
 
     private int maxValidIndex = -1;
-    private transient Object[] array;
+    private volatile Object[] array;
 
     public AutoExpandArray(int capacity) {
         if (capacity < 0) {

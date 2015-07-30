@@ -30,7 +30,7 @@ public class SerialThreadExecutor implements Executor, Runnable {
     private BlockingQueue<Runnable> mWorkQueue;
     private ThreadFactory mThreadFactory;
 
-    private transient Thread mThread;
+    private volatile Thread mThread;
 
     private final Lock mThreadLock = new ReentrantLock();
     private final Object mWaitLock = new Object();
