@@ -42,6 +42,12 @@ public class AssertUtils {
         }
     }
 
+    public static void assertEquals(String message, Object expected, Object actual) {
+        if (expected != actual) {
+            throw new AssertError(message);
+        }
+    }
+
     public static void assertNotEquals(String message, int expected, int actual) {
         if (expected == actual) {
             throw new AssertError(message);
