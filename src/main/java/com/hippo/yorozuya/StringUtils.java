@@ -18,6 +18,9 @@ package com.hippo.yorozuya;
 
 import android.text.TextUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringUtils {
 
     private static final String[] ESCAPE_CHARATER_LIST = {
@@ -276,5 +279,81 @@ public class StringUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * <p>Splits the provided text into an array, separator specified.
+     * This is an alternative to using StringTokenizer.</p>
+     *
+     * <p>The separator is not included in the returned String array.
+     * Adjacent separators are treated as one separator.
+     * For more control over the split use the StrTokenizer class.</p>
+     *
+     * <p>A {@code null} input String returns {@code null}.</p>
+     *
+     * <pre>
+     * StringUtils.split(null, *)         = null
+     * StringUtils.split("", *)           = []
+     * StringUtils.split("a.b.c", '.')    = ["a", "b", "c"]
+     * StringUtils.split("a..b.c", '.')   = ["a", "b", "c"]
+     * StringUtils.split("a:b:c", '.')    = ["a:b:c"]
+     * StringUtils.split("a b c", ' ')    = ["a", "b", "c"]
+     * </pre>
+     *
+     * @param str  the String to parse, may be null
+     * @param separatorChar  the character used as the delimiter
+     * @return an array of parsed Strings, {@code null} if null String input
+     * @since 2.0
+     */
+    // Get from org.apache.commons.lang3.StringUtils
+    public static String[] split(final String str, final char separatorChar) {
+        return splitWorker(str, separatorChar, false);
+    }
+
+    /**
+     * Performs the logic for the {@code split} and
+     * {@code splitPreserveAllTokens} methods that do not return a
+     * maximum array length.
+     *
+     * @param str  the String to parse, may be {@code null}
+     * @param separatorChar the separate character
+     * @param preserveAllTokens if {@code true}, adjacent separators are
+     * treated as empty token separators; if {@code false}, adjacent
+     * separators are treated as one separator.
+     * @return an array of parsed Strings, {@code null} if null String input
+     */
+    // Get from org.apache.commons.lang3.StringUtils
+    private static String[] splitWorker(final String str, final char separatorChar, final boolean preserveAllTokens) {
+        // Performance tuned for 2.0 (JDK1.4)
+
+        if (str == null) {
+            return null;
+        }
+        final int len = str.length();
+        if (len == 0) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        final List<String> list = new ArrayList<>();
+        int i = 0, start = 0;
+        boolean match = false;
+        boolean lastMatch = false;
+        while (i < len) {
+            if (str.charAt(i) == separatorChar) {
+                if (match || preserveAllTokens) {
+                    list.add(str.substring(start, i));
+                    match = false;
+                    lastMatch = true;
+                }
+                start = ++i;
+                continue;
+            }
+            lastMatch = false;
+            match = true;
+            i++;
+        }
+        if (match || preserveAllTokens && lastMatch) {
+            list.add(str.substring(start, i));
+        }
+        return list.toArray(new String[list.size()]);
     }
 }

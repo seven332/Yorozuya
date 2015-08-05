@@ -18,6 +18,7 @@ package com.hippo.yorozuya;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.webkit.MimeTypeMap;
 
 import java.util.regex.Pattern;
 
@@ -67,5 +68,27 @@ public final class Utilities {
         }
 
         return null;
+    }
+
+    private static String[] MIME_TYPE_ARRAY = {
+            "image/jpg"
+    };
+
+    private static String[] EXTENSION_ARRAY = {
+            "jpg"
+    };
+
+    public static String getExtensionFromMimeType(String mimeType) {
+        if (TextUtils.isEmpty(mimeType)) {
+            return null;
+        }
+
+        for (int i = 0, n = MIME_TYPE_ARRAY.length; i < n; i++) {
+            if (MIME_TYPE_ARRAY[i].equals(mimeType)) {
+                return EXTENSION_ARRAY[i];
+            }
+        }
+
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
     }
 }
