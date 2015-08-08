@@ -301,6 +301,14 @@ public final class MathUtils {
         return result;
     }
 
+    public static float negativeModulo(float x, float y) {
+        float result = x % y;
+        if (x > 0) {
+            result -= y;
+        }
+        return result;
+    }
+
     public static int random(int howbig) {
         return (int) (sRandom.nextFloat() * howbig);
     }

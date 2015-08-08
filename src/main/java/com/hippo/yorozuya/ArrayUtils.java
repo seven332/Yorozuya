@@ -19,6 +19,11 @@ package com.hippo.yorozuya;
 public class ArrayUtils {
 
     /**
+     * An empty immutable {@code int} array.
+     */
+    public static final int[] EMPTY_INT_ARRAY = new int[0];
+
+    /**
      * An empty immutable {@code String} array.
      */
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
