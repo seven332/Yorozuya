@@ -359,4 +359,14 @@ public final class ViewUtils {
         point[0] += parent.getScrollX() - child.getLeft();
         point[1] += parent.getScrollY() - child.getTop();
     }
+
+    public static void setEnabledRecursively(View view, boolean enabled) {
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0, n = viewGroup.getChildCount(); i < n; i++) {
+                setEnabledRecursively(viewGroup.getChildAt(i), enabled);
+            }
+        }
+        view.setEnabled(enabled);
+    }
 }
