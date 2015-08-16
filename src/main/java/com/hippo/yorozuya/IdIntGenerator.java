@@ -16,7 +16,7 @@
 
 package com.hippo.yorozuya;
 
-public final class IdGenerator {
+public final class IdIntGenerator {
 
     public static final int INVAILD_ID = -1;
 

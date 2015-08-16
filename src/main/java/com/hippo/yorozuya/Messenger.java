@@ -23,7 +23,7 @@ import java.util.Set;
 
 public class Messenger {
 
-    private IdGenerator mIdGenerator;
+    private IdIntGenerator mIdGenerator;
 
     private SparseArray<Set<Receiver>> mReceiverSetMap;
 
@@ -37,7 +37,7 @@ public class Messenger {
     }
 
     private Messenger() {
-        mIdGenerator = new IdGenerator();
+        mIdGenerator = new IdIntGenerator();
         mReceiverSetMap = new SparseArray<>();
     }
 

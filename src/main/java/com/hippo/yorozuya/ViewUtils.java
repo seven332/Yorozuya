@@ -271,16 +271,19 @@ public final class ViewUtils {
      * @param view Child view of the parent to hit test
      * @param x X position to test in the parent's coordinate system
      * @param y Y position to test in the parent's coordinate system
+     * @param slop the slop out of the view, or negative for inside
      * @return true if the supplied view is under the given point, false otherwise
      */
-    public static boolean isViewUnder(@Nullable View view, int x, int y) {
-        if (view == null || view.getVisibility() != View.VISIBLE) {
+    public static boolean isViewUnder(@Nullable View view, int x, int y, int slop) {
+        if (view == null) {
             return false;
         } else {
-            return x >= view.getLeft() &&
-                    x < view.getRight() &&
-                    y >= view.getTop() &&
-                    y < view.getBottom();
+            final float translationX = view.getTranslationX();
+            final float translationY = view.getTranslationY();
+            return x >= view.getLeft() + translationX - slop &&
+                    x < view.getRight() + translationX + slop &&
+                    y >= view.getTop() + translationY - slop &&
+                    y < view.getBottom() + translationY + slop;
         }
     }
 
