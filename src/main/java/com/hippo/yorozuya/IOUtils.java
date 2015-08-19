@@ -20,6 +20,7 @@ import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 public class IOUtils {
@@ -88,5 +89,18 @@ public class IOUtils {
             result.setLength(length - 1);
         }
         return result.toString();
+    }
+
+    public static String readString(final InputStream is, String encoding) throws IOException {
+        InputStreamReader reader = new InputStreamReader(is, encoding);
+        StringBuilder sb = new StringBuilder();
+
+        char[] buffer = new char[DEFAULT_BUFFER_SIZE];
+        int n;
+        while (EOF != (n = reader.read(buffer))) {
+            sb.append(buffer, 0, n);
+        }
+
+        return sb.toString();
     }
 }
