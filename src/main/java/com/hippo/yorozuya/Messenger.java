@@ -18,14 +18,14 @@ package com.hippo.yorozuya;
 
 import android.util.SparseArray;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Messenger {
 
     private IdIntGenerator mIdGenerator;
 
-    private SparseArray<Set<Receiver>> mReceiverSetMap;
+    private SparseArray<List<Receiver>> mReceiverListMap;
 
     private static Messenger sInstance;
 
@@ -38,11 +38,20 @@ public class Messenger {
 
     private Messenger() {
         mIdGenerator = new IdIntGenerator();
-        mReceiverSetMap = new SparseArray<>();
+        mReceiverListMap = new SparseArray<>();
     }
 
     public int newId() {
         return mIdGenerator.nextId();
+    }
+
+    private void notifyInternal(int id, Object obj) {
+        List<Receiver> receiverList = mReceiverListMap.get(id);
+        if (receiverList != null) {
+            for (int i = 0, n =receiverList.size(); i < n; i++) {
+                receiverList.get(i).onReceive(id, obj);
+            }
+        }
     }
 
     public void notify(final int id, final Object obj) {
@@ -50,32 +59,31 @@ public class Messenger {
         SimpleHandler.getInstance().post(new Runnable() {
             @Override
             public void run() {
-                Set<Receiver> receiverSet = mReceiverSetMap.get(id);
-                if (receiverSet != null) {
-                    for (Receiver receiver : receiverSet) {
-                        receiver.onReceive(id, obj);
-                    }
-                }
+                notifyInternal(id, obj);
             }
         });
     }
 
+    public void notifyAtOnce(int id, Object obj) {
+        notifyInternal(id, obj);
+    }
+
     public void register(int id, Receiver receiver) {
-        Set<Receiver> receiverSet = mReceiverSetMap.get(id);
-        if (receiverSet == null) {
-            receiverSet = new HashSet<>();
-            mReceiverSetMap.put(id, receiverSet);
+        List<Receiver> receiverList = mReceiverListMap.get(id);
+        if (receiverList == null) {
+            receiverList = new ArrayList<>();
+            mReceiverListMap.put(id, receiverList);
         }
 
-        receiverSet.add(receiver);
+        receiverList.add(receiver);
     }
 
     public void unregister(int id, Receiver receiver) {
-        Set<Receiver> receiverSet = mReceiverSetMap.get(id);
-        if (receiverSet != null) {
-            receiverSet.remove(receiver);
-            if (receiverSet.isEmpty()) {
-                mReceiverSetMap.remove(id);
+        List<Receiver> receiverList = mReceiverListMap.get(id);
+        if (receiverList != null) {
+            receiverList.remove(receiver);
+            if (receiverList.isEmpty()) {
+                mReceiverListMap.remove(id);
             }
         }
     }
