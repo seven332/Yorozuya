@@ -16,14 +16,42 @@
 
 package com.hippo.yorozuya;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.TypedValue;
 
 public final class ResourcesUtils {
 
+    private static final Object mAccessLock = new Object();
+    private static TypedValue mTmpValue = new TypedValue();
+
     public static float getFloat(Resources resources, int resId) {
         TypedValue outValue = new TypedValue();
         resources.getValue(resId, outValue, true);
         return outValue.getFloat();
+    }
+
+    private static void getAttrValue(Context context, int attrId, TypedValue value) {
+        context.getTheme().resolveAttribute(attrId, value, true);
+    }
+
+    public static int getAttrColor(Context context, int attrId) {
+        TypedValue value;
+        synchronized (mAccessLock) {
+            value = mTmpValue;
+            if (value == null) {
+                value = new TypedValue();
+            }
+            getAttrValue(context, attrId, value);
+            if (value.type >= TypedValue.TYPE_FIRST_INT
+                    && value.type <= TypedValue.TYPE_LAST_INT) {
+                mTmpValue = value;
+                return value.data;
+            } else {
+                throw new Resources.NotFoundException(
+                        "Attribute ID #0x" + Integer.toHexString(attrId) + " type #0x"
+                                + Integer.toHexString(value.type) + " is not valid");
+            }
+        }
     }
 }
