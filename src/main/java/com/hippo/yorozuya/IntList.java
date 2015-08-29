@@ -150,4 +150,24 @@ public class IntList {
     public int size() {
         return mSize;
     }
+
+    @Override
+    public String toString() {
+        int[] a = mArray;
+        if (a == null) {
+            return "null";
+        }
+        if (mSize == 0) {
+            return "[]";
+        }
+        StringBuilder sb = new StringBuilder(mSize * 6);
+        sb.append('[');
+        sb.append(a[0]);
+        for (int i = 1; i < mSize; i++) {
+            sb.append(", ");
+            sb.append(a[i]);
+        }
+        sb.append(']');
+        return sb.toString();
+    }
 }
