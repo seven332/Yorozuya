@@ -62,6 +62,9 @@ public final class FileUtils {
      * The dir to deleted
      */
     public static boolean delete(File file) {
+        if (file == null) {
+            return false;
+        }
         boolean success = true;
         File[] files = file.listFiles();
         if (files != null) {
