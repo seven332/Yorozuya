@@ -67,8 +67,10 @@ public final class FileUtils {
         }
         boolean success = true;
         File[] files = file.listFiles();
-        for (File f : files) {
-            success &= delete(f);
+        if (files != null) {
+            for (File f : files) {
+                success &= delete(f);
+            }
         }
         /*
         final File to = new File(file.getAbsolutePath()
@@ -90,8 +92,10 @@ public final class FileUtils {
 
         boolean success = true;
         File[] files = file.listFiles();
-        for (File f : files) {
-            success &= delete(f);
+        if (files != null) {
+            for (File f : files) {
+                success &= delete(f);
+            }
         }
         return success;
     }
