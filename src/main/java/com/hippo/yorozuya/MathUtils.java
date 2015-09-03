@@ -309,24 +309,36 @@ public final class MathUtils {
         return result;
     }
 
+    /**
+     * [0, howbig)
+     */
     public static int random(int howbig) {
         return (int) (sRandom.nextFloat() * howbig);
     }
 
+    /**
+     * [howsmall, howbig)
+     */
     public static int random(int howsmall, int howbig) {
         if (howsmall >= howbig)
             return howsmall;
-        return (int) (sRandom.nextFloat() * (howbig - howsmall) + howsmall);
+        return lerp(howsmall, howbig, sRandom.nextFloat());
     }
 
+    /**
+     * [0, howbig)
+     */
     public static float random(float howbig) {
         return sRandom.nextFloat() * howbig;
     }
 
+    /**
+     * [howsmall, howbig)
+     */
     public static float random(float howsmall, float howbig) {
         if (howsmall >= howbig)
             return howsmall;
-        return sRandom.nextFloat() * (howbig - howsmall) + howsmall;
+        return lerp(howsmall, howbig, sRandom.nextFloat());
     }
 
     public static void randomSeed(long seed) {
