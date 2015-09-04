@@ -21,6 +21,11 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public final class FileUtils {
 
@@ -190,5 +195,43 @@ public final class FileUtils {
 
         // Unbelievable
         return null;
+    }
+
+    /**
+     * Only support file now
+     */
+    public static boolean rename(@NonNull File from, @NonNull File to) {
+        if (!from.isFile() || to.exists()) {
+            return false;
+        }
+
+        boolean ok = from.renameTo(to);
+        if (ok && !from.exists() && to.isFile()) {
+            return true;
+        }
+
+        // Copy content
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(from);
+            os = new FileOutputStream(to);
+            IOUtils.copy(is, os);
+            ok = true;
+        } catch (IOException e) {
+            IOUtils.closeQuietly(is);
+            IOUtils.closeQuietly(os);
+            ok = false;
+        }
+
+        if (!ok) {
+            to.delete();
+            return false;
+        }
+
+        // delete old one
+        from.delete();
+
+        return true;
     }
 }
