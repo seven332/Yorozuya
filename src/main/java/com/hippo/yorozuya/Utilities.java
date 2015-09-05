@@ -17,6 +17,7 @@
 package com.hippo.yorozuya;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -31,8 +32,16 @@ public final class Utilities {
      * @param obj the element
      * @return true for the array contain the element
      */
-    public static boolean contain(@NonNull Object[] array, Object obj) {
+    public static boolean contain(@NonNull Object[] array, @Nullable Object obj) {
         for (Object o : array) {
+            if (o == null && obj == null) {
+                return true;
+            }
+
+            if (o == null) {
+                continue;
+            }
+
             if (o.equals(obj)) {
                 return true;
             }
