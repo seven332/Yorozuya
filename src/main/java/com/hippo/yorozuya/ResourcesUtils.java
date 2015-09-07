@@ -54,4 +54,21 @@ public final class ResourcesUtils {
             }
         }
     }
+
+    public static boolean getAttrBoolean(Context context, int attrId) {
+        synchronized (mAccessLock) {
+            TypedValue value = mTmpValue;
+            if (value == null) {
+                mTmpValue = value = new TypedValue();
+            }
+            getAttrValue(context, attrId, value);
+            if (value.type >= TypedValue.TYPE_FIRST_INT
+                    && value.type <= TypedValue.TYPE_LAST_INT) {
+                return value.data != 0;
+            }
+            throw new Resources.NotFoundException(
+                    "Attribute ID #0x" + Integer.toHexString(attrId) + " type #0x"
+                            + Integer.toHexString(value.type) + " is not valid");
+        }
+    }
 }
