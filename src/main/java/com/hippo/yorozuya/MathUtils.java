@@ -262,6 +262,22 @@ public final class MathUtils {
     }
 
     /**
+     * Returns the previous power of two.
+     * Returns the input if it is already power of 2.
+     * Throws IllegalArgumentException if the input is <= 0 or
+     * the answer overflows.
+     */
+    public static int previousPowerOf2 (int n) {
+        if (n <= 0 || n > (1 << 30)) throw new IllegalArgumentException("n is invalid: " + n);
+        n |= n >> 1;
+        n |= n >> 2;
+        n |= n >> 4;
+        n |= n >> 8;
+        n |= n >> 16;
+        return n - (n >> 1);
+    }
+
+    /**
      * divide and ceil
      */
     public static int ceilDivide(int a, int b) {
