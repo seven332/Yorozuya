@@ -205,8 +205,20 @@ public final class MathUtils {
         return start + (stop - start) * amount;
     }
 
+    public static float delerp(int start, int stop, int value) {
+        if (stop == start) {
+            return 1.0f;
+        } else {
+            return (float) (value - start) / (float) (stop - start);
+        }
+    }
+
     public static float delerp(float start, float stop, float value) {
-        return (value - start) / (stop - start);
+        if (stop == start) {
+            return 1.0f;
+        } else {
+            return (value - start) / (stop - start);
+        }
     }
 
     public static float norm(float start, float stop, float value) {
