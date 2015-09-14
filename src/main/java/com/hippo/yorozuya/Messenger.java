@@ -19,6 +19,7 @@ package com.hippo.yorozuya;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Messenger {
@@ -48,8 +49,9 @@ public class Messenger {
     private void notifyInternal(int id, Object obj) {
         List<Receiver> receiverList = mReceiverListMap.get(id);
         if (receiverList != null) {
-            for (int i = 0, n =receiverList.size(); i < n; i++) {
-                receiverList.get(i).onReceive(id, obj);
+            List<Receiver> temp = new LinkedList<>(receiverList);
+            for (Receiver r : temp) {
+                r.onReceive(id, obj);
             }
         }
     }
