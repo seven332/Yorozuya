@@ -356,4 +356,12 @@ public class StringUtils {
         }
         return list.toArray(new String[list.size()]);
     }
+
+    public static String avoidNull(String value) {
+        return avoidNull(value, "");
+    }
+
+    public static String avoidNull(String value, String defaultValue) {
+        return value == null ? defaultValue : value;
+    }
 }

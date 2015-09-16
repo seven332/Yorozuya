@@ -16,6 +16,7 @@
 
 package com.hippo.yorozuya;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
@@ -102,5 +103,11 @@ public class IOUtils {
         }
 
         return sb.toString();
+    }
+
+    public static byte[] getAllByte(InputStream is) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        copy(is, baos);
+        return baos.toByteArray();
     }
 }
