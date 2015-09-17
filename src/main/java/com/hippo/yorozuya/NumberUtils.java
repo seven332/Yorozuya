@@ -50,6 +50,21 @@ public class NumberUtils {
      * @param defaultValue the value to return when get error
      * @return the value of the string
      */
+    public static long parseLongSafely(String str, long defaultValue) {
+        try {
+            return Long.parseLong(str);
+        } catch (Throwable e) {
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Do not throw NumberFormatException, use default value
+     *
+     * @param str the string to be parsed
+     * @param defaultValue the value to return when get error
+     * @return the value of the string
+     */
     public static float parseFloatSafely(String str, float defaultValue) {
         try {
             return Float.parseFloat(str);
