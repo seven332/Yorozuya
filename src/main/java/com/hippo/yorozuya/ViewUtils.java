@@ -179,6 +179,33 @@ public final class ViewUtils {
     }
 
     /**
+     * Look for a chid view with the given id. If this view has the given
+     * id, return this view.
+     *
+     * @param view the view to start with
+     * @param id the id to search for
+     * @return the view that has the given id in the hierarchy or null
+     */
+    public static View getChild(View view, int id) {
+        if (view.getId() == id) {
+            return view;
+        }
+
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0, n = viewGroup.getChildCount(); i < n; i++) {
+                View child = viewGroup.getChildAt(i);
+                View result = getChild(child, id);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Returns a bitmap showing a screenshot of the view passed in.
      *
      * @param v The view to get screenshot
