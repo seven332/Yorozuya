@@ -18,6 +18,7 @@ package com.hippo.yorozuya;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.AttrRes;
 import android.util.TypedValue;
 
 public final class ResourcesUtils {
@@ -35,7 +36,7 @@ public final class ResourcesUtils {
         context.getTheme().resolveAttribute(attrId, value, true);
     }
 
-    public static int getAttrColor(Context context, int attrId) {
+    public static int getAttrColor(Context context, @AttrRes int attrId) {
         TypedValue value;
         synchronized (mAccessLock) {
             value = mTmpValue;
@@ -55,7 +56,7 @@ public final class ResourcesUtils {
         }
     }
 
-    public static boolean getAttrBoolean(Context context, int attrId) {
+    public static boolean getAttrBoolean(Context context, @AttrRes int attrId) {
         synchronized (mAccessLock) {
             TypedValue value = mTmpValue;
             if (value == null) {
@@ -65,6 +66,23 @@ public final class ResourcesUtils {
             if (value.type >= TypedValue.TYPE_FIRST_INT
                     && value.type <= TypedValue.TYPE_LAST_INT) {
                 return value.data != 0;
+            }
+            throw new Resources.NotFoundException(
+                    "Attribute ID #0x" + Integer.toHexString(attrId) + " type #0x"
+                            + Integer.toHexString(value.type) + " is not valid");
+        }
+    }
+
+    public static int getDimensionPixelOffset(Context context, @AttrRes int attrId) {
+        synchronized (mAccessLock) {
+            TypedValue value = mTmpValue;
+            if (value == null) {
+                mTmpValue = value = new TypedValue();
+            }
+            getAttrValue(context, attrId, value);
+            if (value.type == TypedValue.TYPE_DIMENSION) {
+                return TypedValue.complexToDimensionPixelOffset(
+                        value.data, context.getResources().getDisplayMetrics());
             }
             throw new Resources.NotFoundException(
                     "Attribute ID #0x" + Integer.toHexString(attrId) + " type #0x"
