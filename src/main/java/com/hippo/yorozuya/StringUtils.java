@@ -459,4 +459,8 @@ public class StringUtils {
             return true;
         }
     }
+
+    public static int length(String str) {
+        return null == str ? 0 : str.length();
+    }
 }
