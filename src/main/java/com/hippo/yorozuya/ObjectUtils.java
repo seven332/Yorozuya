@@ -24,4 +24,11 @@ public final class ObjectUtils {
     public static boolean equal(Object a, Object b) {
         return a == b || (a != null && a.equals(b));
     }
+
+    /**
+     * Returns "null" for null or {@code o.toString()}.
+     */
+    public static String toString(Object o) {
+        return (o == null) ? "null" : o.toString();
+    }
 }
