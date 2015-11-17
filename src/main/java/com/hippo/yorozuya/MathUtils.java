@@ -297,6 +297,13 @@ public final class MathUtils {
     }
 
     /**
+     * divide and ceil
+     */
+    public static long ceilDivide(long a, long b) {
+        return (a + b - 1) / b;
+    }
+
+    /**
      * Get coverage radius of a area
      *
      * @param w the width of the area
