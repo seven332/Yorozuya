@@ -169,6 +169,10 @@ public final class MathUtils {
         return v * v;
     }
 
+    public static float cross(float v1x, float v1y, float v2x, float v2y) {
+        return v1x * v2y - v1y * v2x;
+    }
+
     public static float radians(float degrees) {
         return degrees * DEG_TO_RAD;
     }
