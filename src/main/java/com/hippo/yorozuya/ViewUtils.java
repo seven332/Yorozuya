@@ -305,8 +305,12 @@ public final class ViewUtils {
         if (view == null) {
             return false;
         } else {
-            final float translationX = view.getTranslationX();
-            final float translationY = view.getTranslationY();
+            float translationX = 0.0f;
+            float translationY = 0.0f;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                translationX = view.getTranslationX();
+                translationY = view.getTranslationY();
+            }
             return x >= view.getLeft() + translationX - slop &&
                     x < view.getRight() + translationX + slop &&
                     y >= view.getTop() + translationY - slop &&
