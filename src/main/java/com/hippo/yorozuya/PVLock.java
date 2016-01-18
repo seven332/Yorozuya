@@ -16,19 +16,39 @@
 
 package com.hippo.yorozuya;
 
-public final class ObjectUtils {
+public class PVLock {
 
-    /**
-     * Returns true if two possibly-null objects are equal.
-     */
-    public static boolean equal(Object a, Object b) {
-        return a == b || (a != null && a.equals(b));
+    private int mCounter;
+
+    public PVLock(int count) {
+        mCounter = count;
     }
 
     /**
-     * Returns "null" for null or {@code o.toString()}.
+     * Obtain
      */
-    public static String toString(Object o) {
-        return (o == null) ? "null" : o.toString();
+    public synchronized void p() {
+        while (true) {
+            if (mCounter > 0) {
+                mCounter--;
+                break;
+            } else {
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    // Ignore
+                }
+            }
+        }
+    }
+
+    /**
+     * Release
+     */
+    public synchronized void v() {
+        mCounter++;
+        if (mCounter > 0) {
+            this.notify();
+        }
     }
 }

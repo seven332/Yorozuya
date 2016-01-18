@@ -169,6 +169,10 @@ public final class MathUtils {
         return v * v;
     }
 
+    public static float cross(float v1x, float v1y, float v2x, float v2y) {
+        return v1x * v2y - v1y * v2x;
+    }
+
     public static float radians(float degrees) {
         return degrees * DEG_TO_RAD;
     }
@@ -293,6 +297,13 @@ public final class MathUtils {
      * divide and ceil
      */
     public static int ceilDivide(int a, int b) {
+        return (a + b - 1) / b;
+    }
+
+    /**
+     * divide and ceil
+     */
+    public static long ceilDivide(long a, long b) {
         return (a + b - 1) / b;
     }
 
