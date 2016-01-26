@@ -293,6 +293,13 @@ public final class MathUtils {
         return n - (n >> 1);
     }
 
+    // http://stackoverflow.com/questions/109023/how-to-count-the-number-of-set-bits-in-a-32-bit-integer
+    public static int hammingWeight(int n) {
+        n = n - ((n >>> 1) & 0x55555555);
+        n = (n & 0x33333333) + ((n >>> 2) & 0x33333333);
+        return (((n + (n >>> 4)) & 0x0F0F0F0F) * 0x01010101) >>> 24;
+    }
+
     /**
      * divide and ceil
      */
