@@ -16,18 +16,37 @@
 
 package com.hippo.yorozuya;
 
-public final class IdIntGenerator {
+public final class LongIdGenerator {
 
-    public static final int INVAILD_ID = -1;
+    public static final long INVALID_ID = -1L;
 
-    private int mId = 0;
+    private long mId;
 
-    public synchronized int nextId() {
-        int id = mId++;
-        if (id == INVAILD_ID) {
+    public LongIdGenerator() {
+        this(0L);
+    }
+
+    public LongIdGenerator(long init) {
+        setNextId(init);
+    }
+
+    private void checkInValidId(long id) {
+        if (INVALID_ID == id) {
+            throw new IllegalStateException("Can't set INVALID_ID");
+        }
+    }
+
+    public synchronized long nextId() {
+        long id = mId++;
+        if (id == INVALID_ID) {
             return nextId();
         } else {
             return id;
         }
+    }
+
+    public synchronized void setNextId(long id) {
+        checkInValidId(id);
+        mId = id;
     }
 }

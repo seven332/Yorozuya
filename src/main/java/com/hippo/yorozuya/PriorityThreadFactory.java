@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadFactory;
 public class PriorityThreadFactory implements ThreadFactory {
 
     private final int mPriority;
-    private final IdIntGenerator mIdGenerator = new IdIntGenerator();
+    private final IntIdGenerator mIdGenerator = new IntIdGenerator();
     private final String mName;
 
     public PriorityThreadFactory(String name, int priority) {

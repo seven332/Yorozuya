@@ -24,7 +24,7 @@ import java.util.List;
 
 public class Messenger {
 
-    private IdIntGenerator mIdGenerator;
+    private IntIdGenerator mIdGenerator;
 
     private SparseArray<List<Receiver>> mReceiverListMap;
 
@@ -38,7 +38,7 @@ public class Messenger {
     }
 
     private Messenger() {
-        mIdGenerator = new IdIntGenerator();
+        mIdGenerator = new IntIdGenerator();
         mReceiverListMap = new SparseArray<>();
     }
 
