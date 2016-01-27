@@ -16,7 +16,10 @@
 
 package com.hippo.yorozuya;
 
-public class IntList {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class IntList implements Parcelable {
 
     private static final int MIN_CAPACITY_INCREMENT = 12;
 
@@ -170,4 +173,43 @@ public class IntList {
         sb.append(']');
         return sb.toString();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        int s = mSize;
+        int[] a = mArray;
+        dest.writeInt(a.length);
+        dest.writeInt(s);
+        for (int i = 0; i < s; i++) {
+            dest.writeInt(a[i]);
+        }
+    }
+
+    protected IntList(Parcel in) {
+        this(in.readInt());
+        mSize = in.readInt();
+        int s = mSize;
+        int[] a = mArray;
+        for (int i = 0; i < s; i++) {
+            a[i] = in.readInt();
+        }
+    }
+
+    public static final Parcelable.Creator<IntList> CREATOR = new Parcelable.Creator<IntList>() {
+
+        @Override
+        public IntList createFromParcel(Parcel source) {
+            return new IntList(source);
+        }
+
+        @Override
+        public IntList[] newArray(int size) {
+            return new IntList[size];
+        }
+    };
 }
