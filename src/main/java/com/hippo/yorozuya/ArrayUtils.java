@@ -54,6 +54,19 @@ public class ArrayUtils {
     }
 
     /**
+     * Primitive long version of {@link #append(Object[], int, Object)}.
+     */
+    public static long[] append(long[] array, int currentSize, long element) {
+        if (currentSize + 1 > array.length) {
+            long[] newArray = new long[growSize(currentSize)];
+            System.arraycopy(array, 0, newArray, 0, currentSize);
+            array = newArray;
+        }
+        array[currentSize] = element;
+        return array;
+    }
+
+    /**
      * Inserts an element into the array at the specified index, growing the array if there is no
      * more room.
      *
@@ -73,6 +86,23 @@ public class ArrayUtils {
 
         @SuppressWarnings("unchecked")
         T[] newArray = (T[]) new Object[growSize(currentSize)];
+        System.arraycopy(array, 0, newArray, 0, index);
+        newArray[index] = element;
+        System.arraycopy(array, index, newArray, index + 1, array.length - index);
+        return newArray;
+    }
+
+    /**
+     * Primitive long version of {@link #insert(Object[], int, int, Object)}.
+     */
+    public static long[] insert(long[] array, int currentSize, int index, long element) {
+        if (currentSize + 1 <= array.length) {
+            System.arraycopy(array, index, array, index + 1, currentSize - index);
+            array[index] = element;
+            return array;
+        }
+
+        long[] newArray = new long[growSize(currentSize)];
         System.arraycopy(array, 0, newArray, 0, index);
         newArray[index] = element;
         System.arraycopy(array, index, newArray, index + 1, array.length - index);
