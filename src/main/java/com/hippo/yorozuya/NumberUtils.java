@@ -29,6 +29,16 @@ public class NumberUtils {
     }
 
     /**
+     * false for 0, true for 1
+     *
+     * @param bool the boolean
+     * @return the int
+     */
+    public static int boolean2int(boolean bool) {
+        return bool ? 1 : 0;
+    }
+
+    /**
      * Do not throw NumberFormatException, use default value
      *
      * @param str the string to be parsed
