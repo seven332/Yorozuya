@@ -26,6 +26,8 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 
+import java.io.PrintWriter;
+
 public final class ViewUtils {
 
     public static final int MAX_SIZE = Integer.MAX_VALUE & ~(0x3 << 30);
@@ -402,5 +404,22 @@ public final class ViewUtils {
             }
         }
         view.setEnabled(enabled);
+    }
+
+    public static void dumpViewHierarchy(View view, PrintWriter writer) {
+        dumpViewHierarchy(view, writer, "");
+    }
+
+    private static void dumpViewHierarchy(View view, PrintWriter writer, String prefix) {
+        writer.write(prefix);writer.write(view.getClass().getName());writer.write('\n');
+        if (view instanceof ViewGroup) {
+            String newPrefix = prefix + "    ";
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0, count = viewGroup.getChildCount(); i < count; i++) {
+                View child = viewGroup.getChildAt(i);
+                dumpViewHierarchy(child, writer, newPrefix);
+            }
+        }
+        writer.flush();
     }
 }
