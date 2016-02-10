@@ -60,6 +60,12 @@ public class AssertUtils {
         }
     }
 
+    public static void assertNotEquals(String message, Object expected, Object actual) {
+        if (expected == actual) {
+            throw new AssertError(message);
+        }
+    }
+
     public static void assertInstanceof(String message, Object obj, Class clazz) {
         if (!clazz.isInstance(obj)) {
             throw new AssertError(message);
