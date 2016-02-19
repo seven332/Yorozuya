@@ -107,7 +107,7 @@ public final class FileUtils {
         return success;
     }
 
-    public static String ensureFilename(@NonNull String filename) {
+    public static String sanitizeFilename(@NonNull String filename) {
         filename = filename.replaceAll("[\\\\/:*?\"<>\\|]", "");
         filename = filename.length() > 127 ? filename.substring(0,  127) : filename;
         return filename.replace("^[\\s]+", "").replace("[\\s]+$", "");
