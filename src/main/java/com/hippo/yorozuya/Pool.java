@@ -32,13 +32,13 @@ public class Pool<T> {
         mSize = 0;
     }
 
-    public void push(T t) {
+    public synchronized void push(T t) {
         if (t != null && mSize < mMaxSize) {
             mArray[mSize++] = t;
         }
     }
 
-    public T pop() {
+    public synchronized T pop() {
         if (mSize > 0) {
             T t = mArray[--mSize];
             mArray[mSize] = null;
