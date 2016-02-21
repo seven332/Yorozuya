@@ -16,14 +16,14 @@
 
 package com.hippo.yorozuya;
 
-public class Pool<T> {
+public class ConcurrentPool<T> {
 
     private final T[] mArray;
     private final int mMaxSize;
     private int mSize;
 
     @SuppressWarnings("unchecked")
-    public Pool(int size) {
+    public ConcurrentPool(int size) {
         if (size <= 0) {
             throw new IllegalStateException("Pool size must > 0, it is " + size);
         }
@@ -32,13 +32,13 @@ public class Pool<T> {
         mSize = 0;
     }
 
-    public void push(T t) {
+    public synchronized void push(T t) {
         if (t != null && mSize < mMaxSize) {
             mArray[mSize++] = t;
         }
     }
 
-    public T pop() {
+    public synchronized T pop() {
         if (mSize > 0) {
             T t = mArray[--mSize];
             mArray[mSize] = null;
