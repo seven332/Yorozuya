@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Hippo Seven
+ * Copyright 2016 Hippo Seven
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,29 +14,21 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
+package com.hippo.yorozuya;
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+import android.view.animation.Animation;
 
-    defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+public class SimpleAnimationListener implements Animation.AnimationListener {
+
+    @Override
+    public void onAnimationStart(Animation animation) {
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    @Override
+    public void onAnimationEnd(Animation animation) {
     }
-}
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-v4:23.2.0'
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+    }
 }
