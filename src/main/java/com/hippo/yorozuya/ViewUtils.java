@@ -443,4 +443,40 @@ public final class ViewUtils {
             }
         }
     }
+
+    /**
+     * Offset this view translationX
+     */
+    public static void translationXBy(View view, float offset) {
+        view.setTranslationX(view.getTranslationX() + offset);
+    }
+
+    /**
+     * Offset this view translationY
+     */
+    public static void translationYBy(View view, float offset) {
+        view.setTranslationY(view.getTranslationY() + offset);
+    }
+
+    /**
+     * The visual right position of this view, in pixels. This is equivalent to the
+     * {@link View#setTranslationX(float) translationX} property plus the current
+     * {@link View#getRight() right} property.
+     *
+     * @return The visual right position of this view, in pixels.
+     */
+    public static float getX2(View view) {
+        return view.getRight() + view.getTranslationX();
+    }
+
+    /**
+     * The visual bottom position of this view, in pixels. This is equivalent to the
+     * {@link View#setTranslationY(float) translationY} property plus the current
+     * {@link View#getBottom()} () bottom} property.
+     *
+     * @return The visual bottom position of this view, in pixels.
+     */
+    public static float getY2(View view) {
+        return view.getBottom() + view.getTranslationY();
+    }
 }
