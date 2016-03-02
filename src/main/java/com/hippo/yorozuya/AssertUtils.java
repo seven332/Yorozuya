@@ -30,10 +30,18 @@ public class AssertUtils {
         }
     }
 
+    public static void assertNotNull(Object object) {
+        assertNotNull("Should be null", object);
+    }
+
     public static void assertNotNull(String message, Object object) {
         if (object == null) {
             throw new AssertError(message);
         }
+    }
+
+    public static void assertEquals(int expected, int actual) {
+        assertEquals("Should be " + expected + ", but it is " + actual, expected, actual);
     }
 
     public static void assertEquals(String message, int expected, int actual) {
@@ -84,6 +92,11 @@ public class AssertUtils {
         if (object == null) {
             throw new AssertException(message);
         }
+    }
+
+    public static void assertEqualsEx(int expected, int actual)
+            throws AssertException {
+        assertEqualsEx("Should be " + expected + ", but it is " + actual, expected, actual);
     }
 
     public static void assertEqualsEx(String message, int expected, int actual)
