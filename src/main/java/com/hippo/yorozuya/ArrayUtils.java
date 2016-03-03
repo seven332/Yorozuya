@@ -24,6 +24,11 @@ public class ArrayUtils {
     public static final int[] EMPTY_INT_ARRAY = new int[0];
 
     /**
+     * An empty immutable {@code long} array.
+     */
+    public static final long[] EMPTY_LONG_ARRAY = new long[0];
+
+    /**
      * An empty immutable {@code String} array.
      */
     public static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
@@ -46,6 +51,19 @@ public class ArrayUtils {
         if (currentSize + 1 > array.length) {
             @SuppressWarnings("unchecked")
             T[] newArray = (T[]) new Object[growSize(currentSize)];
+            System.arraycopy(array, 0, newArray, 0, currentSize);
+            array = newArray;
+        }
+        array[currentSize] = element;
+        return array;
+    }
+
+    /**
+     * Primitive int version of {@link #append(Object[], int, Object)}.
+     */
+    public static int[] append(int[] array, int currentSize, int element) {
+        if (currentSize + 1 > array.length) {
+            int[] newArray = new int[growSize(currentSize)];
             System.arraycopy(array, 0, newArray, 0, currentSize);
             array = newArray;
         }
@@ -86,6 +104,23 @@ public class ArrayUtils {
 
         @SuppressWarnings("unchecked")
         T[] newArray = (T[]) new Object[growSize(currentSize)];
+        System.arraycopy(array, 0, newArray, 0, index);
+        newArray[index] = element;
+        System.arraycopy(array, index, newArray, index + 1, array.length - index);
+        return newArray;
+    }
+
+    /**
+     * Primitive int version of {@link #insert(Object[], int, int, Object)}.
+     */
+    public static int[] insert(int[] array, int currentSize, int index, int element) {
+        if (currentSize + 1 <= array.length) {
+            System.arraycopy(array, index, array, index + 1, currentSize - index);
+            array[index] = element;
+            return array;
+        }
+
+        int[] newArray = new int[growSize(currentSize)];
         System.arraycopy(array, 0, newArray, 0, index);
         newArray[index] = element;
         System.arraycopy(array, index, newArray, index + 1, array.length - index);
