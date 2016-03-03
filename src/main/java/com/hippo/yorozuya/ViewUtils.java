@@ -20,6 +20,8 @@ import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Build;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -478,5 +480,14 @@ public final class ViewUtils {
      */
     public static float getY2(View view) {
         return view.getBottom() + view.getTranslationY();
+    }
+
+    @NonNull
+    public static View $$(View view, @IdRes int id) {
+        View result = view.findViewById(id);
+        if (null == result) {
+            throw new NullPointerException("Can't find view with id: " + id);
+        }
+        return result;
     }
 }
