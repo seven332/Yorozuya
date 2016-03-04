@@ -27,17 +27,13 @@ public class PVLock {
     /**
      * Obtain
      */
-    public synchronized void p() {
+    public synchronized void p() throws InterruptedException {
         while (true) {
             if (mCounter > 0) {
                 mCounter--;
                 break;
             } else {
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    // Ignore
-                }
+                this.wait();
             }
         }
     }
