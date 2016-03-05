@@ -19,6 +19,11 @@ package com.hippo.yorozuya;
 public class ArrayUtils {
 
     /**
+     * An empty immutable {@code boolean} array.
+     */
+    public static final boolean[] EMPTY_BOOLEAN_ARRAY = new boolean[0];
+
+    /**
      * An empty immutable {@code int} array.
      */
     public static final int[] EMPTY_INT_ARRAY = new int[0];
@@ -51,6 +56,19 @@ public class ArrayUtils {
         if (currentSize + 1 > array.length) {
             @SuppressWarnings("unchecked")
             T[] newArray = (T[]) new Object[growSize(currentSize)];
+            System.arraycopy(array, 0, newArray, 0, currentSize);
+            array = newArray;
+        }
+        array[currentSize] = element;
+        return array;
+    }
+
+    /**
+     * Primitive boolean version of {@link #append(Object[], int, Object)}.
+     */
+    public static boolean[] append(boolean[] array, int currentSize, boolean element) {
+        if (currentSize + 1 > array.length) {
+            boolean[] newArray = new boolean[growSize(currentSize)];
             System.arraycopy(array, 0, newArray, 0, currentSize);
             array = newArray;
         }
@@ -104,6 +122,23 @@ public class ArrayUtils {
 
         @SuppressWarnings("unchecked")
         T[] newArray = (T[]) new Object[growSize(currentSize)];
+        System.arraycopy(array, 0, newArray, 0, index);
+        newArray[index] = element;
+        System.arraycopy(array, index, newArray, index + 1, array.length - index);
+        return newArray;
+    }
+
+    /**
+     * Primitive boolean version of {@link #insert(Object[], int, int, Object)}.
+     */
+    public static boolean[] insert(boolean[] array, int currentSize, int index, boolean element) {
+        if (currentSize + 1 <= array.length) {
+            System.arraycopy(array, index, array, index + 1, currentSize - index);
+            array[index] = element;
+            return array;
+        }
+
+        boolean[] newArray = new boolean[growSize(currentSize)];
         System.arraycopy(array, 0, newArray, 0, index);
         newArray[index] = element;
         System.arraycopy(array, index, newArray, index + 1, array.length - index);
