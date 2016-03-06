@@ -17,6 +17,7 @@
 package com.hippo.yorozuya;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Build;
@@ -480,6 +481,15 @@ public final class ViewUtils {
      */
     public static float getY2(View view) {
         return view.getBottom() + view.getTranslationY();
+    }
+
+    @NonNull
+    public static View $$(Activity activity, @IdRes int id) {
+        View result = activity.findViewById(id);
+        if (null == result) {
+            throw new NullPointerException("Can't find view with id: " + id);
+        }
+        return result;
     }
 
     @NonNull
