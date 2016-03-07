@@ -107,6 +107,48 @@ public final class FileUtils {
         return success;
     }
 
+    /**
+     * @return {@code null} for get exception
+     */
+    @Nullable
+    public static String read(File file) {
+        if (file == null) {
+            return null;
+        }
+
+        InputStream is = null;
+        try {
+            is = new FileInputStream(file);
+            return IOUtils.readString(is, "utf-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
+    }
+
+    public static boolean write(File file, String str) {
+        if (file == null) {
+            return false;
+        }
+        if (str == null) {
+            return true;
+        }
+
+        OutputStream os = null;
+        try {
+            os = new FileOutputStream(file);
+            os.write(str.getBytes("utf-8"));
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            IOUtils.closeQuietly(os);
+        }
+    }
+
     public static String sanitizeFilename(@NonNull String filename) {
         filename = filename.replaceAll("[\\\\/:*?\"<>\\|]", "");
         filename = filename.length() > 127 ? filename.substring(0,  127) : filename;
