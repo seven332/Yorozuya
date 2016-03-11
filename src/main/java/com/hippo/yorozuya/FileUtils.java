@@ -161,7 +161,11 @@ public final class FileUtils {
      * @param filename the complete filename
      * @return null for can't find extension, "" empty String for ending with . dot
      */
-    public static String getExtensionFromFilename(String filename) {
+    public static String getExtensionFromFilename(@Nullable String filename) {
+        if (null == filename) {
+            return null;
+        }
+
         int index = filename.lastIndexOf('.');
         if (index != -1) {
             return filename.substring(index + 1);
@@ -176,7 +180,11 @@ public final class FileUtils {
      * @param filename the complete filename
      * @return null for start with . dot
      */
-    public static String getNameFromFilename(String filename) {
+    public static String getNameFromFilename(@Nullable String filename) {
+        if (null == filename) {
+            return null;
+        }
+
         int index = filename.lastIndexOf('.');
         if (index != -1) {
             String name = filename.substring(0, index);
