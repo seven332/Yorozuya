@@ -18,6 +18,7 @@ package com.hippo.yorozuya;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Build;
@@ -486,6 +487,15 @@ public final class ViewUtils {
     @NonNull
     public static View $$(Activity activity, @IdRes int id) {
         View result = activity.findViewById(id);
+        if (null == result) {
+            throw new NullPointerException("Can't find view with id: " + id);
+        }
+        return result;
+    }
+
+    @NonNull
+    public static View $$(Dialog dialog, @IdRes int id) {
+        View result = dialog.findViewById(id);
         if (null == result) {
             throw new NullPointerException("Can't find view with id: " + id);
         }
