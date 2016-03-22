@@ -495,4 +495,12 @@ public class StringUtils {
         }
         return count;
     }
+
+    /**
+     * All null or empty, or all not
+     */
+    public static boolean equals(String str1, String str2) {
+        return (TextUtils.isEmpty(str1) && TextUtils.isEmpty(str2)) ||
+                (!TextUtils.isEmpty(str1) && !TextUtils.isEmpty(str2));
+    }
 }
