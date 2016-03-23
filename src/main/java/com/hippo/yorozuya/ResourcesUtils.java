@@ -73,7 +73,7 @@ public final class ResourcesUtils {
         }
     }
 
-    public static int getDimensionPixelOffset(Context context, @AttrRes int attrId) {
+    public static int getAttrDimensionPixelOffset(Context context, @AttrRes int attrId) {
         synchronized (mAccessLock) {
             TypedValue value = mTmpValue;
             if (value == null) {
