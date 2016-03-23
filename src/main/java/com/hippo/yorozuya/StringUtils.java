@@ -503,4 +503,17 @@ public class StringUtils {
         return (TextUtils.isEmpty(str1) && TextUtils.isEmpty(str2)) ||
                 (!TextUtils.isEmpty(str1) && !TextUtils.isEmpty(str2));
     }
+
+    public static int ordinalIndexOf(String str, char c, int n) {
+        if (null == str || n < 0) {
+            return -1;
+        }
+
+        int pos = -1;
+        do {
+            pos = str.indexOf(c, pos + 1);
+        } while (n-- > 0 && pos != -1);
+
+        return pos;
+    }
 }
