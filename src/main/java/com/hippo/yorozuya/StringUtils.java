@@ -19,6 +19,7 @@ package com.hippo.yorozuya;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StringUtils {
@@ -515,5 +516,47 @@ public class StringUtils {
         } while (n-- > 0 && pos != -1);
 
         return pos;
+    }
+
+    public static final char[] WHITE_SPACE_ARRAY = {
+            '\u0009', // TAB
+            '\u0020', // SPACE
+            '\u00A0', // NO-BREAK SPACE
+            '\u3000', // IDEOGRAPHIC SPACE
+    };
+
+    /**
+     * Works like {@link String#trim()}, but more white space is excluded.
+     * The white space characters is {@link #WHITE_SPACE_ARRAY}.
+     *
+     * @see {@link #trim(String, char[])}
+     */
+    public static String trim(String str) {
+        return trim(str, WHITE_SPACE_ARRAY);
+    }
+
+    /**
+     * Works like {@link String#trim()}, but custom characters is excluded.
+     *
+     * @see {@link #trim(String)}
+     */
+    public static String trim(String str, char[] excluded) {
+        if (null == str) {
+            return null;
+        }
+
+        int start = 0, last = str.length() - 1;
+        int end = last;
+        while ((start <= end) && (Arrays.binarySearch(excluded, str.charAt(start)) >= 0)) {
+            start++;
+        }
+        while ((end >= start) && (Arrays.binarySearch(excluded, str.charAt(end)) >= 0)) {
+            end--;
+        }
+        if (start == 0 && end == last) {
+            return str;
+        }
+
+        return str.substring(start, end + 1);
     }
 }
