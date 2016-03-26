@@ -502,7 +502,7 @@ public class StringUtils {
      */
     public static boolean equals(String str1, String str2) {
         return (TextUtils.isEmpty(str1) && TextUtils.isEmpty(str2)) ||
-                (!TextUtils.isEmpty(str1) && !TextUtils.isEmpty(str2));
+                (!TextUtils.isEmpty(str1) && !TextUtils.isEmpty(str2) && str1.equals(str2));
     }
 
     public static int ordinalIndexOf(String str, char c, int n) {
