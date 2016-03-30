@@ -559,4 +559,19 @@ public class StringUtils {
 
         return str.substring(start, end + 1);
     }
+
+    public static String remove(String str, char[] removed) {
+        if (TextUtils.isEmpty(str) || null == removed || 0 == removed.length) {
+            return str;
+        }
+
+        final char[] chars = str.toCharArray();
+        int pos = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (!Utilities.contain(removed, chars[i])) {
+                chars[pos++] = chars[i];
+            }
+        }
+        return new String(chars, 0, pos);
+    }
 }
