@@ -16,6 +16,8 @@
 
 package com.hippo.yorozuya;
 
+import android.support.annotation.Nullable;
+
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -28,7 +30,7 @@ public final class ObjectUtils {
     /**
      * Returns true if two possibly-null objects are equal.
      */
-    public static boolean equal(Object a, Object b) {
+    public static boolean equal(@Nullable Object a, @Nullable Object b) {
         return a == b || (a != null && a.equals(b));
     }
 
