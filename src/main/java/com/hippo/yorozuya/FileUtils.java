@@ -149,10 +149,20 @@ public final class FileUtils {
         }
     }
 
+    private static final char[] FORBIDDEN_FILENAME_CHARACTERS = {
+            '\\',
+            '/',
+            ':',
+            '*',
+            '?',
+            '"',
+            '<',
+            '>',
+            '|',
+    };
+
     public static String sanitizeFilename(@NonNull String filename) {
-        filename = filename.replaceAll("[\\\\/:*?\"<>\\|]", "");
-        filename = filename.length() > 127 ? filename.substring(0,  127) : filename;
-        return filename.replace("^[\\s]+", "").replace("[\\s]+$", "");
+        return StringUtils.trim(StringUtils.remove(filename, FORBIDDEN_FILENAME_CHARACTERS));
     }
 
     /**
