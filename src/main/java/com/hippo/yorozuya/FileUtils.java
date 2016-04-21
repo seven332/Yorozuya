@@ -162,7 +162,33 @@ public final class FileUtils {
     };
 
     public static String sanitizeFilename(@NonNull String filename) {
-        return StringUtils.trim(StringUtils.remove(filename, FORBIDDEN_FILENAME_CHARACTERS));
+        // Remove forbidden_filename_characters
+        filename = StringUtils.remove(filename, FORBIDDEN_FILENAME_CHARACTERS);
+
+        // Ensure utf-8 byte count <= 255
+        int byteCount = 0;
+        int length = 0;
+        for (int len = filename.length(); length < len; length++) {
+            char ch = filename.charAt(length);
+            if (ch <= 0x7F) {
+                byteCount++;
+            } else if (ch <= 0x7FF) {
+                byteCount += 2;
+            } else if (Character.isHighSurrogate(ch)) {
+                byteCount += 4;
+                ++length;
+            } else {
+                byteCount += 3;
+            }
+            // Meet max byte count
+            if (byteCount > 255) {
+                filename = filename.substring(0, length);
+                break;
+            }
+        }
+
+        // Trim
+        return StringUtils.trim(filename);
     }
 
     /**
