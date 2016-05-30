@@ -357,13 +357,30 @@ public final class StringUtils {
         return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
     }
 
-    public static boolean endsWith(String string, String[] suffixs) {
-        for (int i = 0, n = suffixs.length; i < n; i++) {
-            if (string.endsWith(suffixs[i])) {
-                return true;
+    /**
+     * Compares each string of the specified string array to this string
+     * to determine if any string of the specified string is a suffix.
+     *
+     * @param string
+     *            this string, {@code null} to return {@code null}
+     * @param suffixs
+     *            the specified string array, {@code null} to return {@code null}
+     * @return the suffix if find or {@code null}
+     */
+    public static String endsWith(String string, String[] suffixs) {
+        if (string == null || suffixs == null) {
+            return null;
+        }
+
+        for (String suffix : suffixs) {
+            if (suffix == null) {
+                continue;
+            }
+            if (string.endsWith(suffix)) {
+                return suffix;
             }
         }
-        return false;
+        return null;
     }
 
     /**
