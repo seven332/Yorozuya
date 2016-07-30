@@ -16,6 +16,8 @@
 
 package com.hippo.yorozuya;
 
+import android.graphics.Color;
+
 public final class ColorUtils {
     private ColorUtils() {}
 
@@ -27,5 +29,29 @@ public final class ColorUtils {
      */
     public static boolean isOpaque(int color) {
         return color >>> 24 == 0xFF;
+    }
+
+    /**
+     * Get different depth color base on the color
+     * <p>
+     * if {@code absolute} is true, {@code dark} is in [0.0f, 1.0f]<br>
+     * 0.0f    <----> 1.0f<br>
+     * darkest <----> lightest<br>
+     * if {@code absolute} is false, {@code dark} is in [-1.0f, 1.0f]<br>
+     * -1.0f   <---->    0.0f     <----> 1.0f<br>
+     * darkest <----> color depth <----> lightest
+     */
+    public static int depthColor(int color, float dark, boolean absolute) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        if (absolute) {
+            hsv[2] = dark;
+        } else if (dark >= 0.0f) {
+            hsv[2] = MathUtils.lerp(hsv[2], 1.0f, dark);
+        } else {
+            hsv[2] = MathUtils.lerp(hsv[2], 0.0f, -dark);
+        }
+        hsv[2] = MathUtils.clamp(hsv[2], 0.0f, 1.0f);
+        return Color.HSVToColor(hsv);
     }
 }
