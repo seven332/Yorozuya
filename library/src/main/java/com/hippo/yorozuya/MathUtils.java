@@ -16,6 +16,8 @@
 
 package com.hippo.yorozuya;
 
+import android.support.annotation.NonNull;
+
 import java.util.Random;
 
 // Get most code from android.util.MathUtils
@@ -26,116 +28,140 @@ public final class MathUtils {
     private static final float DEG_TO_RAD = 3.1415926f / 180.0f;
     private static final float RAD_TO_DEG = 180.0f / 3.1415926f;
 
-    public static float abs(float v) {
-        return v > 0 ? v : -v;
-    }
-
-    public static float log(float a) {
-        return (float) Math.log(a);
-    }
-
-    public static float exp(float a) {
-        return (float) Math.exp(a);
-    }
-
-    public static float pow(float a, float b) {
-        return (float) Math.pow(a, b);
-    }
-
-    public static float max(float a, float b) {
-        return a > b ? a : b;
-    }
-
-    public static float max(int a, int b) {
-        return a > b ? a : b;
-    }
-
-    public static float max(float a, float b, float c) {
-        return a > b ? (a > c ? a : c) : (b > c ? b : c);
-    }
-
-    public static float max(int a, int b, int c) {
-        return a > b ? (a > c ? a : c) : (b > c ? b : c);
-    }
-
-    public static float max(float... arg) {
+    /**
+     * Returns the most positive (closest to positive infinity) of all the
+     * arguments.
+     */
+    public static int max(@NonNull int... arg) {
         int length = arg.length;
         if (length <= 0) {
-            throw new IllegalArgumentException("Empty argument");
-        } else {
-            float n = arg[0];
-            float m;
-            for (int i = 1; i < length; i++) {
-                m = arg[i];
-                if (m > n)
-                    n = m;
-            }
-            return n;
+            throw new IllegalArgumentException("Can't get max value from empty array");
         }
+        int max = arg[0];
+        for (int i = 1; i < length; i++) {
+            max = Math.max(max, arg[i]);
+        }
+        return max;
     }
 
-    public static int max(int... arg) {
+    /**
+     * Returns the most positive (closest to positive infinity) of all the
+     * arguments.
+     */
+    public static long max(@NonNull long... arg) {
         int length = arg.length;
         if (length <= 0) {
-            throw new IllegalArgumentException("Empty argument");
-        } else {
-            int n = arg[0];
-            int m;
-            for (int i = 1; i < length; i++) {
-                m = arg[i];
-                if (m > n)
-                    n = m;
-            }
-            return n;
+            throw new IllegalArgumentException("Can't get max value from empty array");
         }
+        long max = arg[0];
+        for (int i = 1; i < length; i++) {
+            max = Math.max(max, arg[i]);
+        }
+        return max;
     }
 
-    public static float min(float a, float b) {
-        return a < b ? a : b;
-    }
-
-    public static float min(int a, int b) {
-        return a < b ? a : b;
-    }
-
-    public static float min(float a, float b, float c) {
-        return a < b ? (a < c ? a : c) : (b < c ? b : c);
-    }
-
-    public static float min(int a, int b, int c) {
-        return a < b ? (a < c ? a : c) : (b < c ? b : c);
-    }
-
-    public static float min(float... args) {
-        int length = args.length;
+    /**
+     * Returns the most positive (closest to positive infinity) of all the
+     * arguments.
+     * <p>
+     * Special cases are the same as {@link Math#max(float, float)}
+     */
+    public static float max(@NonNull float... arg) {
+        int length = arg.length;
         if (length <= 0) {
-            throw new IllegalArgumentException("Empty argument");
-        } else {
-            float n = args[0];
-            float m;
-            for (int i = 1; i < length; i++) {
-                m = args[i];
-                if (m < n)
-                    n = m;
-            }
-            return n;
+            throw new IllegalArgumentException("Can't get max value from empty array");
         }
+        float max = arg[0];
+        for (int i = 1; i < length; i++) {
+            max = Math.max(max, arg[i]);
+        }
+        return max;
     }
 
-    public static int min(int... args) {
-        int length = args.length;
+    /**
+     * Returns the most positive (closest to positive infinity) of all the
+     * arguments.
+     * <p>
+     * Special cases are the same as {@link Math#max(double, double)}
+     */
+    public static double max(@NonNull double... arg) {
+        int length = arg.length;
         if (length <= 0) {
-            throw new IllegalArgumentException("Empty argument");
-        } else {
-            int n = args[0];
-            int m;
-            for (int i = 1; i < length; i++) {
-                m = args[i];
-                if (m < n)
-                    n = m;
-            }
-            return n;
+            throw new IllegalArgumentException("Can't get max value from empty array");
         }
+        double max = arg[0];
+        for (int i = 1; i < length; i++) {
+            max = Math.max(max, arg[i]);
+        }
+        return max;
+    }
+
+    /**
+     * Returns the most negative (closest to negative infinity) of all the
+     * arguments.
+     */
+    public static int min(@NonNull int... arg) {
+        int length = arg.length;
+        if (length <= 0) {
+            throw new IllegalArgumentException("Can't get min value from empty array");
+        }
+        int min = arg[0];
+        for (int i = 1; i < length; i++) {
+            min = Math.min(min, arg[i]);
+        }
+        return min;
+    }
+
+    /**
+     * Returns the most negative (closest to negative infinity) of all the
+     * arguments.
+     */
+    public static long min(@NonNull long... arg) {
+        int length = arg.length;
+        if (length <= 0) {
+            throw new IllegalArgumentException("Can't get min value from empty array");
+        }
+        long min = arg[0];
+        for (int i = 1; i < length; i++) {
+            min = Math.min(min, arg[i]);
+        }
+        return min;
+    }
+
+    /**
+     * Returns the most negative (closest to negative infinity) of all the
+     * arguments.
+     * <p>
+     * Special cases are the same as {@link Math#max(float, float)}
+     */
+    public static float min(@NonNull float... arg) {
+        int length = arg.length;
+        if (length <= 0) {
+            throw new IllegalArgumentException("Can't get min value from empty array");
+        }
+        float min = arg[0];
+        for (int i = 1; i < length; i++) {
+            min = Math.min(min, arg[i]);
+        }
+        return min;
+    }
+
+    /**
+     * Returns the most negative (closest to negative infinity) of all the
+     * arguments.
+     * <p>
+     * Special cases are the same as {@link Math#max(double, double)}
+     */
+    public static double min(@NonNull double... arg) {
+        int length = arg.length;
+        if (length <= 0) {
+            throw new IllegalArgumentException("Can't get min value from empty array");
+        }
+        double min = arg[0];
+        for (int i = 1; i < length; i++) {
+            min = Math.min(min, arg[i]);
+        }
+        return min;
     }
 
     public static float dist(float x1, float y1, float x2, float y2) {
