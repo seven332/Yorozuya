@@ -164,12 +164,43 @@ public final class MathUtils {
         return min;
     }
 
+    /**
+     * Returns distance between two point
+     *
+     * @param x1 The x-coordinate of the first point
+     * @param y1 The y-coordinate of the first point
+     * @param x2 The x-coordinate of the second point
+     * @param y2 The y-coordinate of the second point
+     * @return the distance
+     */
     public static float dist(float x1, float y1, float x2, float y2) {
-        final float x = (x2 - x1);
-        final float y = (y2 - y1);
-        return (float) Math.hypot(x, y);
+        return (float) Math.hypot(x2 - x1, y2 - y1);
     }
 
+    /**
+     * Returns distance between two point
+     *
+     * @param x1 The x-coordinate of the first point
+     * @param y1 The y-coordinate of the first point
+     * @param x2 The x-coordinate of the second point
+     * @param y2 The y-coordinate of the second point
+     * @return the distance
+     */
+    public static double dist(double x1, double y1, double x2, double y2) {
+        return Math.hypot(x2 - x1, y2 - y1);
+    }
+
+    /**
+     * Returns distance between two point
+     *
+     * @param x1 The x-coordinate of the first point
+     * @param y1 The y-coordinate of the first point
+     * @param z1 The z-coordinate of the first point
+     * @param x2 The x-coordinate of the second point
+     * @param y2 The y-coordinate of the second point
+     * @param z2 The z-coordinate of the second point
+     * @return the distance
+     */
     public static float dist(float x1, float y1, float z1, float x2, float y2, float z2) {
         final float x = (x2 - x1);
         final float y = (y2 - y1);
@@ -177,94 +208,191 @@ public final class MathUtils {
         return (float) Math.sqrt(x * x + y * y + z * z);
     }
 
+    /**
+     * Returns distance between two point
+     *
+     * @param x1 The x-coordinate of the first point
+     * @param y1 The y-coordinate of the first point
+     * @param z1 The z-coordinate of the first point
+     * @param x2 The x-coordinate of the second point
+     * @param y2 The y-coordinate of the second point
+     * @param z2 The z-coordinate of the second point
+     * @return the distance
+     */
+    public static double dist(double x1, double y1, double z1, double x2, double y2, double z2) {
+        final double x = (x2 - x1);
+        final double y = (y2 - y1);
+        final double z = (z2 - z1);
+        return Math.sqrt(x * x + y * y + z * z);
+    }
+
+    /**
+     * Returns whether the two point are close
+     *
+     * @param x1 The x-coordinate of the first point
+     * @param y1 The y-coordinate of the first point
+     * @param x2 The x-coordinate of the second point
+     * @param y2 The y-coordinate of the second point
+     * @param slop the max distance to judge near
+     */
     public static boolean near(float x1, float y1, float x2, float y2, float slop) {
         return dist(x1, y1, x2, y2) < slop;
     }
 
+    /**
+     * Returns whether the two point are close
+     *
+     * @param x1 The x-coordinate of the first point
+     * @param y1 The y-coordinate of the first point
+     * @param x2 The x-coordinate of the second point
+     * @param y2 The y-coordinate of the second point
+     * @param slop the max distance to judge near
+     */
+    public static boolean near(double x1, double y1, double x2, double y2, double slop) {
+        return dist(x1, y1, x2, y2) < slop;
+    }
+
+    /**
+     * Returns whether the two point are close
+     *
+     * @param x1 The x-coordinate of the first point
+     * @param y1 The y-coordinate of the first point
+     * @param z1 The z-coordinate of the first point
+     * @param x2 The x-coordinate of the second point
+     * @param y2 The y-coordinate of the second point
+     * @param z2 The z-coordinate of the second point
+     * @param slop the max distance to judge near
+     */
     public static boolean near(float x1, float y1, float z1, float x2, float y2, float z2, float slop) {
         return dist(x1, y1, z1, x2, y2, z2) < slop;
     }
 
-    public static float mag(float a, float b) {
-        return (float) Math.hypot(a, b);
+    /**
+     * Returns whether the two point are close
+     *
+     * @param x1 The x-coordinate of the first point
+     * @param y1 The y-coordinate of the first point
+     * @param z1 The z-coordinate of the first point
+     * @param x2 The x-coordinate of the second point
+     * @param y2 The y-coordinate of the second point
+     * @param z2 The z-coordinate of the second point
+     * @param slop the max distance to judge near
+     */
+    public static boolean near(double x1, double y1, double z1, double x2, double y2, double z2, double slop) {
+        return dist(x1, y1, z1, x2, y2, z2) < slop;
     }
 
-    public static float mag(float a, float b, float c) {
-        return (float) Math.sqrt(a * a + b * b + c * c);
-    }
-
-    public static float sq(float v) {
-        return v * v;
-    }
-
-    public static float cross(float v1x, float v1y, float v2x, float v2y) {
-        return v1x * v2y - v1y * v2x;
-    }
-
+    /**
+     * Convert degrees to radians
+     */
     public static float radians(float degrees) {
         return degrees * DEG_TO_RAD;
     }
 
+    /**
+     * Convert radians to degrees
+     */
     public static float degrees(float radians) {
         return radians * RAD_TO_DEG;
     }
 
-    public static float acos(float value) {
-        return (float) Math.acos(value);
-    }
-
-    public static float asin(float value) {
-        return (float) Math.asin(value);
-    }
-
-    public static float atan(float value) {
-        return (float) Math.atan(value);
-    }
-
-    public static float atan2(float a, float b) {
-        return (float) Math.atan2(a, b);
-    }
-
-    public static float tan(float angle) {
-        return (float) Math.tan(angle);
-    }
-
+    /**
+     * Linear interpolation
+     */
     public static int lerp(int start, int stop, float amount) {
         return start + (int) ((stop - start) * amount);
     }
 
+    /**
+     * Linear interpolation
+     */
+    public static long lerp(long start, long stop, float amount) {
+        return start + (long) ((stop - start) * amount);
+    }
+
+    /**
+     * Linear interpolation
+     */
     public static float lerp(float start, float stop, float amount) {
         return start + (stop - start) * amount;
     }
 
-    public static float delerp(int start, int stop, int value) {
-        if (stop == start) {
-            return 1.0f;
+    /**
+     * Inverse of lerp
+     * <p>
+     * Special cases:
+     * <ul>
+     * <li>{@code norm(5, 5, 5) = 0}</li>
+     * <li>{@code norm(5, 5, 2) = Float.NaN}</li>
+     * </ul>
+     */
+    public static float norm(int start, int stop, int value) {
+        if (start == stop) {
+            if (stop == value) {
+                return 1.0f;
+            } else {
+                return Float.NaN;
+            }
         } else {
             return (float) (value - start) / (float) (stop - start);
         }
     }
 
-    public static float delerp(float start, float stop, float value) {
-        if (stop == start) {
-            return 1.0f;
+    /**
+     * Inverse of lerp
+     * <p>
+     * Special cases:
+     * <ul>
+     * <li>{@code norm(5, 5, 5) = 0}</li>
+     * <li>{@code norm(5, 5, 2) = Float.NaN}</li>
+     * </ul>
+     */
+    public static float norm(long start, long stop, long value) {
+        if (start == stop) {
+            if (stop == value) {
+                return 1.0f;
+            } else {
+                return Float.NaN;
+            }
         } else {
-            return (value - start) / (stop - start);
+            return (float) (value - start) / (float) (stop - start);
         }
     }
 
+    /**
+     * Inverse of lerp
+     * <p>
+     * Special cases:
+     * <ul>
+     * <li>{@code norm(5.0f, 5.0f, 5.0f) = 0.0f}</li>
+     * <li>{@code norm(5.0f, 5.0f, 2.0f) = Float.NaN}</li>
+     * </ul>
+     */
     public static float norm(float start, float stop, float value) {
-        return (value - start) / (stop - start);
-    }
-
-    public static float map(float minStart, float minStop, float maxStart, float maxStop, float value) {
-        return maxStart + (maxStart - maxStop) * ((value - minStart) / (minStop - minStart));
+        if (stop == start) {
+            if (stop == value) {
+                return 1.0f;
+            } else {
+                return Float.NaN;
+            }
+        } else {
+            return (value - start) / (stop - start);
+        }
     }
 
     /**
      * Returns the input value x clamped to the range [min, max].
      */
     public static int clamp(int x, int min, int max) {
+        if (x > max) return max;
+        if (x < min) return min;
+        return x;
+    }
+
+    /**
+     * Returns the input value x clamped to the range [min, max].
+     */
+    public static long clamp(long x, long min, long max) {
         if (x > max) return max;
         if (x < min) return min;
         return x;
@@ -282,7 +410,7 @@ public final class MathUtils {
     /**
      * Returns the input value x clamped to the range [min, max].
      */
-    public static long clamp(long x, long min, long max) {
+    public static double clamp(double x, double min, double max) {
         if (x > max) return max;
         if (x < min) return min;
         return x;
@@ -294,7 +422,7 @@ public final class MathUtils {
      * Throws IllegalArgumentException if the input is <= 0 or
      * the answer overflows.
      */
-    public static int nextPowerOf2(int n) {
+    public static int nextPow2(int n) {
         if (n <= 0 || n > (1 << 30)) throw new IllegalArgumentException("n is invalid: " + n);
         n -= 1;
         n |= n >> 16;
@@ -306,13 +434,30 @@ public final class MathUtils {
     }
 
     /**
-     * Returns the previous power of two.
+     * Returns the next power of two.
      * Returns the input if it is already power of 2.
      * Throws IllegalArgumentException if the input is <= 0 or
      * the answer overflows.
      */
-    public static int previousPowerOf2 (int n) {
-        if (n <= 0 || n > (1 << 30)) throw new IllegalArgumentException("n is invalid: " + n);
+    public static long nextPow2(long n) {
+        if (n <= 0L || n > (1L << 62)) throw new IllegalArgumentException("n is invalid: " + n);
+        n -= 1L;
+        n |= n >> 32;
+        n |= n >> 16;
+        n |= n >> 8;
+        n |= n >> 4;
+        n |= n >> 2;
+        n |= n >> 1;
+        return n + 1L;
+    }
+
+    /**
+     * Returns the previous power of two.
+     * Returns the input if it is already power of 2.
+     * Throws IllegalArgumentException if the input is <= 0.
+     */
+    public static int prevPow2(int n) {
+        if (n <= 0) throw new IllegalArgumentException("n is invalid: " + n);
         n |= n >> 1;
         n |= n >> 2;
         n |= n >> 4;
@@ -321,22 +466,33 @@ public final class MathUtils {
         return n - (n >> 1);
     }
 
-    // http://stackoverflow.com/questions/109023/how-to-count-the-number-of-set-bits-in-a-32-bit-integer
-    public static int hammingWeight(int n) {
-        n = n - ((n >>> 1) & 0x55555555);
-        n = (n & 0x33333333) + ((n >>> 2) & 0x33333333);
-        return (((n + (n >>> 4)) & 0x0F0F0F0F) * 0x01010101) >>> 24;
+    /**
+     * Returns the previous power of two.
+     * Returns the input if it is already power of 2.
+     * Throws IllegalArgumentException if the input is <= 0.
+     */
+    public static long prevPow2(long n) {
+        if (n <= 0L) throw new IllegalArgumentException("n is invalid: " + n);
+        n |= n >> 1;
+        n |= n >> 2;
+        n |= n >> 4;
+        n |= n >> 8;
+        n |= n >> 16;
+        n |= n >> 32;
+        return n - (n >> 1);
     }
 
     /**
-     * divide and ceil
+     * Divide then ceil.
+     * Negative is not supported.
      */
     public static int ceilDivide(int a, int b) {
         return (a + b - 1) / b;
     }
 
     /**
-     * divide and ceil
+     * Divide then ceil.
+     * Negative is not supported.
      */
     public static long ceilDivide(long a, long b) {
         return (a + b - 1) / b;
@@ -351,70 +507,117 @@ public final class MathUtils {
      * @param y the y of point in area
      * @return the radius
      */
-    public static float coverageRadius(float w, float h, float x, float y) {
-        float x2;
-        float y2;
-        if (x > w / 2) {
-            x2 = 0;
-        } else {
-            x2 = w;
-        }
-        if (y > h / 2) {
-            y2 = 0;
-        } else {
-            y2 = h;
-        }
+    public static float coverRadius(float w, float h, float x, float y) {
+        float x2 = (x > w / 2) ? 0 : w;
+        float y2 = (y > h / 2) ? 0 : h;
         return dist(x, y, x2, y2);
     }
 
-    public static float positiveModulo(float x, float y) {
-        float result = x % y;
-        if (x < 0) {
-            result += y;
-        }
-        return result;
-    }
-
-    public static float negativeModulo(float x, float y) {
-        float result = x % y;
-        if (x > 0) {
-            result -= y;
-        }
-        return result;
-    }
-
     /**
-     * [0, howbig)
+     * Returns a pseudo-random uniformly distributed {@code int}
+     * in the half-open range [0, howbig).
+     * Throws IllegalArgumentException if howbig <= 0.
      */
     public static int random(int howbig) {
-        return (int) (sRandom.nextFloat() * howbig);
+        return sRandom.nextInt(howbig);
     }
 
     /**
-     * [howsmall, howbig)
+     * Returns a pseudo-random uniformly distributed {@code int}
+     * in the half-open range [howsmall, howbig).
+     * Throws IllegalArgumentException if howbig <= howsmall.
      */
     public static int random(int howsmall, int howbig) {
-        if (howsmall >= howbig)
-            return howsmall;
-        return lerp(howsmall, howbig, sRandom.nextFloat());
+        final int dist = howbig - howsmall;
+        if (dist <= 0) {
+            throw new IllegalArgumentException("howbig <= howsmall: " + howbig + " <= " + howsmall);
+        }
+        return howsmall + sRandom.nextInt(dist);
     }
 
     /**
-     * [0, howbig)
+     * Returns a pseudo-random uniformly distributed {@code int}
+     * in the half-open range [0, howbig).
+     * Throws IllegalArgumentException if howbig <= 0.
+     */
+    public static long random(long howbig) {
+        if (howbig <= 0) {
+            throw new IllegalArgumentException("howbig <= 0: " + howbig);
+        }
+        long bits, val;
+        do {
+            bits = (sRandom.nextLong() << 1) >>> 1;
+            val = bits % howbig;
+        } while (bits - val + (howbig - 1L) < 0L);
+        return val;
+    }
+
+    /**
+     * Returns a pseudo-random uniformly distributed {@code int}
+     * in the half-open range [howsmall, howbig).
+     * Throws IllegalArgumentException if howbig <= howsmall.
+     */
+    public static long random(long howsmall, long howbig) {
+        final long dist = howbig - howsmall;
+        if (dist <= 0) {
+            throw new IllegalArgumentException("howbig <= howsmall: " + howbig + " <= " + howsmall);
+        }
+        return howsmall + random(dist);
+    }
+
+    /**
+     * Returns a pseudo-random uniformly distributed {@code int}
+     * in the half-open range [0, howbig).
+     * Throws IllegalArgumentException if howbig <= 0.
      */
     public static float random(float howbig) {
+        if (howbig <= 0.0f) {
+            throw new IllegalArgumentException("howbig <= 0.0f: " + howbig);
+        }
         return sRandom.nextFloat() * howbig;
     }
 
     /**
-     * [howsmall, howbig)
+     * Returns a pseudo-random uniformly distributed {@code int}
+     * in the half-open range [howsmall, howbig).
+     * Throws IllegalArgumentException if howbig <= howsmall.
      */
     public static float random(float howsmall, float howbig) {
-        if (howsmall >= howbig)
-            return howsmall;
-        return lerp(howsmall, howbig, sRandom.nextFloat());
+        final float dist = howbig - howsmall;
+        if (dist <= 0.0f) {
+            throw new IllegalArgumentException("howbig <= howsmall: " + howbig + " <= " + howsmall);
+        }
+        return howsmall + random(dist);
     }
 
+    /**
+     * Returns a pseudo-random uniformly distributed {@code int}
+     * in the half-open range [0, howbig).
+     * Throws IllegalArgumentException if howbig <= 0.
+     */
+    public static double random(double howbig) {
+        if (howbig <= 0.0) {
+            throw new IllegalArgumentException("howbig <= 0.0: " + howbig);
+        }
+        return sRandom.nextDouble() * howbig;
+    }
+
+    /**
+     * Returns a pseudo-random uniformly distributed {@code int}
+     * in the half-open range [howsmall, howbig).
+     * Throws IllegalArgumentException if howbig <= howsmall.
+     */
+    public static double random(double howsmall, double howbig) {
+        final double dist = howbig - howsmall;
+        if (dist <= 0.0) {
+            throw new IllegalArgumentException("howbig <= howsmall: " + howbig + " <= " + howsmall);
+        }
+        return howsmall + random(dist);
+    }
+
+    /**
+     * Just {@link Random#setSeed(long)}
+     */
     public static void randomSeed(long seed) {
         sRandom.setSeed(seed);
     }
