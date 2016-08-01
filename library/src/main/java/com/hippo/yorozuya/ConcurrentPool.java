@@ -16,28 +16,67 @@
 
 package com.hippo.yorozuya;
 
+import android.support.annotation.CheckResult;
+
+/**
+ * Size-fixed and thread-safe pool
+ */
 public class ConcurrentPool<T> {
 
     private final T[] mArray;
     private final int mMaxSize;
     private int mSize;
 
+    /**
+     * Throw IllegalArgumentException if size <= 0
+     */
     @SuppressWarnings("unchecked")
     public ConcurrentPool(int size) {
         if (size <= 0) {
-            throw new IllegalStateException("Pool size must > 0, it is " + size);
+            throw new IllegalArgumentException("Pool size must > 0, it is " + size);
         }
         mArray = (T[]) new Object[size];
         mMaxSize = size;
         mSize = 0;
     }
 
-    public synchronized void push(T t) {
-        if (t != null && mSize < mMaxSize) {
-            mArray[mSize++] = t;
-        }
+    /**
+     * Return max size of the pool
+     */
+    @CheckResult
+    public int maxSize() {
+        return mMaxSize;
     }
 
+    /**
+     * Return current size of the pool
+     */
+    @CheckResult
+    public int size() {
+        return mSize;
+    }
+
+    /**
+     * Push the object in the Pool, {@code null} will be ignore.
+     * If the pool is full, {@link #onOverflow(Object)} will be called.
+     * {@link #onOverflow(Object)} is not thread-safe.
+     */
+    public void push(T t) {
+        if (t == null) {
+            return;
+        }
+        synchronized (this) {
+            if (mSize < mMaxSize) {
+                mArray[mSize++] = t;
+                return;
+            }
+        }
+        onOverflow(t);
+    }
+
+    /**
+     * Pop a object in the pool. If the pool is empty, return null.
+     */
     public synchronized T pop() {
         if (mSize > 0) {
             T t = mArray[--mSize];
@@ -47,4 +86,10 @@ public class ConcurrentPool<T> {
             return null;
         }
     }
+
+    /**
+     * Called when the pool is full and still push.
+     * It is not thread-safe.
+     */
+    public void onOverflow(T t) {}
 }
