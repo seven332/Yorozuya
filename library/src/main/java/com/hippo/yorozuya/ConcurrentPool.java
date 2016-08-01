@@ -19,7 +19,7 @@ package com.hippo.yorozuya;
 import android.support.annotation.CheckResult;
 
 /**
- * Size-fixed and thread-safe pool
+ * Size-fixed and thread-safe pool.
  */
 public class ConcurrentPool<T> {
 
@@ -28,7 +28,7 @@ public class ConcurrentPool<T> {
     private int mSize;
 
     /**
-     * Throw IllegalArgumentException if size <= 0
+     * Throw IllegalArgumentException if size <= 0.
      */
     @SuppressWarnings("unchecked")
     public ConcurrentPool(int size) {
@@ -41,7 +41,7 @@ public class ConcurrentPool<T> {
     }
 
     /**
-     * Return max size of the pool
+     * Return max size of the pool.
      */
     @CheckResult
     public int maxSize() {
@@ -49,7 +49,7 @@ public class ConcurrentPool<T> {
     }
 
     /**
-     * Return current size of the pool
+     * Return current size of the pool.
      */
     @CheckResult
     public int size() {

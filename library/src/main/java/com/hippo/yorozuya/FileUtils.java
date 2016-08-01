@@ -16,6 +16,7 @@
 
 package com.hippo.yorozuya;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -31,10 +32,18 @@ import java.util.Locale;
 public final class FileUtils {
     private FileUtils() {}
 
+    /**
+     * Make sure the file is a file or can be created as a file.
+     * Return false if can not.
+     */
     public static boolean ensureFile(File file) {
         return file != null && (!file.exists() || file.isFile());
     }
 
+    /**
+     * Make sure the file is a dir or created as a dir.
+     * Return false if can not.
+     */
     public static boolean ensureDirectory(File file) {
         if (file != null) {
             if (file.exists()) {
@@ -55,7 +64,8 @@ public final class FileUtils {
      * @param si si units
      * @return the human readable string
      */
-    public static String humanReadableByteCount(long bytes, boolean si) {
+    @CheckResult
+    public static String readableByteCount(long bytes, boolean si) {
         int unit = si ? 1000 : 1024;
         if (bytes < unit) return bytes + " B";
         int exp = (int) (Math.log(bytes) / Math.log(unit));
@@ -64,10 +74,7 @@ public final class FileUtils {
     }
 
     /**
-     * Try to delete file, dir and it's children
-     *
-     * @param file the file to delete
-     * The dir to deleted
+     * Try to delete file, dir and it's children.
      */
     public static boolean delete(File file) {
         if (file == null) {
@@ -93,6 +100,10 @@ public final class FileUtils {
         return success;
     }
 
+    /**
+     * Delete all files and dirs in the dir.
+     * Do nothing if the file is not a dir.
+     */
     public static boolean deleteContent(File file) {
         if (file == null) {
             return false;
@@ -109,10 +120,10 @@ public final class FileUtils {
     }
 
     /**
-     * @return {@code null} for get exception
+     * Read all content in the file. Return null if failed.
      */
     @Nullable
-    public static String read(File file) {
+    public static String read(File file, String encoding) {
         if (file == null) {
             return null;
         }
@@ -120,7 +131,7 @@ public final class FileUtils {
         InputStream is = null;
         try {
             is = new FileInputStream(file);
-            return IOUtils.readString(is, "utf-8");
+            return IOUtils.readString(is, encoding);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -129,6 +140,9 @@ public final class FileUtils {
         }
     }
 
+    /**
+     * Write str in utf-8 to the file. Return false is failed.
+     */
     public static boolean write(File file, String str) {
         if (file == null) {
             return false;
@@ -162,6 +176,13 @@ public final class FileUtils {
             '|',
     };
 
+    /**
+     * Make the filename is safe. It only work for utf-8.
+     * Forbidden chars will be removed. The space in both
+     * side will be removed. The filename may be cut off
+     * to make byte count smalled than or equal 255.
+     */
+    @CheckResult
     public static String sanitizeFilename(@NonNull String filename) {
         // Remove forbidden_filename_characters
         filename = StringUtils.remove(filename, FORBIDDEN_FILENAME_CHARACTERS);
@@ -193,7 +214,7 @@ public final class FileUtils {
     }
 
     /**
-     * Get extension from filename
+     * Get extension from filename.
      *
      * @param filename the complete filename
      * @return null for can't find extension, "" empty String for ending with . dot
@@ -212,7 +233,7 @@ public final class FileUtils {
     }
 
     /**
-     * Get name from filename
+     * Get name from filename.
      *
      * @param filename the complete filename
      * @return null for start with . dot
@@ -286,7 +307,7 @@ public final class FileUtils {
     }
 
     /**
-     * Only support file now
+     * Rename file. Only support file now.
      */
     public static boolean rename(@NonNull File from, @NonNull File to) {
         if (!from.isFile() || to.exists()) {

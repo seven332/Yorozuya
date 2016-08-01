@@ -17,48 +17,53 @@
 package com.hippo.yorozuya;
 
 import android.content.Context;
+import android.support.annotation.CheckResult;
 
 public final class LayoutUtils {
     private LayoutUtils() {}
 
     /**
-     * dp conversion to pix
+     * dp conversion to pix.
      *
      * @param context The context
      * @param dp The value you want to conversion
      * @return value in pix
      */
+    @CheckResult
     public static int dp2pix(Context context, float dp) {
         return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
     }
 
     /**
-     * pix conversion to dp
+     * pix conversion to dp.
      *
      * @param context The context
      * @param pix The value you want to conversion
      * @return value in dp
      */
+    @CheckResult
     public static float pix2dp(Context context, int pix) {
         return pix / context.getResources().getDisplayMetrics().density;
     }
 
     /**
-     * sp conversion to pix
+     * sp conversion to pix.
      *
      * @param sp The value you want to conversion
      * @return value in pix
      */
+    @CheckResult
     public static int sp2pix(Context context, float sp) {
         return (int) (sp * context.getResources().getDisplayMetrics().scaledDensity + 0.5f);
     }
 
     /**
-     * pix conversion to sp
+     * pix conversion to sp.
      *
      * @param pix The value you want to conversion
      * @return value in sp
      */
+    @CheckResult
     public static float pix2sp(Context context, float pix) {
         return pix / context.getResources().getDisplayMetrics().scaledDensity;
     }

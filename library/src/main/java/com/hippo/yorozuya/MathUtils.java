@@ -16,6 +16,7 @@
 
 package com.hippo.yorozuya;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 
 import java.util.Random;
@@ -32,6 +33,7 @@ public final class MathUtils {
      * Returns the most positive (closest to positive infinity) of all the
      * arguments.
      */
+    @CheckResult
     public static int max(@NonNull int... arg) {
         int length = arg.length;
         if (length <= 0) {
@@ -48,6 +50,7 @@ public final class MathUtils {
      * Returns the most positive (closest to positive infinity) of all the
      * arguments.
      */
+    @CheckResult
     public static long max(@NonNull long... arg) {
         int length = arg.length;
         if (length <= 0) {
@@ -66,6 +69,7 @@ public final class MathUtils {
      * <p>
      * Special cases are the same as {@link Math#max(float, float)}
      */
+    @CheckResult
     public static float max(@NonNull float... arg) {
         int length = arg.length;
         if (length <= 0) {
@@ -84,6 +88,7 @@ public final class MathUtils {
      * <p>
      * Special cases are the same as {@link Math#max(double, double)}
      */
+    @CheckResult
     public static double max(@NonNull double... arg) {
         int length = arg.length;
         if (length <= 0) {
@@ -100,6 +105,7 @@ public final class MathUtils {
      * Returns the most negative (closest to negative infinity) of all the
      * arguments.
      */
+    @CheckResult
     public static int min(@NonNull int... arg) {
         int length = arg.length;
         if (length <= 0) {
@@ -116,6 +122,7 @@ public final class MathUtils {
      * Returns the most negative (closest to negative infinity) of all the
      * arguments.
      */
+    @CheckResult
     public static long min(@NonNull long... arg) {
         int length = arg.length;
         if (length <= 0) {
@@ -134,6 +141,7 @@ public final class MathUtils {
      * <p>
      * Special cases are the same as {@link Math#max(float, float)}
      */
+    @CheckResult
     public static float min(@NonNull float... arg) {
         int length = arg.length;
         if (length <= 0) {
@@ -152,6 +160,7 @@ public final class MathUtils {
      * <p>
      * Special cases are the same as {@link Math#max(double, double)}
      */
+    @CheckResult
     public static double min(@NonNull double... arg) {
         int length = arg.length;
         if (length <= 0) {
@@ -173,6 +182,7 @@ public final class MathUtils {
      * @param y2 The y-coordinate of the second point
      * @return the distance
      */
+    @CheckResult
     public static float dist(float x1, float y1, float x2, float y2) {
         return (float) Math.hypot(x2 - x1, y2 - y1);
     }
@@ -186,6 +196,7 @@ public final class MathUtils {
      * @param y2 The y-coordinate of the second point
      * @return the distance
      */
+    @CheckResult
     public static double dist(double x1, double y1, double x2, double y2) {
         return Math.hypot(x2 - x1, y2 - y1);
     }
@@ -201,6 +212,7 @@ public final class MathUtils {
      * @param z2 The z-coordinate of the second point
      * @return the distance
      */
+    @CheckResult
     public static float dist(float x1, float y1, float z1, float x2, float y2, float z2) {
         final float x = (x2 - x1);
         final float y = (y2 - y1);
@@ -219,6 +231,7 @@ public final class MathUtils {
      * @param z2 The z-coordinate of the second point
      * @return the distance
      */
+    @CheckResult
     public static double dist(double x1, double y1, double z1, double x2, double y2, double z2) {
         final double x = (x2 - x1);
         final double y = (y2 - y1);
@@ -235,6 +248,7 @@ public final class MathUtils {
      * @param y2 The y-coordinate of the second point
      * @param slop the max distance to judge near
      */
+    @CheckResult
     public static boolean near(float x1, float y1, float x2, float y2, float slop) {
         return dist(x1, y1, x2, y2) < slop;
     }
@@ -248,6 +262,7 @@ public final class MathUtils {
      * @param y2 The y-coordinate of the second point
      * @param slop the max distance to judge near
      */
+    @CheckResult
     public static boolean near(double x1, double y1, double x2, double y2, double slop) {
         return dist(x1, y1, x2, y2) < slop;
     }
@@ -263,6 +278,7 @@ public final class MathUtils {
      * @param z2 The z-coordinate of the second point
      * @param slop the max distance to judge near
      */
+    @CheckResult
     public static boolean near(float x1, float y1, float z1, float x2, float y2, float z2, float slop) {
         return dist(x1, y1, z1, x2, y2, z2) < slop;
     }
@@ -278,6 +294,7 @@ public final class MathUtils {
      * @param z2 The z-coordinate of the second point
      * @param slop the max distance to judge near
      */
+    @CheckResult
     public static boolean near(double x1, double y1, double z1, double x2, double y2, double z2, double slop) {
         return dist(x1, y1, z1, x2, y2, z2) < slop;
     }
@@ -285,6 +302,7 @@ public final class MathUtils {
     /**
      * Convert degrees to radians
      */
+    @CheckResult
     public static float radians(float degrees) {
         return degrees * DEG_TO_RAD;
     }
@@ -292,6 +310,7 @@ public final class MathUtils {
     /**
      * Convert radians to degrees
      */
+    @CheckResult
     public static float degrees(float radians) {
         return radians * RAD_TO_DEG;
     }
@@ -299,6 +318,7 @@ public final class MathUtils {
     /**
      * Linear interpolation
      */
+    @CheckResult
     public static int lerp(int start, int stop, float amount) {
         return start + (int) ((stop - start) * amount);
     }
@@ -306,6 +326,7 @@ public final class MathUtils {
     /**
      * Linear interpolation
      */
+    @CheckResult
     public static long lerp(long start, long stop, float amount) {
         return start + (long) ((stop - start) * amount);
     }
@@ -313,6 +334,7 @@ public final class MathUtils {
     /**
      * Linear interpolation
      */
+    @CheckResult
     public static float lerp(float start, float stop, float amount) {
         return start + (stop - start) * amount;
     }
@@ -326,6 +348,7 @@ public final class MathUtils {
      * <li>{@code norm(5, 5, 2) = Float.NaN}</li>
      * </ul>
      */
+    @CheckResult
     public static float norm(int start, int stop, int value) {
         if (start == stop) {
             if (stop == value) {
@@ -347,6 +370,7 @@ public final class MathUtils {
      * <li>{@code norm(5, 5, 2) = Float.NaN}</li>
      * </ul>
      */
+    @CheckResult
     public static float norm(long start, long stop, long value) {
         if (start == stop) {
             if (stop == value) {
@@ -368,6 +392,7 @@ public final class MathUtils {
      * <li>{@code norm(5.0f, 5.0f, 2.0f) = Float.NaN}</li>
      * </ul>
      */
+    @CheckResult
     public static float norm(float start, float stop, float value) {
         if (stop == start) {
             if (stop == value) {
@@ -383,6 +408,7 @@ public final class MathUtils {
     /**
      * Returns the input value x clamped to the range [min, max].
      */
+    @CheckResult
     public static int clamp(int x, int min, int max) {
         if (x > max) return max;
         if (x < min) return min;
@@ -392,6 +418,7 @@ public final class MathUtils {
     /**
      * Returns the input value x clamped to the range [min, max].
      */
+    @CheckResult
     public static long clamp(long x, long min, long max) {
         if (x > max) return max;
         if (x < min) return min;
@@ -401,6 +428,7 @@ public final class MathUtils {
     /**
      * Returns the input value x clamped to the range [min, max].
      */
+    @CheckResult
     public static float clamp(float x, float min, float max) {
         if (x > max) return max;
         if (x < min) return min;
@@ -410,6 +438,7 @@ public final class MathUtils {
     /**
      * Returns the input value x clamped to the range [min, max].
      */
+    @CheckResult
     public static double clamp(double x, double min, double max) {
         if (x > max) return max;
         if (x < min) return min;
@@ -422,6 +451,7 @@ public final class MathUtils {
      * Throws IllegalArgumentException if the input is <= 0 or
      * the answer overflows.
      */
+    @CheckResult
     public static int nextPow2(int n) {
         if (n <= 0 || n > (1 << 30)) throw new IllegalArgumentException("n is invalid: " + n);
         n -= 1;
@@ -439,6 +469,7 @@ public final class MathUtils {
      * Throws IllegalArgumentException if the input is <= 0 or
      * the answer overflows.
      */
+    @CheckResult
     public static long nextPow2(long n) {
         if (n <= 0L || n > (1L << 62)) throw new IllegalArgumentException("n is invalid: " + n);
         n -= 1L;
@@ -456,6 +487,7 @@ public final class MathUtils {
      * Returns the input if it is already power of 2.
      * Throws IllegalArgumentException if the input is <= 0.
      */
+    @CheckResult
     public static int prevPow2(int n) {
         if (n <= 0) throw new IllegalArgumentException("n is invalid: " + n);
         n |= n >> 1;
@@ -471,6 +503,7 @@ public final class MathUtils {
      * Returns the input if it is already power of 2.
      * Throws IllegalArgumentException if the input is <= 0.
      */
+    @CheckResult
     public static long prevPow2(long n) {
         if (n <= 0L) throw new IllegalArgumentException("n is invalid: " + n);
         n |= n >> 1;
@@ -486,6 +519,7 @@ public final class MathUtils {
      * Divide then ceil.
      * Negative is not supported.
      */
+    @CheckResult
     public static int ceilDivide(int a, int b) {
         return (a + b - 1) / b;
     }
@@ -494,6 +528,7 @@ public final class MathUtils {
      * Divide then ceil.
      * Negative is not supported.
      */
+    @CheckResult
     public static long ceilDivide(long a, long b) {
         return (a + b - 1) / b;
     }
@@ -507,6 +542,7 @@ public final class MathUtils {
      * @param y the y of point in area
      * @return the radius
      */
+    @CheckResult
     public static float coverRadius(float w, float h, float x, float y) {
         float x2 = (x > w / 2) ? 0 : w;
         float y2 = (y > h / 2) ? 0 : h;
@@ -518,6 +554,7 @@ public final class MathUtils {
      * in the half-open range [0, howbig).
      * Throws IllegalArgumentException if howbig <= 0.
      */
+    @CheckResult
     public static int random(int howbig) {
         return sRandom.nextInt(howbig);
     }
@@ -527,6 +564,7 @@ public final class MathUtils {
      * in the half-open range [howsmall, howbig).
      * Throws IllegalArgumentException if howbig <= howsmall.
      */
+    @CheckResult
     public static int random(int howsmall, int howbig) {
         final int dist = howbig - howsmall;
         if (dist <= 0) {
@@ -540,6 +578,7 @@ public final class MathUtils {
      * in the half-open range [0, howbig).
      * Throws IllegalArgumentException if howbig <= 0.
      */
+    @CheckResult
     public static long random(long howbig) {
         if (howbig <= 0) {
             throw new IllegalArgumentException("howbig <= 0: " + howbig);
@@ -557,6 +596,7 @@ public final class MathUtils {
      * in the half-open range [howsmall, howbig).
      * Throws IllegalArgumentException if howbig <= howsmall.
      */
+    @CheckResult
     public static long random(long howsmall, long howbig) {
         final long dist = howbig - howsmall;
         if (dist <= 0) {
@@ -570,6 +610,7 @@ public final class MathUtils {
      * in the half-open range [0, howbig).
      * Throws IllegalArgumentException if howbig <= 0.
      */
+    @CheckResult
     public static float random(float howbig) {
         if (howbig <= 0.0f) {
             throw new IllegalArgumentException("howbig <= 0.0f: " + howbig);
@@ -582,6 +623,7 @@ public final class MathUtils {
      * in the half-open range [howsmall, howbig).
      * Throws IllegalArgumentException if howbig <= howsmall.
      */
+    @CheckResult
     public static float random(float howsmall, float howbig) {
         final float dist = howbig - howsmall;
         if (dist <= 0.0f) {
@@ -595,6 +637,7 @@ public final class MathUtils {
      * in the half-open range [0, howbig).
      * Throws IllegalArgumentException if howbig <= 0.
      */
+    @CheckResult
     public static double random(double howbig) {
         if (howbig <= 0.0) {
             throw new IllegalArgumentException("howbig <= 0.0: " + howbig);
@@ -607,6 +650,7 @@ public final class MathUtils {
      * in the half-open range [howsmall, howbig).
      * Throws IllegalArgumentException if howbig <= howsmall.
      */
+    @CheckResult
     public static double random(double howsmall, double howbig) {
         final double dist = howbig - howsmall;
         if (dist <= 0.0) {
@@ -616,7 +660,7 @@ public final class MathUtils {
     }
 
     /**
-     * Just {@link Random#setSeed(long)}
+     * Just {@link Random#setSeed(long)}.
      */
     public static void randomSeed(long seed) {
         sRandom.setSeed(seed);

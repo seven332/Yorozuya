@@ -23,6 +23,9 @@ public final class SimpleHandler extends Handler {
 
     private static Handler sInstance;
 
+    /**
+     * Return a Handler in main loop.
+     */
     public static Handler getInstance() {
         if (sInstance == null) {
             sInstance = new Handler(Looper.getMainLooper());

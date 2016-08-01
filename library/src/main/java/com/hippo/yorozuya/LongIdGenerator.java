@@ -30,6 +30,9 @@ public final class LongIdGenerator {
         setNextId(init);
     }
 
+    /**
+     * Return next id, can not be {@link #INVALID_ID}.
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     public long nextId() {
         long id;
@@ -37,6 +40,10 @@ public final class LongIdGenerator {
         return id;
     }
 
+    /**
+     * Set next id. Throw IllegalStateException
+     * if id is {@link #INVALID_ID}.
+     */
     public void setNextId(long id) {
         checkInValidId(id);
         mId.set(id);

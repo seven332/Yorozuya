@@ -93,6 +93,9 @@ public final class IOUtils {
         return result.toString();
     }
 
+    /**
+     * Read the InputStream as string.
+     */
     public static String readString(final InputStream is, String encoding) throws IOException {
         InputStreamReader reader = new InputStreamReader(is, encoding);
         StringBuilder sb = new StringBuilder();
@@ -106,6 +109,9 @@ public final class IOUtils {
         return sb.toString();
     }
 
+    /**
+     * Read the InputStream as byte.
+     */
     public static byte[] getAllByte(InputStream is) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         copy(is, baos);

@@ -19,7 +19,7 @@ package com.hippo.yorozuya;
 import android.support.annotation.CheckResult;
 
 /**
- * Size-fixed pool
+ * Size-fixed pool.
  */
 public class Pool<T> {
 
@@ -28,7 +28,7 @@ public class Pool<T> {
     private int mSize;
 
     /**
-     * Throw IllegalArgumentException if size <= 0
+     * Throw IllegalArgumentException if size <= 0.
      */
     @SuppressWarnings("unchecked")
     public Pool(int size) {
@@ -41,7 +41,7 @@ public class Pool<T> {
     }
 
     /**
-     * Return max size of the pool
+     * Return max size of the pool.
      */
     @CheckResult
     public int maxSize() {
@@ -49,7 +49,7 @@ public class Pool<T> {
     }
 
     /**
-     * Return current size of the pool
+     * Return current size of the pool.
      */
     @CheckResult
     public int size() {

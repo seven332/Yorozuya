@@ -41,6 +41,9 @@ public final class Messenger {
         mReceiverListMap = new SparseArray<>();
     }
 
+    /**
+     * Create an ID for {@link #register(int, Receiver)}
+     */
     public int newId() {
         return mIdGenerator.nextId();
     }
@@ -55,6 +58,9 @@ public final class Messenger {
         }
     }
 
+    /**
+     * Notify in UI thread
+     */
     public void notify(final int id, final Object obj) {
         // Make sure do it in UI thread
         SimpleHandler.getInstance().post(new Runnable() {
@@ -65,10 +71,16 @@ public final class Messenger {
         });
     }
 
+    /**
+     * Notify at once
+     */
     public void notifyAtOnce(int id, Object obj) {
         notifyInternal(id, obj);
     }
 
+    /**
+     * Register a receiver for an ID
+     */
     public void register(int id, Receiver receiver) {
         List<Receiver> receiverList = mReceiverListMap.get(id);
         if (receiverList == null) {
@@ -79,6 +91,9 @@ public final class Messenger {
         receiverList.add(receiver);
     }
 
+    /**
+     * Unregister a receiver for an ID
+     */
     public void unregister(int id, Receiver receiver) {
         List<Receiver> receiverList = mReceiverListMap.get(id);
         if (receiverList != null) {

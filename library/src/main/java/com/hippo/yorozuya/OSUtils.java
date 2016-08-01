@@ -17,6 +17,7 @@
 package com.hippo.yorozuya;
 
 import android.os.Looper;
+import android.support.annotation.CheckResult;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -34,6 +35,9 @@ public final class OSUtils {
 
     private static long sTotalMem = Long.MIN_VALUE;
 
+    /**
+     * It is not main loop throw IllegalStateException.
+     */
     public static void checkMainLoop() {
         if (Looper.myLooper() != Looper.getMainLooper()) {
             throw new IllegalStateException("It is in not main loop!");
@@ -41,22 +45,25 @@ public final class OSUtils {
     }
 
     /**
-     * Get application allocated memory size
+     * Get application allocated memory size.
      */
+    @CheckResult
     public static long getAppAllocatedMemory() {
         return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
     }
 
     /**
-     * Get application max memory size
+     * Get application max memory size.
      */
+    @CheckResult
     public static long getAppMaxMemory() {
         return Runtime.getRuntime().maxMemory();
     }
 
     /**
-     * Get device RAM size
+     * Get device RAM size.
      */
+    @CheckResult
     public static long getTotalMemory() {
         if (sTotalMem == Long.MIN_VALUE) {
             BufferedReader reader = null;

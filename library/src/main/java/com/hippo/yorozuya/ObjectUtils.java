@@ -16,6 +16,7 @@
 
 package com.hippo.yorozuya;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.Nullable;
 
 import java.io.PrintWriter;
@@ -31,6 +32,7 @@ public final class ObjectUtils {
     /**
      * Returns true if two possibly-null objects are equal.
      */
+    @CheckResult
     public static boolean equal(@Nullable Object a, @Nullable Object b) {
         return a == b || (a != null && a.equals(b));
     }
@@ -38,6 +40,7 @@ public final class ObjectUtils {
     /**
      * Returns "null" for null or {@code o.toString()}.
      */
+    @CheckResult
     public static String toString(Object o) {
         return (o == null) ? "null" : o.toString();
     }

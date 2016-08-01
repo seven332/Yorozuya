@@ -16,7 +16,10 @@
 
 package com.hippo.yorozuya;
 
+import android.support.annotation.CheckResult;
 import android.text.TextUtils;
+
+import com.hippo.yorozuya.collect.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,8 +27,6 @@ import java.util.List;
 
 public final class StringUtils {
     private StringUtils() {}
-
-    public static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     private static final String[] ESCAPE_CHARATER_LIST = {
             "&amp;",
@@ -50,7 +51,8 @@ public final class StringUtils {
     /**
      * Unescape xml. It do not work perfectly.
      */
-    public static String unescapeXml(String str) {
+    @CheckResult
+    public static String unescapeXml(final String str) {
         return replaceEach(str, ESCAPE_CHARATER_LIST, UNESCAPE_CHARATER_LIST);
     }
 
@@ -77,6 +79,7 @@ public final class StringUtils {
      * @return the text with any replacements processed,
      *  {@code null} if null String input
      */
+    @CheckResult
     public static String replace(final String text, final String searchString, final String replacement) {
         return replace(text, searchString, replacement, -1);
     }
@@ -109,6 +112,7 @@ public final class StringUtils {
      * @return the text with any replacements processed,
      *  {@code null} if null String input
      */
+    @CheckResult
     public static String replace(final String text, final String searchString, final String replacement, int max) {
         if (TextUtils.isEmpty(text) || TextUtils.isEmpty(searchString) || replacement == null || max == 0) {
             return text;
@@ -174,6 +178,7 @@ public final class StringUtils {
      *             and/or size 0)
      */
     // Get from org.apache.commons.lang3.StringUtils
+    @CheckResult
     public static String replaceEach(final String text, final String[] searchList,
             final String[] replacementList) {
         return replaceEach(text, searchList, replacementList, false, 0);
@@ -367,6 +372,7 @@ public final class StringUtils {
      *            the specified string array, {@code null} to return {@code null}
      * @return the suffix if find or {@code null}
      */
+    @CheckResult
     public static String endsWith(String string, String[] suffixs) {
         if (string == null || suffixs == null) {
             return null;
@@ -408,6 +414,7 @@ public final class StringUtils {
      * @since 2.0
      */
     // Get from org.apache.commons.lang3.StringUtils
+    @CheckResult
     public static String[] split(final String str, final char separatorChar) {
         return splitWorker(str, separatorChar, false);
     }
@@ -433,7 +440,7 @@ public final class StringUtils {
         }
         final int len = str.length();
         if (len == 0) {
-            return EMPTY_STRING_ARRAY;
+            return (String[]) CollectionUtils.EMPTY_OBJECT_ARRAY;
         }
         final List<String> list = new ArrayList<>();
         int i = 0, start = 0;
@@ -459,28 +466,26 @@ public final class StringUtils {
         return list.toArray(new String[list.size()]);
     }
 
+    /**
+     * Return "" if value is null otherwise value itself.
+     */
+    @CheckResult
     public static String avoidNull(String value) {
         return avoidNull(value, "");
     }
 
+    /**
+     * Return defaultValue if value is null otherwise value itself.
+     */
+    @CheckResult
     public static String avoidNull(String value, String defaultValue) {
         return value == null ? defaultValue : value;
     }
 
-    public static boolean isAllDigit(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return false;
-        } else {
-            for (int i = 0, n = str.length(); i < n; i++) {
-                char ch = str.charAt(i);
-                if (ch < '0' || ch > '9') {
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
-
+    /**
+     * Return 0 if str is null otherwise str.length().
+     */
+    @CheckResult
     public static int length(String str) {
         return null == str ? 0 : str.length();
     }
@@ -503,6 +508,7 @@ public final class StringUtils {
      * @param ch  the char to count
      * @return the number of occurrences, 0 if the CharSequence is {@code null}
      */
+    @CheckResult
     public static int countMatches(final CharSequence str, final char ch) {
         if (TextUtils.isEmpty(str)) {
             return 0;
@@ -518,13 +524,18 @@ public final class StringUtils {
     }
 
     /**
-     * All null or empty, or all not
+     * All null or empty, or all not.
      */
+    @CheckResult
     public static boolean equals(String str1, String str2) {
         return (TextUtils.isEmpty(str1) && TextUtils.isEmpty(str2)) ||
                 (!TextUtils.isEmpty(str1) && !TextUtils.isEmpty(str2) && str1.equals(str2));
     }
 
+    /**
+     * Finds the n-th index within a CharSequence, handling {@code null}.
+     */
+    @CheckResult
     public static int ordinalIndexOf(String str, char c, int n) {
         if (null == str || n < 0) {
             return -1;
@@ -551,6 +562,7 @@ public final class StringUtils {
      *
      * @see {@link #trim(String, char[])}
      */
+    @CheckResult
     public static String trim(String str) {
         return trim(str, WHITE_SPACE_ARRAY);
     }
@@ -560,6 +572,7 @@ public final class StringUtils {
      *
      * @see {@link #trim(String)}
      */
+    @CheckResult
     public static String trim(String str, char[] excluded) {
         if (null == str) {
             return null;
@@ -580,6 +593,10 @@ public final class StringUtils {
         return str.substring(start, end + 1);
     }
 
+    /**
+     * Remove char of str which in removed.
+     */
+    @CheckResult
     public static String remove(String str, char[] removed) {
         if (TextUtils.isEmpty(str) || null == removed || 0 == removed.length) {
             return str;

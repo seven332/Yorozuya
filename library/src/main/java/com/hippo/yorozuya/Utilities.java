@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public final class Utilities {
 
     /**
-     * Whether the array contain the element
+     * Whether the array contain the element.
      *
      * @param array the array
      * @param obj the element
@@ -45,7 +45,7 @@ public final class Utilities {
     }
 
     /**
-     * Whether the array contain the element
+     * Whether the array contain the element.
      *
      * @param array the array
      * @param ch the element
@@ -64,6 +64,11 @@ public final class Utilities {
         return false;
     }
 
+    /**
+     * Get name without extension from a url.
+     * Return null if failed.
+     */
+    @Nullable
     public static String getNameFromUrl(String url) {
         if (!TextUtils.isEmpty(url)) {
             int fragment = url.lastIndexOf('#');
@@ -102,6 +107,9 @@ public final class Utilities {
             "jpg"
     };
 
+    /**
+     * Get extension from MimeType. null if failed.
+     */
     public static String getExtensionFromMimeType(String mimeType) {
         if (TextUtils.isEmpty(mimeType)) {
             return null;

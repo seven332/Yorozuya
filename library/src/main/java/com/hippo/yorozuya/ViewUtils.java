@@ -41,7 +41,7 @@ public final class ViewUtils {
     private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 
     /**
-     * Get view center location in window
+     * Get view center location in window.
      *
      * @param view the view to check
      * @param location an array of two integers in which to hold the coordinates
@@ -53,7 +53,7 @@ public final class ViewUtils {
     }
 
     /**
-     * Get view location in window
+     * Get view location in window.
      *
      * @param view the view to check
      * @param location an array of two integers in which to hold the coordinates
@@ -63,7 +63,7 @@ public final class ViewUtils {
     }
 
     /**
-     * Get view center in ths ancestor
+     * Get view center in ths ancestor.
      *
      * @param view the view to start with
      * @param location the container of result
@@ -76,7 +76,7 @@ public final class ViewUtils {
     }
 
     /**
-     * Get view location in ths ancestor
+     * Get view location in ths ancestor.
      *
      * @param view the view to start with
      * @param location the container of result
@@ -114,7 +114,7 @@ public final class ViewUtils {
     }
 
     /**
-     * Get view center in ths ancestor
+     * Get view center in ths ancestor.
      *
      * @param view the view to start with
      * @param location the container of result
@@ -127,7 +127,7 @@ public final class ViewUtils {
     }
 
     /**
-     * Get view location in ths ancestor
+     * Get view location in ths ancestor.
      *
      * @param view the view to start with
      * @param location the container of result
@@ -237,14 +237,15 @@ public final class ViewUtils {
     }
 
     /**
-     * Remove view from its parent
+     * Remove view from its parent.
      *
      * @param view the view to remove
      */
     public static void removeFromParent(View view) {
         ViewParent vp = view.getParent();
-        if (vp instanceof ViewGroup)
+        if (vp instanceof ViewGroup) {
             ((ViewGroup) vp).removeView(view);
+        }
     }
 
     /**
@@ -261,8 +262,7 @@ public final class ViewUtils {
      * setLayerType(View.LAYER_TYPE_SOFTWARE, null).'
      * </pre>
      *
-     * @param v
-     *            The view
+     * @param v The view
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static void removeHardwareAccelerationSupport(View v) {
@@ -273,6 +273,10 @@ public final class ViewUtils {
         }
     }
 
+    /**
+     * Method that adds the support for HardwareAcceleration from a
+     * {@link View}.
+     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static void addHardwareAccelerationSupport(View v) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
@@ -282,22 +286,26 @@ public final class ViewUtils {
         }
     }
 
+    /**
+     * Measure a view. It is useful to get its size before layout.
+     */
     public static void measureView(View v, int width, int height) {
         int widthMeasureSpec;
         int heightMeasureSpec;
-        if (width == ViewGroup.LayoutParams.WRAP_CONTENT)
+        if (width == ViewGroup.LayoutParams.WRAP_CONTENT) {
             widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0,
                     View.MeasureSpec.UNSPECIFIED);
-        else
+        } else {
             widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(Math.max(width, 0),
                     View.MeasureSpec.EXACTLY);
-        if (height == ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+        if (height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0,
                     View.MeasureSpec.UNSPECIFIED);
-        else
+        } else {
             heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(Math.max(height, 0),
                     View.MeasureSpec.EXACTLY);
-
+        }
         v.measure(widthMeasureSpec, heightMeasureSpec);
     }
 
@@ -314,18 +322,17 @@ public final class ViewUtils {
     public static boolean isViewUnder(@Nullable View view, int x, int y, int slop) {
         if (view == null) {
             return false;
-        } else {
-            float translationX = 0.0f;
-            float translationY = 0.0f;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                translationX = view.getTranslationX();
-                translationY = view.getTranslationY();
-            }
-            return x >= view.getLeft() + translationX - slop &&
-                    x < view.getRight() + translationX + slop &&
-                    y >= view.getTop() + translationY - slop &&
-                    y < view.getBottom() + translationY + slop;
         }
+        float translationX = 0.0f;
+        float translationY = 0.0f;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            translationX = view.getTranslationX();
+            translationY = view.getTranslationY();
+        }
+        return x >= view.getLeft() + translationX - slop &&
+                x < view.getRight() + translationX + slop &&
+                y >= view.getTop() + translationY - slop &&
+                y < view.getBottom() + translationY + slop;
     }
 
     /**
@@ -356,7 +363,7 @@ public final class ViewUtils {
     }
 
     /**
-     * removeOnGlobalLayoutListener
+     * Remove onGlobalLayoutListener.
      *
      * @param viewTreeObserver the ViewTreeObserver
      * @param l the OnGlobalLayoutListener
@@ -372,7 +379,7 @@ public final class ViewUtils {
     }
 
     /**
-     * Get index in parent
+     * Get index in parent.
      *
      * @param view The view
      * @return The index
@@ -393,7 +400,7 @@ public final class ViewUtils {
     }
 
     /**
-     * Transform point from parent to child
+     * Transform point from parent to child.
      *
      * @param point the point
      * @param parent the parent
@@ -404,16 +411,9 @@ public final class ViewUtils {
         point[1] += parent.getScrollY() - child.getTop();
     }
 
-    public static void setEnabledRecursively(View view, boolean enabled) {
-        if (view instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view;
-            for (int i = 0, n = viewGroup.getChildCount(); i < n; i++) {
-                setEnabledRecursively(viewGroup.getChildAt(i), enabled);
-            }
-        }
-        view.setEnabled(enabled);
-    }
-
+    /**
+     * Dump view hierarchy for debug
+     */
     public static void dumpViewHierarchy(View view, PrintWriter writer) {
         dumpViewHierarchy(view, writer, "");
     }
@@ -450,14 +450,14 @@ public final class ViewUtils {
     }
 
     /**
-     * Offset this view translationX
+     * Offset this view translationX.
      */
     public static void translationXBy(View view, float offset) {
         view.setTranslationX(view.getTranslationX() + offset);
     }
 
     /**
-     * Offset this view translationY
+     * Offset this view translationY.
      */
     public static void translationYBy(View view, float offset) {
         view.setTranslationY(view.getTranslationY() + offset);
@@ -485,6 +485,9 @@ public final class ViewUtils {
         return view.getBottom() + view.getTranslationY();
     }
 
+    /**
+     * NonNull version findViewById.
+     */
     @NonNull
     public static View $$(Activity activity, @IdRes int id) {
         View result = activity.findViewById(id);
@@ -494,6 +497,9 @@ public final class ViewUtils {
         return result;
     }
 
+    /**
+     * NonNull version findViewById.
+     */
     @NonNull
     public static View $$(Dialog dialog, @IdRes int id) {
         View result = dialog.findViewById(id);
@@ -503,6 +509,9 @@ public final class ViewUtils {
         return result;
     }
 
+    /**
+     * NonNull version findViewById.
+     */
     @NonNull
     public static View $$(View view, @IdRes int id) {
         View result = view.findViewById(id);

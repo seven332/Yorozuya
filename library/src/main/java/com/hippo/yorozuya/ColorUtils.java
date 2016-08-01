@@ -17,22 +17,21 @@
 package com.hippo.yorozuya;
 
 import android.graphics.Color;
+import android.support.annotation.CheckResult;
 
 public final class ColorUtils {
     private ColorUtils() {}
 
     /**
-     * Check is it the color opaque
-     *
-     * @param color the color
-     * @return true if it is opaque
+     * Return true if the color is opaque.
      */
+    @CheckResult
     public static boolean isOpaque(int color) {
         return color >>> 24 == 0xFF;
     }
 
     /**
-     * Get different depth color base on the color
+     * Get different depth color base on the color.
      * <p>
      * if {@code absolute} is true, {@code dark} is in [0.0f, 1.0f]<br>
      * 0.0f    <----> 1.0f<br>
@@ -41,6 +40,7 @@ public final class ColorUtils {
      * -1.0f   <---->    0.0f     <----> 1.0f<br>
      * darkest <----> color depth <----> lightest
      */
+    @CheckResult
     public static int depthColor(int color, float dark, boolean absolute) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);

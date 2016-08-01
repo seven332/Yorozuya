@@ -16,6 +16,8 @@
 
 package com.hippo.yorozuya;
 
+import android.support.annotation.CheckResult;
+
 public final class NumberUtils {
     private NumberUtils() {}
 
@@ -25,6 +27,7 @@ public final class NumberUtils {
      * @param integer the int
      * @return the boolean
      */
+    @CheckResult
     public static boolean int2boolean(int integer) {
         return integer != 0;
     }
@@ -35,6 +38,7 @@ public final class NumberUtils {
      * @param bool the boolean
      * @return the int
      */
+    @CheckResult
     public static int boolean2int(boolean bool) {
         return bool ? 1 : 0;
     }
@@ -46,6 +50,7 @@ public final class NumberUtils {
      * @param defaultValue the value to return when get error
      * @return the value of the string
      */
+    @CheckResult
     public static int parseIntSafely(String str, int defaultValue) {
         try {
             return Integer.parseInt(str);
@@ -61,6 +66,7 @@ public final class NumberUtils {
      * @param defaultValue the value to return when get error
      * @return the value of the string
      */
+    @CheckResult
     public static long parseLongSafely(String str, long defaultValue) {
         try {
             return Long.parseLong(str);
@@ -76,6 +82,7 @@ public final class NumberUtils {
      * @param defaultValue the value to return when get error
      * @return the value of the string
      */
+    @CheckResult
     public static float parseFloatSafely(String str, float defaultValue) {
         try {
             return Float.parseFloat(str);

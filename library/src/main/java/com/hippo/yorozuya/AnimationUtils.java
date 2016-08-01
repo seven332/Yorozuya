@@ -24,7 +24,18 @@ import android.view.animation.Interpolator;
 public final class AnimationUtils {
     private AnimationUtils() {}
 
+    /**
+     * Just {@link LinearOutSlowInInterpolator}.
+     */
     public static final Interpolator FAST_SLOW_INTERPOLATOR = new LinearOutSlowInInterpolator();
+
+    /**
+     * Just {@link FastOutLinearInInterpolator}.
+     */
     public static final Interpolator SLOW_FAST_INTERPOLATOR = new FastOutLinearInInterpolator();
+
+    /**
+     * Just {@link FastOutSlowInInterpolator}.
+     */
     public static final Interpolator SLOW_FAST_SLOW_INTERPOLATOR = new FastOutSlowInInterpolator();
 }

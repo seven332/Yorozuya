@@ -21,18 +21,14 @@ import android.animation.Animator;
 public abstract class SimpleAnimatorListener implements Animator.AnimatorListener {
 
     @Override
-    public void onAnimationStart(Animator animation) {
-    }
+    public void onAnimationStart(Animator animation) {}
 
     @Override
-    public void onAnimationEnd(Animator animation) {
-    }
+    public void onAnimationEnd(Animator animation) {}
 
     @Override
-    public void onAnimationCancel(Animator animation) {
-    }
+    public void onAnimationCancel(Animator animation) {}
 
     @Override
-    public void onAnimationRepeat(Animator animation) {
-    }
+    public void onAnimationRepeat(Animator animation) {}
 }
