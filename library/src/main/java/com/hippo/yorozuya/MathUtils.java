@@ -512,6 +512,13 @@ public final class MathUtils {
     }
 
     /**
+     * Return true if n is pow of 2.
+     */
+    public static boolean pow2(int n) {
+        return (n != 0) && ((n & (n - 1)) == 0);
+    }
+
+    /**
      * Returns the next power of two.
      * Returns the input if it is already power of 2.
      * Throws IllegalArgumentException if the input is <= 0 or
