@@ -174,6 +174,72 @@ public final class MathUtils {
     }
 
     /**
+     * Return average of the array without overflow.
+     * Both positive and negative are supported.
+     * Throw IllegalArgumentException if arg is empty.
+     */
+    public static int average(@NonNull int... arg) {
+        int length = arg.length;
+        if (length <= 0) {
+            throw new IllegalArgumentException("Can't get average from empty array");
+        }
+
+        int x = 0, y = 0;
+        for (int n : arg) {
+            x += n / length;
+            y += n % length;
+            if (y >= length) {
+                ++x;
+                y -= length;
+            } else if (y <= -length) {
+                --x;
+                y += length;
+            }
+        }
+
+        if (x > 0 && y < 0) {
+            --x;
+        } else if (x < 0 && y > 0) {
+            ++x;
+        }
+
+        return x;
+    }
+
+    /**
+     * Return average of the array without overflow.
+     * Both positive and negative are supported.
+     * Throw IllegalArgumentException if arg is empty.
+     */
+    public static long average(@NonNull long... arg) {
+        int length = arg.length;
+        if (length <= 0) {
+            throw new IllegalArgumentException("Can't get average from empty array");
+        }
+
+        long x = 0, y = 0;
+        for (long n : arg) {
+            x += n / length;
+            y += n % length;
+            if (y >= length) {
+                ++x;
+                y -= length;
+            } else if (y <= -length) {
+                --x;
+                y += length;
+            }
+        }
+
+        if (x > 0 && y < 0) {
+            --x;
+        } else if (x < 0 && y > 0) {
+            ++x;
+        }
+
+        return x;
+    }
+
+    /**
      * Returns distance between two point
      *
      * @param x1 The x-coordinate of the first point
