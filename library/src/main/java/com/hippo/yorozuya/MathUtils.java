@@ -589,21 +589,101 @@ public final class MathUtils {
     }
 
     /**
-     * Divide then ceil.
-     * Negative is not supported.
+     * Returns the largest (closest to positive infinity)
+     * {@code int} value that is less than or equal to the algebraic quotient.
      */
     @CheckResult
-    public static int ceilDivide(int a, int b) {
-        return (a + b - 1) / b;
+    public static int floorDiv(int x, int y) {
+        int r = x / y;
+        // if the signs are different and modulo not zero, round down
+        if ((x ^ y) < 0 && (r * y != x)) {
+            r--;
+        }
+        return r;
     }
 
     /**
-     * Divide then ceil.
-     * Negative is not supported.
+     * Returns the largest (closest to positive infinity)
+     * {@code long} value that is less than or equal to the algebraic quotient.
      */
     @CheckResult
-    public static long ceilDivide(long a, long b) {
-        return (a + b - 1) / b;
+    public static long floorDiv(long x, long y) {
+        long r = x / y;
+        // if the signs are different and modulo not zero, round down
+        if ((x ^ y) < 0 && (r * y != x)) {
+            r--;
+        }
+        return r;
+    }
+
+    /**
+     * Returns the floor modulus of the {@code int} arguments.
+     * <p>
+     * The relationship between {@code floorDiv} and {@code floorMod} is such that:
+     * <ul>
+     *   <li>{@code floorDiv(x, y) * y + floorMod(x, y) == x}
+     * </ul>
+     */
+    @CheckResult
+    public static int floorMod(int x, int y) {
+        return x - floorDiv(x, y) * y;
+    }
+
+    /**
+     * Returns the floor modulus of the {@code long} arguments.
+     * <p>
+     * The relationship between {@code floorDiv} and {@code floorMod} is such that:
+     * <ul>
+     *   <li>{@code floorDiv(x, y) * y + floorMod(x, y) == x}
+     * </ul>
+     */
+    @CheckResult
+    public static long floorMod(long x, long y) {
+        return x - floorDiv(x, y) * y;
+    }
+
+    /**
+     * Returns the smallest (closest to positive infinity)
+     * {@code int} value that is greater than or equal to the algebraic quotient.
+     */
+    @CheckResult
+    public static int ceilDiv(int x, int y) {
+        return -floorDiv(-x, y);
+    }
+
+    /**
+     * Returns the smallest (closest to positive infinity)
+     * {@code long} value that is greater than or equal to the algebraic quotient.
+     */
+    @CheckResult
+    public static long ceilDiv(long x, long y) {
+        return -floorDiv(-x, y);
+    }
+
+    /**
+     * Returns the ceil modulus of the {@code int} arguments.
+     * <p>
+     * The relationship between {@code ceilDiv} and {@code ceilMod} is such that:
+     * <ul>
+     *   <li>{@code ceilDiv(x, y) * y + ceilMod(x, y) == x}
+     * </ul>
+     */
+    @CheckResult
+    public static int ceilMod(int x, int y) {
+        return x - ceilDiv(x, y) * y;
+    }
+
+    /**
+     * Returns the ceil modulus of the {@code long} arguments.
+     * <p>
+     * The relationship between {@code ceilDiv} and {@code ceilMod} is such that:
+     * <ul>
+     *   <li>{@code ceilDiv(x, y) * y + ceilMod(x, y) == x}
+     * </ul>
+     */
+    @CheckResult
+    public static long ceilMod(long x, long y) {
+        return x - ceilDiv(x, y) * y;
     }
 
     /**
