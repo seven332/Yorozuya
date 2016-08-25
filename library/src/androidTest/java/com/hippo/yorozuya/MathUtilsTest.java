@@ -1,6 +1,9 @@
 package com.hippo.yorozuya;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
+
+import java.util.Arrays;
 
 public class MathUtilsTest extends TestCase {
 
@@ -90,6 +93,134 @@ public class MathUtilsTest extends TestCase {
         assertEquals(nextPow2(m), MathUtils.nextPow2(m));
     }
 
+    public void testFloorDiv() {
+        assertEquals(0, MathUtils.floorDiv(6, 7));
+        assertEquals(1, MathUtils.floorDiv(6, 6));
+        assertEquals(1, MathUtils.floorDiv(6, 5));
+        assertEquals(1, MathUtils.floorDiv(6, 4));
+        assertEquals(2, MathUtils.floorDiv(6, 3));
+        assertEquals(3, MathUtils.floorDiv(6, 2));
+        assertEquals(6, MathUtils.floorDiv(6, 1));
+        assertEquals(-6, MathUtils.floorDiv(6, -1));
+        assertEquals(-3, MathUtils.floorDiv(6, -2));
+        assertEquals(-2, MathUtils.floorDiv(6, -3));
+        assertEquals(-2, MathUtils.floorDiv(6, -4));
+        assertEquals(-2, MathUtils.floorDiv(6, -5));
+        assertEquals(-1, MathUtils.floorDiv(6, -6));
+        assertEquals(-1, MathUtils.floorDiv(6, -7));
+
+        assertEquals(-1, MathUtils.floorDiv(-6, 7));
+        assertEquals(-1, MathUtils.floorDiv(-6, 6));
+        assertEquals(-2, MathUtils.floorDiv(-6, 5));
+        assertEquals(-2, MathUtils.floorDiv(-6, 4));
+        assertEquals(-2, MathUtils.floorDiv(-6, 3));
+        assertEquals(-3, MathUtils.floorDiv(-6, 2));
+        assertEquals(-6, MathUtils.floorDiv(-6, 1));
+        assertEquals(6, MathUtils.floorDiv(-6, -1));
+        assertEquals(3, MathUtils.floorDiv(-6, -2));
+        assertEquals(2, MathUtils.floorDiv(-6, -3));
+        assertEquals(1, MathUtils.floorDiv(-6, -4));
+        assertEquals(1, MathUtils.floorDiv(-6, -5));
+        assertEquals(1, MathUtils.floorDiv(-6, -6));
+        assertEquals(0, MathUtils.floorDiv(-6, -7));
+    }
+
+    public void testCeilDiv() {
+        assertEquals(1, MathUtils.ceilDiv(6, 7));
+        assertEquals(1, MathUtils.ceilDiv(6, 6));
+        assertEquals(2, MathUtils.ceilDiv(6, 5));
+        assertEquals(2, MathUtils.ceilDiv(6, 4));
+        assertEquals(2, MathUtils.ceilDiv(6, 3));
+        assertEquals(3, MathUtils.ceilDiv(6, 2));
+        assertEquals(6, MathUtils.ceilDiv(6, 1));
+        assertEquals(-6, MathUtils.ceilDiv(6, -1));
+        assertEquals(-3, MathUtils.ceilDiv(6, -2));
+        assertEquals(-2, MathUtils.ceilDiv(6, -3));
+        assertEquals(-1, MathUtils.ceilDiv(6, -4));
+        assertEquals(-1, MathUtils.ceilDiv(6, -5));
+        assertEquals(-1, MathUtils.ceilDiv(6, -6));
+        assertEquals(0, MathUtils.ceilDiv(6, -7));
+
+        assertEquals(0, MathUtils.ceilDiv(-6, 7));
+        assertEquals(-1, MathUtils.ceilDiv(-6, 6));
+        assertEquals(-1, MathUtils.ceilDiv(-6, 5));
+        assertEquals(-1, MathUtils.ceilDiv(-6, 4));
+        assertEquals(-2, MathUtils.ceilDiv(-6, 3));
+        assertEquals(-3, MathUtils.ceilDiv(-6, 2));
+        assertEquals(-6, MathUtils.ceilDiv(-6, 1));
+        assertEquals(6, MathUtils.ceilDiv(-6, -1));
+        assertEquals(3, MathUtils.ceilDiv(-6, -2));
+        assertEquals(2, MathUtils.ceilDiv(-6, -3));
+        assertEquals(2, MathUtils.ceilDiv(-6, -4));
+        assertEquals(2, MathUtils.ceilDiv(-6, -5));
+        assertEquals(1, MathUtils.ceilDiv(-6, -6));
+        assertEquals(1, MathUtils.ceilDiv(-6, -7));
+    }
+
+    public void testFloorMod() {
+        assertEquals(6, MathUtils.floorMod(6, 7));
+        assertEquals(0, MathUtils.floorMod(6, 6));
+        assertEquals(1, MathUtils.floorMod(6, 5));
+        assertEquals(2, MathUtils.floorMod(6, 4));
+        assertEquals(0, MathUtils.floorMod(6, 3));
+        assertEquals(0, MathUtils.floorMod(6, 2));
+        assertEquals(0, MathUtils.floorMod(6, 1));
+        assertEquals(0, MathUtils.floorMod(6, -1));
+        assertEquals(0, MathUtils.floorMod(6, -2));
+        assertEquals(0, MathUtils.floorMod(6, -3));
+        assertEquals(-2, MathUtils.floorMod(6, -4));
+        assertEquals(-4, MathUtils.floorMod(6, -5));
+        assertEquals(0, MathUtils.floorMod(6, -6));
+        assertEquals(-1, MathUtils.floorMod(6, -7));
+
+        assertEquals(1, MathUtils.floorMod(-6, 7));
+        assertEquals(0, MathUtils.floorMod(-6, 6));
+        assertEquals(4, MathUtils.floorMod(-6, 5));
+        assertEquals(2, MathUtils.floorMod(-6, 4));
+        assertEquals(0, MathUtils.floorMod(-6, 3));
+        assertEquals(0, MathUtils.floorMod(-6, 2));
+        assertEquals(0, MathUtils.floorMod(-6, 1));
+        assertEquals(0, MathUtils.floorMod(-6, -1));
+        assertEquals(0, MathUtils.floorMod(-6, -2));
+        assertEquals(0, MathUtils.floorMod(-6, -3));
+        assertEquals(-2, MathUtils.floorMod(-6, -4));
+        assertEquals(-1, MathUtils.floorMod(-6, -5));
+        assertEquals(0, MathUtils.floorMod(-6, -6));
+        assertEquals(-6, MathUtils.floorMod(-6, -7));
+    }
+
+    public void testCeilMod() {
+        assertEquals(-1, MathUtils.ceilMod(6, 7));
+        assertEquals(0, MathUtils.ceilMod(6, 6));
+        assertEquals(-4, MathUtils.ceilMod(6, 5));
+        assertEquals(-2, MathUtils.ceilMod(6, 4));
+        assertEquals(0, MathUtils.ceilMod(6, 3));
+        assertEquals(0, MathUtils.ceilMod(6, 2));
+        assertEquals(0, MathUtils.ceilMod(6, 1));
+        assertEquals(0, MathUtils.ceilMod(6, -1));
+        assertEquals(0, MathUtils.ceilMod(6, -2));
+        assertEquals(0, MathUtils.ceilMod(6, -3));
+        assertEquals(2, MathUtils.ceilMod(6, -4));
+        assertEquals(1, MathUtils.ceilMod(6, -5));
+        assertEquals(0, MathUtils.ceilMod(6, -6));
+        assertEquals(6, MathUtils.ceilMod(6, -7));
+
+        assertEquals(-6, MathUtils.ceilMod(-6, 7));
+        assertEquals(0, MathUtils.ceilMod(-6, 6));
+        assertEquals(-1, MathUtils.ceilMod(-6, 5));
+        assertEquals(-2, MathUtils.ceilMod(-6, 4));
+        assertEquals(0, MathUtils.ceilMod(-6, 3));
+        assertEquals(0, MathUtils.ceilMod(-6, 2));
+        assertEquals(0, MathUtils.ceilMod(-6, 1));
+        assertEquals(0, MathUtils.ceilMod(-6, -1));
+        assertEquals(0, MathUtils.ceilMod(-6, -2));
+        assertEquals(0, MathUtils.ceilMod(-6, -3));
+        assertEquals(2, MathUtils.ceilMod(-6, -4));
+        assertEquals(4, MathUtils.ceilMod(-6, -5));
+        assertEquals(0, MathUtils.ceilMod(-6, -6));
+        assertEquals(1, MathUtils.ceilMod(-6, -7));
+    }
+
     public void testRandom() {
         int[] siArray = {0,    0,        0, 233,  34242341, -34242342, -1};
         int[] biArray = {4325, 34242342, 1, 4325, 34242342, -34242341,  0};
@@ -122,8 +253,8 @@ public class MathUtilsTest extends TestCase {
         }
 
 
-        float[] sfArray = {0f,    0f,        0.99f, 233f,  34242341.99f, -34242342f,    -0.99f};
-        float[] bfArray = {4325f, 34242342f, 1f,    4325f, 34242342f,    -34242341.99f,  0f};
+        float[] sfArray = {0f,    0f,        0.99f, 233f,  34341.99f, -34342f,    -0.99f};
+        float[] bfArray = {4325f, 34242342f, 1f,    4325f, 34342f,    -34341.99f,  0f};
         for (int i = 0; i < siArray.length; i++) {
             float sf = sfArray[i];
             float bf = bfArray[i];
@@ -135,6 +266,40 @@ public class MathUtilsTest extends TestCase {
             }
             assertEquals("rf = " + rf + ", i = " + i, true, rf >= sf);
             assertEquals("rf = " + rf + ", i = " + i, true, rf < bf);
+        }
+
+        double[] sdArray = {0,    0,        0.99, 233,  34242341.99, -34242342,    -0.99};
+        double[] bdArray = {4325, 34242342, 1,    4325, 34242342,    -34242341.99,  0};
+        for (int i = 0; i < siArray.length; i++) {
+            double sd = sdArray[i];
+            double bd = bdArray[i];
+            double rd;
+            if (sd == 0f) {
+                rd = MathUtils.random(bd);
+            } else {
+                rd = MathUtils.random(sd, bd);
+            }
+            assertEquals("rf = " + rd + ", i = " + i, true, rd >= sd);
+            assertEquals("rf = " + rd + ", i = " + i, true, rd < bd);
+        }
+    }
+
+    private int average(int... arg) {
+        long max = 0;
+        for (int n : arg) {
+            max += n;
+        }
+        return (int) (max / arg.length);
+    }
+
+    public void testAverage() {
+        for (int j = 0; j < 1000; j++) {
+            int length = 2;
+            int[] a = new int[length];
+            for (int i = 0; i < length; i++) {
+                a[i] = MathUtils.random(Integer.MIN_VALUE, Integer.MAX_VALUE);
+            }
+            Assert.assertEquals(Arrays.toString(a), average(a), MathUtils.average(a));
         }
     }
 }
