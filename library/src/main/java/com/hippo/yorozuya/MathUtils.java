@@ -719,11 +719,25 @@ public final class MathUtils {
      */
     @CheckResult
     public static int random(int howsmall, int howbig) {
-        final int dist = howbig - howsmall;
-        if (dist <= 0) {
-            throw new IllegalArgumentException("howbig <= howsmall: " + howbig + " <= " + howsmall);
+        if (howsmall >= howbig) {
+            throw new IllegalArgumentException("howsmall >= howbig: " + howsmall + " >= " + howbig);
         }
-        return howsmall + sRandom.nextInt(dist);
+        int r = sRandom.nextInt();
+        int n = howbig - howsmall, m = n - 1;
+        if ((n & m) == 0)
+            r = (r & m) + howsmall;
+        else if (n > 0) {
+            for (int u = r >>> 1;
+                 u + m - (r = u % n) < 0;
+                 u = sRandom.nextInt() >>> 1)
+                ;
+            r += howsmall;
+        }
+        else {
+            while (r < howsmall || r >= howbig)
+                r = sRandom.nextInt();
+        }
+        return r;
     }
 
     /**
@@ -751,11 +765,25 @@ public final class MathUtils {
      */
     @CheckResult
     public static long random(long howsmall, long howbig) {
-        final long dist = howbig - howsmall;
-        if (dist <= 0) {
-            throw new IllegalArgumentException("howbig <= howsmall: " + howbig + " <= " + howsmall);
+        if (howsmall >= howbig) {
+            throw new IllegalArgumentException("howsmall >= howbig: " + howsmall + " >= " + howbig);
         }
-        return howsmall + random(dist);
+        long r = sRandom.nextLong();
+        long n = howbig - howsmall, m = n - 1;
+        if ((n & m) == 0L)  // power of two
+            r = (r & m) + howsmall;
+        else if (n > 0L) {  // reject over-represented candidates
+            for (long u = r >>> 1;            // ensure nonnegative
+                 u + m - (r = u % n) < 0L;    // rejection check
+                 u = sRandom.nextLong() >>> 1) // retry
+                ;
+            r += howsmall;
+        }
+        else {              // range not representable as long
+            while (r < howsmall || r >= howbig)
+                r = sRandom.nextLong();
+        }
+        return r;
     }
 
     /**
@@ -765,10 +793,7 @@ public final class MathUtils {
      */
     @CheckResult
     public static float random(float howbig) {
-        if (howbig <= 0.0f) {
-            throw new IllegalArgumentException("howbig <= 0.0f: " + howbig);
-        }
-        return sRandom.nextFloat() * howbig;
+        return random(0.0f, howbig);
     }
 
     /**
@@ -778,11 +803,14 @@ public final class MathUtils {
      */
     @CheckResult
     public static float random(float howsmall, float howbig) {
-        final float dist = howbig - howsmall;
-        if (dist <= 0.0f) {
-            throw new IllegalArgumentException("howbig <= howsmall: " + howbig + " <= " + howsmall);
+        if (howsmall >= howbig) {
+            throw new IllegalArgumentException("howsmall >= howbig: " + howsmall + " >= " + howbig);
         }
-        return howsmall + random(dist);
+        float r = sRandom.nextFloat();
+        r = r * (howbig - howsmall) + howsmall;
+        if (r >= howbig) // correct for rounding
+            r = Float.intBitsToFloat(Float.floatToIntBits(howbig) - 1);
+        return r;
     }
 
     /**
@@ -792,10 +820,7 @@ public final class MathUtils {
      */
     @CheckResult
     public static double random(double howbig) {
-        if (howbig <= 0.0) {
-            throw new IllegalArgumentException("howbig <= 0.0: " + howbig);
-        }
-        return sRandom.nextDouble() * howbig;
+        return random(0.0, howbig);
     }
 
     /**
@@ -805,11 +830,14 @@ public final class MathUtils {
      */
     @CheckResult
     public static double random(double howsmall, double howbig) {
-        final double dist = howbig - howsmall;
-        if (dist <= 0.0) {
-            throw new IllegalArgumentException("howbig <= howsmall: " + howbig + " <= " + howsmall);
+        if (howsmall >= howbig) {
+            throw new IllegalArgumentException("howsmall >= howbig: " + howsmall + " >= " + howbig);
         }
-        return howsmall + random(dist);
+        double r = sRandom.nextDouble();
+        r = r * (howbig - howsmall) + howsmall;
+        if (r >= howbig) // correct for rounding
+            r = Double.longBitsToDouble(Double.doubleToLongBits(howbig) - 1);
+        return r;
     }
 
     /**
