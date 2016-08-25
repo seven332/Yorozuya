@@ -35,7 +35,7 @@ public final class MathUtils {
      */
     @CheckResult
     public static int max(@NonNull int... arg) {
-        int length = arg.length;
+        final int length = arg.length;
         if (length <= 0) {
             throw new IllegalArgumentException("Can't get max value from empty array");
         }
@@ -52,7 +52,7 @@ public final class MathUtils {
      */
     @CheckResult
     public static long max(@NonNull long... arg) {
-        int length = arg.length;
+        final int length = arg.length;
         if (length <= 0) {
             throw new IllegalArgumentException("Can't get max value from empty array");
         }
@@ -71,7 +71,7 @@ public final class MathUtils {
      */
     @CheckResult
     public static float max(@NonNull float... arg) {
-        int length = arg.length;
+        final int length = arg.length;
         if (length <= 0) {
             throw new IllegalArgumentException("Can't get max value from empty array");
         }
@@ -90,7 +90,7 @@ public final class MathUtils {
      */
     @CheckResult
     public static double max(@NonNull double... arg) {
-        int length = arg.length;
+        final int length = arg.length;
         if (length <= 0) {
             throw new IllegalArgumentException("Can't get max value from empty array");
         }
@@ -107,7 +107,7 @@ public final class MathUtils {
      */
     @CheckResult
     public static int min(@NonNull int... arg) {
-        int length = arg.length;
+        final int length = arg.length;
         if (length <= 0) {
             throw new IllegalArgumentException("Can't get min value from empty array");
         }
@@ -124,7 +124,7 @@ public final class MathUtils {
      */
     @CheckResult
     public static long min(@NonNull long... arg) {
-        int length = arg.length;
+        final int length = arg.length;
         if (length <= 0) {
             throw new IllegalArgumentException("Can't get min value from empty array");
         }
@@ -143,7 +143,7 @@ public final class MathUtils {
      */
     @CheckResult
     public static float min(@NonNull float... arg) {
-        int length = arg.length;
+        final int length = arg.length;
         if (length <= 0) {
             throw new IllegalArgumentException("Can't get min value from empty array");
         }
@@ -162,7 +162,7 @@ public final class MathUtils {
      */
     @CheckResult
     public static double min(@NonNull double... arg) {
-        int length = arg.length;
+        final int length = arg.length;
         if (length <= 0) {
             throw new IllegalArgumentException("Can't get min value from empty array");
         }
@@ -179,7 +179,7 @@ public final class MathUtils {
      * Throw IllegalArgumentException if arg is empty.
      */
     public static int average(@NonNull int... arg) {
-        int length = arg.length;
+        final int length = arg.length;
         if (length <= 0) {
             throw new IllegalArgumentException("Can't get average from empty array");
         }
@@ -212,13 +212,13 @@ public final class MathUtils {
      * Throw IllegalArgumentException if arg is empty.
      */
     public static long average(@NonNull long... arg) {
-        int length = arg.length;
+        final int length = arg.length;
         if (length <= 0) {
             throw new IllegalArgumentException("Can't get average from empty array");
         }
 
         long x = 0, y = 0;
-        for (long n : arg) {
+        for (final long n : arg) {
             x += n / length;
             y += n % length;
             if (y >= length) {
@@ -697,8 +697,8 @@ public final class MathUtils {
      */
     @CheckResult
     public static float coverRadius(float w, float h, float x, float y) {
-        float x2 = (x > w / 2) ? 0 : w;
-        float y2 = (y > h / 2) ? 0 : h;
+        final float x2 = (x > w / 2) ? 0 : w;
+        final float y2 = (y > h / 2) ? 0 : h;
         return dist(x, y, x2, y2);
     }
 
