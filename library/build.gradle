@@ -5,7 +5,7 @@ group='com.github.seven332'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         minSdkVersion 11
@@ -24,7 +24,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:24.1.1'
+    compile 'com.android.support:support-v4:24.2.0'
     compile 'com.github.seven332:yorozuya-collect:0.1.4'
     compile 'com.github.seven332:yorozuya-thread:0.1.1'
     testCompile 'junit:junit:4.12'
