@@ -1,0 +1,7 @@
+description = 'Yorozuya'
+
+dependencies {
+    compile 'com.google.code.findbugs:jsr305:3.0.1'
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.github.seven332.okio:okio:1.11.0'
+}
