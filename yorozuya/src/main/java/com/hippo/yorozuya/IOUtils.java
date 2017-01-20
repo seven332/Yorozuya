@@ -29,7 +29,7 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class IOUtils {
+public final class IOUtils {
   private IOUtils() {}
 
   private static final int EOF = -1;
