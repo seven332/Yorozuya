@@ -26,8 +26,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public final class IOUtils {
   private IOUtils() {}
@@ -35,14 +33,19 @@ public final class IOUtils {
   private static final int EOF = -1;
   private static final int DEFAULT_BUFFER_SIZE = 1024 * 8;
 
+  /**
+   * UTF_8 Charset.
+   */
   public static final Charset UTF_8 = Charset.forName("UTF-8");
 
   /**
    * Closes the {@link Closeable}. Have no worries.
+   *
+   * @param closeable the objects to close, may be null or already closed
    */
-  public static void closeQuietly(@Nullable Closeable is) {
+  public static void closeQuietly(Closeable closeable) {
     try {
-      if (is != null) is.close();
+      if (closeable != null) closeable.close();
     } catch (IOException e) {
       // Ignore
     }
@@ -50,9 +53,14 @@ public final class IOUtils {
 
   /**
    * Copies all bytes from {@code is} to {@code os}.
-   * Returns how many bytes copied.
+   *
+   * @param is the {@code InputStream} to read from, may be null
+   * @param os the {@code OutputStream} to write to, may be null
+   * @return the number of bytes copied, or 0 if {@code is} or {@code os} is null
+   * @throws IOException if an I/O error occurs
    */
-  public static long copy(@Nonnull InputStream is, @Nonnull OutputStream os) throws IOException {
+  public static long copy(InputStream is, OutputStream os) throws IOException {
+    if (is == null || os == null) return 0;
     byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
     long count = 0;
     int n;
@@ -65,22 +73,38 @@ public final class IOUtils {
 
   /**
    * Reads all bytes from {@code is} as a UTF-8 {@link String}.
+   *
+   * @param is the {@code InputStream} to read from, may be null
+   * @return the requested String, or {@code null} if {@code is} is null
+   * @throws IOException if an I/O error occurs
    */
-  public static String toString(@Nonnull InputStream is) throws IOException {
+  public static String toString(InputStream is) throws IOException {
     return toString(is, UTF_8);
   }
 
   /**
    * Reads all bytes from {@code is} as a {@link String}.
+   *
+   * @param is the {@code InputStream} to read from, may be null
+   * @param charset the charset of the requested String, may be null
+   * @return the requested String, or {@code null} if {@code is} or {@code charset} is null
+   * @throws IOException if an I/O error occurs
    */
-  public static String toString(@Nonnull InputStream is, @Nonnull Charset charset) throws IOException {
+  public static String toString(InputStream is, Charset charset) throws IOException {
+    if (is == null || charset == null) return null;
     return toString(is, charset.name());
   }
 
   /**
    * Reads all bytes from {@code is} as a {@link String}.
+   *
+   * @param is the {@code InputStream} to read from, may be null
+   * @param charsetName the charset name of the requested String, may be null
+   * @return the requested String, or {@code null} if {@code is} or {@code charsetName} is null
+   * @throws IOException if an I/O error occurs
    */
-  public static String toString(@Nonnull InputStream is, @Nonnull String charsetName) throws IOException {
+  public static String toString(InputStream is, String charsetName) throws IOException {
+    if (is == null || charsetName == null) return null;
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     copy(is, os);
     return os.toString(charsetName);
@@ -88,8 +112,13 @@ public final class IOUtils {
 
   /**
    * Reads all bytes from {@code is}.
+   *
+   * @param is the {@code InputStream} to read from, may be null
+   * @return the requested byte array, or {@code null} if {@code is} is null
+   * @throws IOException if an I/O error occurs
    */
-  public static byte[] toByteArray(@Nonnull InputStream is) throws IOException {
+  public static byte[] toByteArray(InputStream is) throws IOException {
+    if (is == null) return null;
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     copy(is, os);
     return os.toByteArray();
