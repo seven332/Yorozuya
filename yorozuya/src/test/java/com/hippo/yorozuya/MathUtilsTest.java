@@ -20,6 +20,8 @@ package com.hippo.yorozuya;
  * Created by Hippo on 1/21/2017.
  */
 
+import static com.hippo.yorozuya.Utils.assertEqualsDouble;
+import static com.hippo.yorozuya.Utils.assertEqualsFloat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -28,40 +30,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 public class MathUtilsTest {
-
-  private static String formatClassAndValue(Object value, String valueString) {
-    String className = value == null ? "null" : value.getClass().getName();
-    return className + "<" + valueString + ">";
-  }
-
-  private static String format(String message, Object expected, Object actual) {
-    String formatted = "";
-    if (message != null && !message.equals("")) {
-      formatted = message + " ";
-    }
-    String expectedString = String.valueOf(expected);
-    String actualString = String.valueOf(actual);
-    if (expectedString.equals(actualString)) {
-      return formatted + "expected: "
-          + formatClassAndValue(expected, expectedString)
-          + " but was: " + formatClassAndValue(actual, actualString);
-    } else {
-      return formatted + "expected:<" + expectedString + "> but was:<"
-          + actualString + ">";
-    }
-  }
-
-  public static void assertEqualsFloat(float expected, float actual) {
-    if (expected != actual) {
-      throw new AssertionError(format(null, Float.valueOf(expected), Float.valueOf(actual)));
-    }
-  }
-
-  public static void assertEqualsDouble(double expected, double actual) {
-    if (expected != actual) {
-      throw new AssertionError(format(null, Double.valueOf(expected), Double.valueOf(actual)));
-    }
-  }
 
   @Test
   public void testMax() {
