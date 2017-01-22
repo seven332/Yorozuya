@@ -22,7 +22,7 @@ package com.hippo.yorozuya;
 
 import java.io.File;
 
-public class FileUtils {
+public final class FileUtils {
   private FileUtils() {}
 
   /**
