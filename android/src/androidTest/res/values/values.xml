@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2017 Hippo Seven
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+
+  <string name="app_name">Yorozuya-Android-Test</string>
+
+  <declare-styleable name="Theme">
+    <attr name="attr_boolean_1" format="boolean"/>
+    <attr name="attr_boolean_2" format="boolean"/>
+
+    <attr name="attr_integer_1" format="integer"/>
+    <attr name="attr_integer_2" format="integer"/>
+
+    <attr name="attr_float_1" format="float"/>
+    <attr name="attr_float_2" format="float"/>
+
+    <attr name="attr_dimension_1" format="dimension"/>
+    <attr name="attr_dimension_2" format="dimension"/>
+
+    <attr name="attr_color_1" format="color"/>
+    <attr name="attr_color_2" format="color"/>
+  </declare-styleable>
+
+  <item name="boolean1" format="boolean" type="bool">true</item>
+
+  <item name="integer1" format="integer" type="integer">12345</item>
+
+  <item name="float1" format="float" type="integer">5.6</item>
+
+  <item name="dimension1" format="dimension" type="dimen">10dp</item>
+
+  <item name="color1" format="color" type="color">#ffff0000</item>
+
+  <style name="AppTheme" parent="android:Theme.Light">
+    <item name="attr_boolean_1">false</item>
+    <item name="attr_boolean_2">@bool/boolean1</item>
+
+    <item name="attr_integer_1">54321</item>
+    <item name="attr_integer_2">@integer/integer1</item>
+
+    <item name="attr_float_1">6.5</item>
+    <item name="attr_float_2">@integer/float1</item>
+
+    <item name="attr_dimension_1">20dp</item>
+    <item name="attr_dimension_2">@dimen/dimension1</item>
+
+    <item name="attr_color_1">#ff0000ff</item>
+    <item name="attr_color_2">@color/color1</item>
+  </style>
+
+</resources>
