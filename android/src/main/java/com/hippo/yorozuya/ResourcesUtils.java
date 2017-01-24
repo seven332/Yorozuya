@@ -98,9 +98,13 @@ public final class ResourcesUtils {
    * @param context the context to resolve from
    * @param attrId the desired attribute identifier
    * @param value the value container
+   * @throws Resources.NotFoundException if can't resolve the given ID
    */
-  private static boolean getAttrValue(Context context, int attrId, TypedValue value) {
-    return context.getTheme().resolveAttribute(attrId, value, true);
+  private static void resolveAttribute(Context context, int attrId, TypedValue value)
+      throws Resources.NotFoundException {
+    if (!context.getTheme().resolveAttribute(attrId, value, true)) {
+      throw new Resources.NotFoundException("Can't resolve attribute ID #0x" + Integer.toHexString(attrId));
+    }
   }
 
   /**
@@ -119,8 +123,8 @@ public final class ResourcesUtils {
     if (context == null) throw new NullPointerException("context == null");
     final TypedValue value = obtainTempTypedValue();
     try {
-      if (getAttrValue(context, id, value)
-          && value.type >= TypedValue.TYPE_FIRST_INT
+      resolveAttribute(context, id, value);
+      if (value.type >= TypedValue.TYPE_FIRST_INT
           && value.type <= TypedValue.TYPE_LAST_INT) {
         return value.data != 0;
       }
@@ -145,8 +149,8 @@ public final class ResourcesUtils {
     if (context == null) throw new NullPointerException("context == null");
     final TypedValue value = obtainTempTypedValue();
     try {
-      if (getAttrValue(context, id, value)
-          && value.type >= TypedValue.TYPE_FIRST_INT
+      resolveAttribute(context, id, value);
+      if (value.type >= TypedValue.TYPE_FIRST_INT
           && value.type <= TypedValue.TYPE_LAST_INT) {
         return value.data;
       }
@@ -171,8 +175,8 @@ public final class ResourcesUtils {
     if (context == null) throw new NullPointerException("context == null");
     final TypedValue value = obtainTempTypedValue();
     try {
-      if (getAttrValue(context, id, value)
-          && value.type == TypedValue.TYPE_FLOAT) {
+      resolveAttribute(context, id, value);
+      if (value.type == TypedValue.TYPE_FLOAT) {
         return value.getFloat();
       }
       throw new Resources.NotFoundException("Resource ID #0x" + Integer.toHexString(id)
@@ -198,8 +202,8 @@ public final class ResourcesUtils {
     if (context == null) throw new NullPointerException("context == null");
     final TypedValue value = obtainTempTypedValue();
     try {
-      if (getAttrValue(context, id, value)
-          && value.type == TypedValue.TYPE_DIMENSION) {
+      resolveAttribute(context, id, value);
+      if (value.type == TypedValue.TYPE_DIMENSION) {
         return TypedValue.complexToDimension(
             value.data, context.getResources().getDisplayMetrics());
       }
@@ -229,8 +233,8 @@ public final class ResourcesUtils {
     if (context == null) throw new NullPointerException("context == null");
     final TypedValue value = obtainTempTypedValue();
     try {
-      if (getAttrValue(context, id, value)
-          && value.type == TypedValue.TYPE_DIMENSION) {
+      resolveAttribute(context, id, value);
+      if (value.type == TypedValue.TYPE_DIMENSION) {
         return TypedValue.complexToDimensionPixelOffset(
             value.data, context.getResources().getDisplayMetrics());
       }
@@ -261,8 +265,8 @@ public final class ResourcesUtils {
     if (context == null) throw new NullPointerException("context == null");
     final TypedValue value = obtainTempTypedValue();
     try {
-      if (getAttrValue(context, id, value)
-          && value.type == TypedValue.TYPE_DIMENSION) {
+      resolveAttribute(context, id, value);
+      if (value.type == TypedValue.TYPE_DIMENSION) {
         return TypedValue.complexToDimensionPixelSize(
             value.data, context.getResources().getDisplayMetrics());
       }
