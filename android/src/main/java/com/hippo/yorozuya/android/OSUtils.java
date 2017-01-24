@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package com.hippo.yorozuya;
+package com.hippo.yorozuya.android;
 
 /*
  * Created by Hippo on 1/24/2017.
  */
 
+import com.hippo.yorozuya.IOUtils;
+import com.hippo.yorozuya.NumberUtils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

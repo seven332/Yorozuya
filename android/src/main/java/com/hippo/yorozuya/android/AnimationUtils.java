@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hippo.yorozuya;
+package com.hippo.yorozuya.android;
 
 /*
  * Created by Hippo on 1/23/2017.

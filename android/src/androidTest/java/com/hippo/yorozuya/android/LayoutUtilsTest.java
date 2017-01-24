@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.hippo.yorozuya;
+package com.hippo.yorozuya.android;
 
 /*
  * Created by Hippo on 1/23/2017.
  */
 
-import static com.hippo.yorozuya.Utils.assertEqualsFloat;
+import static com.hippo.yorozuya.android.Utils.assertEqualsFloat;
 import static org.junit.Assert.assertEquals;
 
 import android.content.Context;
