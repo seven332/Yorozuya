@@ -25,7 +25,8 @@ android {
 }
 
 dependencies {
-    compile('com.android.support:support-core-ui:25.1.0')
+    compile project(':yorozuya')
+    compile 'com.android.support:support-core-ui:25.1.0'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
