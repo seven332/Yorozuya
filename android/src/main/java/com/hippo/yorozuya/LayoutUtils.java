@@ -31,8 +31,10 @@ public final class LayoutUtils {
    * @param context the context
    * @param dp the dp value to convert
    * @return the pix value
+   * @throws NullPointerException if {@code context == null}
    */
-  public static int dp2pix(Context context, float dp) {
+  public static int dp2pix(Context context, float dp) throws NullPointerException {
+    if (context == null) throw new NullPointerException("context == null");
     return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
   }
 
@@ -42,8 +44,10 @@ public final class LayoutUtils {
    * @param context the context
    * @param pix the pix value to convert
    * @return the dp value
+   * @throws NullPointerException if {@code context == null}
    */
-  public static float pix2dp(Context context, int pix) {
+  public static float pix2dp(Context context, int pix) throws NullPointerException {
+    if (context == null) throw new NullPointerException("context == null");
     return pix / context.getResources().getDisplayMetrics().density;
   }
 
@@ -53,8 +57,10 @@ public final class LayoutUtils {
    * @param context the context
    * @param sp the sp value to convert
    * @return the pix value
+   * @throws NullPointerException if {@code context == null}
    */
-  public static int sp2pix(Context context, float sp) {
+  public static int sp2pix(Context context, float sp) throws NullPointerException {
+    if (context == null) throw new NullPointerException("context == null");
     return (int) (sp * context.getResources().getDisplayMetrics().scaledDensity + 0.5f);
   }
 
@@ -64,8 +70,10 @@ public final class LayoutUtils {
    * @param context the context
    * @param pix the pix value to convert
    * @return the sp value
+   * @throws NullPointerException if {@code context == null}
    */
-  public static float pix2sp(Context context, float pix) {
+  public static float pix2sp(Context context, float pix) throws NullPointerException {
+    if (context == null) throw new NullPointerException("context == null");
     return pix / context.getResources().getDisplayMetrics().scaledDensity;
   }
 }
