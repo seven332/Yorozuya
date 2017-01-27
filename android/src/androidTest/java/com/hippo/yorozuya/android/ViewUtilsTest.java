@@ -84,28 +84,32 @@ public class ViewUtilsTest {
 
     View view_3_4 = view_1_1.findViewById(R.id.view_3_4);
     Arrays.fill(location, 0);
-    ViewUtils.getLocationInAncestor(view_3_4, R.id.view_1_1, location);
+    assertTrue(ViewUtils.getLocationInAncestor(view_3_4, R.id.view_1_1, location));
     assertEquals(50, location[0]);
     assertEquals(50, location[1]);
     Arrays.fill(location, 0);
-    ViewUtils.getLocationInAncestor(view_3_4, view_1_1, location);
+    assertTrue(ViewUtils.getLocationInAncestor(view_3_4, view_1_1, location));
     assertEquals(50, location[0]);
     assertEquals(50, location[1]);
 
     View view_2_2 = view_1_1.findViewById(R.id.view_2_2);
     Arrays.fill(location, 0);
-    ViewUtils.getLocationInAncestor(view_3_4, R.id.view_2_2, location);
+    assertTrue(ViewUtils.getLocationInAncestor(view_3_4, R.id.view_2_2, location));
     assertEquals(50, location[0]);
     assertEquals(0, location[1]);
     Arrays.fill(location, 0);
-    ViewUtils.getLocationInAncestor(view_3_4, view_2_2, location);
+    assertTrue(ViewUtils.getLocationInAncestor(view_3_4, view_2_2, location));
     assertEquals(50, location[0]);
     assertEquals(0, location[1]);
 
     view_3_4.setTranslationX(100);
     view_3_4.setTranslationY(-50);
     Arrays.fill(location, 0);
-    ViewUtils.getLocationInAncestor(view_3_4, R.id.view_1_1, location);
+    assertTrue(ViewUtils.getLocationInAncestor(view_3_4, R.id.view_1_1, location));
+    assertEquals(150, location[0]);
+    assertEquals(0, location[1]);
+    Arrays.fill(location, 0);
+    assertFalse(ViewUtils.getLocationInAncestor(view_3_4, 0, location));
     assertEquals(150, location[0]);
     assertEquals(0, location[1]);
     view_3_4.setTranslationX(0);

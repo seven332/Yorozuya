@@ -79,10 +79,11 @@ public final class ViewUtils {
    * @param view the view to start with
    * @param ancestorId the ancestor id
    * @param location the container of result
+   * @return {@code true} if find the ancestor
    * @throws IllegalArgumentException if location is not an array of two integers
    * @throws NullPointerException if {@code view == null}
    */
-  public static void getLocationInAncestor(View view, int ancestorId, int[] location)
+  public static boolean getLocationInAncestor(View view, int ancestorId, int[] location)
       throws IllegalArgumentException, NullPointerException {
     if (view == null) {
       throw new NullPointerException("view == null");
@@ -92,6 +93,7 @@ public final class ViewUtils {
           "location must be an array of two integers");
     }
 
+    boolean result = false;
     float[] position = new float[2];
 
     view.getMatrix().mapPoints(position);
@@ -103,6 +105,7 @@ public final class ViewUtils {
     while (viewParent instanceof View) {
       view = (View) viewParent;
       if (view.getId() == ancestorId) {
+        result = true;
         break;
       }
 
@@ -119,6 +122,8 @@ public final class ViewUtils {
 
     location[0] = (int) (position[0] + 0.5f);
     location[1] = (int) (position[1] + 0.5f);
+
+    return result;
   }
 
   /**
@@ -128,15 +133,16 @@ public final class ViewUtils {
    * @param view the view to start with
    * @param ancestor the ancestor
    * @param location the container of result
+   * @return {@code true} if find the ancestor
    * @throws IllegalArgumentException if location is not an array of two integers
    * @throws NullPointerException if {@code view == null} or {@code ancestor == null}
    */
-  public static void getLocationInAncestor(View view, View ancestor, int[] location)
+  public static boolean getLocationInAncestor(View view, View ancestor, int[] location)
       throws IllegalArgumentException, NullPointerException {
     if (ancestor == null) {
       throw new NullPointerException("ancestor == null");
     }
-    getLocationInAncestor(view, ancestor.getId(), location);
+    return getLocationInAncestor(view, ancestor.getId(), location);
   }
 
   /**
