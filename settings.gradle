@@ -1,3 +1,4 @@
 include 'yorozuya'
 include 'yorozuya-annotations'
+include 'yorozuya-preconditions'
 include 'yorozuya-android'
