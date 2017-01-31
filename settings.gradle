@@ -1,3 +1,3 @@
 include 'yorozuya'
-include 'annotations'
-include 'android'
+include 'yorozuya-annotations'
+include 'yorozuya-android'
