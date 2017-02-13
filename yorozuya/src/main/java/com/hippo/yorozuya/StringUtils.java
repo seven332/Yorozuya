@@ -2084,6 +2084,26 @@ public final class StringUtils {
   /**
    * <p>Check if a String ends with a specified suffix.</p>
    *
+   * <pre>
+   * StringUtils.endsWith(null, 'a')       = false
+   * StringUtils.endsWith("abcdef", 'a')   = true
+   * StringUtils.endsWith("ABCDEF", 'a')   = false
+   * </pre>
+   *
+   * @param str the String to check, may be null
+   * @param suffix the suffix to find
+   * @return {@code true} if the String ends with the suffix, case sensitive.
+   */
+  public static boolean endsWith(final String str, final char suffix) {
+    if (str == null || str.isEmpty()) {
+      return false;
+    }
+    return str.charAt(str.length() - 1) == suffix;
+  }
+
+  /**
+   * <p>Check if a String ends with a specified suffix.</p>
+   *
    * <p>{@code null}s are handled without exceptions. Two {@code null}
    * references are considered to be equal. The comparison is case sensitive.</p>
    *

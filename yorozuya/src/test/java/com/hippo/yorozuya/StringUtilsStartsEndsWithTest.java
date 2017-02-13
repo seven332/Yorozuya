@@ -32,6 +32,8 @@ public class StringUtilsStartsEndsWithTest {
   private static final String FOO = "FOO";
   private static final String BAR = "BAR";
   private static final String FOOBAR = "FOOBAR";
+  private static final char o = 'o';
+  private static final char O = 'O';
 
   //-----------------------------------------------------------------------
 
@@ -73,6 +75,21 @@ public class StringUtilsStartsEndsWithTest {
     assertFalse(StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc"));
   }
 
+  /**
+   * Test StringUtils.endsWith()
+   */
+  @Test
+  public void testEndsWithChar() {
+    assertFalse(StringUtils.endsWith(null, o));
+    assertTrue(StringUtils.endsWith(foo, o));
+    assertFalse(StringUtils.endsWith(foobar, o));
+    assertFalse(StringUtils.endsWith(foo, O));
+    assertFalse(StringUtils.endsWith(foobar, O));
+    assertFalse(StringUtils.endsWith(FOO, o));
+    assertFalse(StringUtils.endsWith(FOOBAR, o));
+    assertTrue(StringUtils.endsWith(FOO, O));
+    assertFalse(StringUtils.endsWith(FOOBAR, O));
+  }
 
   /**
    * Test StringUtils.endsWith()
