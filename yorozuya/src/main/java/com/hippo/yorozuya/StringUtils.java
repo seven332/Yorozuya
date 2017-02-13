@@ -2235,4 +2235,50 @@ public final class StringUtils {
   public static int length(final CharSequence cs) {
     return cs == null ? 0 : cs.length();
   }
+
+  // Join
+  //-----------------------------------------------------------------------
+  /**
+   * Joins two parts to a whole one, avoids one separator after another separator.
+   *
+   * <pre>
+   * StringUtils.join(null, null, '/')           = null
+   * StringUtils.join("base", null, '/')         = "base"
+   * StringUtils.join(null, "relative", '/')     = "relative"
+   * StringUtils.join("base", "relative", '/')   = "base/relative"
+   * StringUtils.join("base/", "relative", '/')  = "base/relative"
+   * StringUtils.join("base", "/relative", '/')  = "base/relative"
+   * StringUtils.join("base/", "/relative", '/') = "base/relative"
+   * </pre>
+   *
+   * @param base the first part, may be null
+   * @param relative the second part, may be null
+   * @param separator the separator character
+   * @return the whole
+   */
+  public static String join(String base, String relative, char separator) {
+    if (base == null && relative == null) {
+      return null;
+    }
+    if (base == null) {
+      return relative;
+    }
+    if (relative == null) {
+      return base;
+    }
+
+    if (StringUtils.endsWith(base, separator)) {
+      if (StringUtils.startsWith(relative, separator)) {
+        return base + relative.substring(1);
+      } else {
+        return base + relative;
+      }
+    } else {
+      if (StringUtils.startsWith(relative, separator)) {
+        return base + relative;
+      } else {
+        return base + separator + relative;
+      }
+    }
+  }
 }
