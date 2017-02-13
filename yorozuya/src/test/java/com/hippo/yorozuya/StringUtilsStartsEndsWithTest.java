@@ -32,10 +32,28 @@ public class StringUtilsStartsEndsWithTest {
   private static final String FOO = "FOO";
   private static final String BAR = "BAR";
   private static final String FOOBAR = "FOOBAR";
+  private static final char f = 'f';
+  private static final char F = 'F';
   private static final char o = 'o';
   private static final char O = 'O';
 
   //-----------------------------------------------------------------------
+
+  /**
+   * Test StringUtils.endsWith()
+   */
+  @Test
+  public void testStartsWithChar() {
+    assertFalse(StringUtils.startsWith(null, f));
+    assertTrue(StringUtils.startsWith(foo, f));
+    assertTrue(StringUtils.startsWith(foobar, f));
+    assertFalse(StringUtils.startsWith(foo, F));
+    assertFalse(StringUtils.startsWith(foobar, F));
+    assertFalse(StringUtils.startsWith(FOO, f));
+    assertFalse(StringUtils.startsWith(FOOBAR, f));
+    assertTrue(StringUtils.startsWith(FOO, F));
+    assertTrue(StringUtils.startsWith(FOOBAR, F));
+  }
 
   /**
    * Test StringUtils.startsWith()

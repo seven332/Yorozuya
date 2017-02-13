@@ -2020,6 +2020,26 @@ public final class StringUtils {
   /**
    * <p>Check if a String starts with a specified prefix.</p>
    *
+   * <pre>
+   * StringUtils.startsWith(null, 'a')       = false
+   * StringUtils.startsWith("abcdef", 'a')   = true
+   * StringUtils.startsWith("ABCDEF", 'a')   = false
+   * </pre>
+   *
+   * @param str  the String to check, may be null
+   * @param prefix the prefix to find
+   * @return {@code true} if the String starts with the prefix, case sensitive.
+   */
+  public static boolean startsWith(final String str, final char prefix) {
+    if (str == null || str.isEmpty()) {
+      return false;
+    }
+    return str.charAt(0) == prefix;
+  }
+
+  /**
+   * <p>Check if a String starts with a specified prefix.</p>
+   *
    * <p>{@code null}s are handled without exceptions. Two {@code null}
    * references are considered to be equal. The comparison is case sensitive.</p>
    *
