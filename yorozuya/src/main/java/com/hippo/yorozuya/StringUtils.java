@@ -2085,9 +2085,9 @@ public final class StringUtils {
    * <p>Check if a String ends with a specified suffix.</p>
    *
    * <pre>
-   * StringUtils.endsWith(null, 'a')       = false
-   * StringUtils.endsWith("abcdef", 'a')   = true
-   * StringUtils.endsWith("ABCDEF", 'a')   = false
+   * StringUtils.endsWith(null, 'f')       = false
+   * StringUtils.endsWith("abcdef", 'f')   = true
+   * StringUtils.endsWith("ABCDEF", 'f')   = false
    * </pre>
    *
    * @param str the String to check, may be null
