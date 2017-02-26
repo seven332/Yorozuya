@@ -32,6 +32,24 @@ import org.junit.Test;
 public class MathUtilsTest {
 
   @Test
+  public void testEqualsFloat() {
+    assertTrue(MathUtils.equals(101.1f, 101.1f, 0.0f));
+    assertTrue(MathUtils.equals(101.1f, 101.1f, -10f));
+    assertTrue(MathUtils.equals(101.1f, 101.0f, 0.1f));
+    assertFalse(MathUtils.equals(101.1f, 101.0f, 0.09f));
+    assertFalse(MathUtils.equals(Float.NaN, 101.0f, 0.1f));
+  }
+
+  @Test
+  public void testEqualsDouble() {
+    assertTrue(MathUtils.equals(101.1, 101.1, 0.0));
+    assertTrue(MathUtils.equals(101.1, 101.1, -10));
+    assertTrue(MathUtils.equals(101.1, 101.0, 0.1));
+    assertFalse(MathUtils.equals(101.1, 101.0, 0.09));
+    assertFalse(MathUtils.equals(Double.NaN, 101.0, 0.1));
+  }
+
+  @Test
   public void testMax() {
     // int
     assertEquals(23, MathUtils.max(23));

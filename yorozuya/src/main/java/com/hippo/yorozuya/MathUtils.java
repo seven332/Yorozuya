@@ -33,6 +33,20 @@ public final class MathUtils {
   private static final Random random = new Random();
 
   /**
+   * Returns {@code true} if two floats are equal to within a positive delta.
+   */
+  public static boolean equals(float f1, float f2, float delta) {
+    return Float.compare(f1, f2) == 0 || Math.abs(f1 - f2) <= delta;
+  }
+
+  /**
+   * Returns {@code true} if two doubles are equal to within a positive delta.
+   */
+  public static boolean equals(double d1, double d2, double delta) {
+    return Double.compare(d1, d2) == 0 || Math.abs(d1 - d2) <= delta;
+  }
+
+  /**
    * Returns the most positive (closest to positive infinity) of all the
    * arguments.
    *
