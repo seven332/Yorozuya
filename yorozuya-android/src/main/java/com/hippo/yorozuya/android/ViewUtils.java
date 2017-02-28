@@ -139,10 +139,45 @@ public final class ViewUtils {
    */
   public static boolean getLocationInAncestor(View view, View ancestor, int[] location)
       throws IllegalArgumentException, NullPointerException {
-    if (ancestor == null) {
-      throw new NullPointerException("ancestor == null");
+    if (view == null) {
+      throw new NullPointerException("view == null");
     }
-    return getLocationInAncestor(view, ancestor.getId(), location);
+    if (location == null || location.length < 2) {
+      throw new IllegalArgumentException(
+          "location must be an array of two integers");
+    }
+
+    boolean result = false;
+    float[] position = new float[2];
+
+    view.getMatrix().mapPoints(position);
+
+    position[0] += view.getLeft();
+    position[1] += view.getTop();
+
+    ViewParent viewParent = view.getParent();
+    while (viewParent instanceof View) {
+      view = (View) viewParent;
+      if (view == ancestor) {
+        result = true;
+        break;
+      }
+
+      position[0] -= view.getScrollX();
+      position[1] -= view.getScrollY();
+
+      view.getMatrix().mapPoints(position);
+
+      position[0] += view.getLeft();
+      position[1] += view.getTop();
+
+      viewParent = view.getParent();
+    }
+
+    location[0] = (int) (position[0] + 0.5f);
+    location[1] = (int) (position[1] + 0.5f);
+
+    return result;
   }
 
   /**
