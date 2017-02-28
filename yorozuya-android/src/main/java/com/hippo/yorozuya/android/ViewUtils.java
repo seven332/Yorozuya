@@ -312,13 +312,17 @@ public final class ViewUtils {
    * @throws IllegalArgumentException if the view is too large
    */
   public static Bitmap screenshot(View v)
-      throws NullPointerException, OutOfMemoryError {
+      throws OutOfMemoryError, IllegalArgumentException {
     if (v == null) {
       Log.w(LOG_TAG, "screenshot: v == null");
       return null;
     }
     int width = v.getWidth();
     int height = v.getHeight();
+    if (width <= 0 || height <= 0) {
+      width = v.getMeasuredWidth();
+      height = v.getMeasuredHeight();
+    }
     if (width <= 0 || height <= 0) {
       Log.w(LOG_TAG, "screenshot: width <= 0 || height <= 0");
       return null;
