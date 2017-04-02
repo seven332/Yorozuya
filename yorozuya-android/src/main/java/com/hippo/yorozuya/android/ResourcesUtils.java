@@ -21,9 +21,13 @@ package com.hippo.yorozuya.android;
  */
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 
 public final class ResourcesUtils {
@@ -100,10 +104,12 @@ public final class ResourcesUtils {
    * @param value the value container
    * @throws Resources.NotFoundException if can't resolve the given ID
    */
-  private static void resolveAttribute(Context context, int attrId, TypedValue value)
+  private static void resolveAttribute(
+      Context context, int attrId, TypedValue value, boolean resolveRefs)
       throws Resources.NotFoundException {
-    if (!context.getTheme().resolveAttribute(attrId, value, true)) {
-      throw new Resources.NotFoundException("Can't resolve attribute ID #0x" + Integer.toHexString(attrId));
+    if (!context.getTheme().resolveAttribute(attrId, value, resolveRefs)) {
+      throw new Resources.NotFoundException(
+          "Can't resolve attribute ID #0x" + Integer.toHexString(attrId));
     }
   }
 
@@ -121,7 +127,7 @@ public final class ResourcesUtils {
       throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
-      resolveAttribute(context, id, value);
+      resolveAttribute(context, id, value, true);
       if (value.type >= TypedValue.TYPE_FIRST_INT
           && value.type <= TypedValue.TYPE_LAST_INT) {
         return value.data != 0;
@@ -145,7 +151,7 @@ public final class ResourcesUtils {
       throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
-      resolveAttribute(context, id, value);
+      resolveAttribute(context, id, value, true);
       if (value.type >= TypedValue.TYPE_FIRST_INT
           && value.type <= TypedValue.TYPE_LAST_INT) {
         return value.data;
@@ -169,7 +175,7 @@ public final class ResourcesUtils {
       throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
-      resolveAttribute(context, id, value);
+      resolveAttribute(context, id, value, true);
       if (value.type == TypedValue.TYPE_FLOAT) {
         return value.getFloat();
       }
@@ -194,7 +200,7 @@ public final class ResourcesUtils {
       throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
-      resolveAttribute(context, id, value);
+      resolveAttribute(context, id, value, true);
       if (value.type == TypedValue.TYPE_DIMENSION) {
         return TypedValue.complexToDimension(
             value.data, context.getResources().getDisplayMetrics());
@@ -223,7 +229,7 @@ public final class ResourcesUtils {
       throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
-      resolveAttribute(context, id, value);
+      resolveAttribute(context, id, value, true);
       if (value.type == TypedValue.TYPE_DIMENSION) {
         return TypedValue.complexToDimensionPixelOffset(
             value.data, context.getResources().getDisplayMetrics());
@@ -253,7 +259,7 @@ public final class ResourcesUtils {
       throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
-      resolveAttribute(context, id, value);
+      resolveAttribute(context, id, value, true);
       if (value.type == TypedValue.TYPE_DIMENSION) {
         return TypedValue.complexToDimensionPixelSize(
             value.data, context.getResources().getDisplayMetrics());
@@ -267,8 +273,8 @@ public final class ResourcesUtils {
 
   /**
    * Resolve a color integer associated with a particular attribute ID.
-   * <p>
-   * {@link android.content.res.ColorStateList} isn't supported.
+   * If the resource holds a complex {@link ColorStateList}, then the default
+   * color from the set is returned.
    *
    * @param context the context to resolve from
    * @param id the desired attribute identifier
@@ -277,6 +283,74 @@ public final class ResourcesUtils {
    */
   public static int getAttrColor(@NonNull Context context, @AttrRes int id)
       throws Resources.NotFoundException {
-    return getAttrInteger(context, id);
+    final TypedValue value = obtainTempTypedValue();
+    try {
+      resolveAttribute(context, id, value, false);
+      if (value.type >= TypedValue.TYPE_FIRST_INT
+          && value.type <= TypedValue.TYPE_LAST_INT) {
+        return value.data;
+      } else if (value.type == TypedValue.TYPE_REFERENCE) {
+        return ContextCompat.getColor(context, value.data);
+      }
+      throw new Resources.NotFoundException("Resource ID #0x" + Integer.toHexString(id)
+          + " type #0x" + Integer.toHexString(value.type) + " is not valid");
+    } finally {
+      releaseTempTypedValue(value);
+    }
+  }
+
+  /**
+   * Resolve a color state list associated with a particular attribute ID.
+   * The resource may contain either a single raw color value or a
+   * complex {@link ColorStateList} holding multiple possible colors.
+   *
+   * @param context the context to resolve from
+   * @param id the desired attribute identifier
+   * @return A themed ColorStateList object containing either a single solid
+   *         color or multiple colors that can be selected based on a state.
+   * @throws Resources.NotFoundException if the given ID does not exist
+   */
+  public static ColorStateList getAttrColorStateList(@NonNull Context context, @AttrRes int id)
+      throws Resources.NotFoundException {
+    final TypedValue value = obtainTempTypedValue();
+    try {
+      resolveAttribute(context, id, value, false);
+      if (value.type >= TypedValue.TYPE_FIRST_COLOR_INT
+          && value.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+        return ColorStateList.valueOf(value.data);
+      } else if (value.type == TypedValue.TYPE_REFERENCE) {
+        return ContextCompat.getColorStateList(context, value.data);
+      }
+      throw new Resources.NotFoundException("Resource ID #0x" + Integer.toHexString(id)
+          + " type #0x" + Integer.toHexString(value.type) + " is not valid");
+    } finally {
+      releaseTempTypedValue(value);
+    }
+  }
+
+  /**
+   * Resolve a drawable object associated with a particular attribute ID.
+   *
+   * @param context the context to resolve from
+   * @param id the desired attribute identifier
+   * @return Drawable An object that can be used to draw this resource.
+   * @throws Resources.NotFoundException if the given ID does not exist
+   */
+  public static Drawable getAttrDrawable(@NonNull Context context, @AttrRes int id)
+      throws Resources.NotFoundException {
+    final TypedValue value = obtainTempTypedValue();
+    try {
+      resolveAttribute(context, id, value, false);
+      if (value.type >= TypedValue.TYPE_FIRST_COLOR_INT
+          && value.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+        return new ColorDrawable(value.data);
+      } else if (value.type == TypedValue.TYPE_REFERENCE) {
+        return ContextCompat.getDrawable(context, value.data);
+      }
+      throw new Resources.NotFoundException("Resource ID #0x" + Integer.toHexString(id)
+          + " type #0x" + Integer.toHexString(value.type) + " is not valid");
+    } finally {
+      releaseTempTypedValue(value);
+    }
   }
 }

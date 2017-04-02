@@ -35,6 +35,13 @@
     <attr name="attr_color_1" format="color"/>
     <attr name="attr_color_2" format="color"/>
     <attr name="attr_color_3" format="color"/>
+    <attr name="attr_color_4" format="color"/>
+
+    <attr name="attr_color_state_list_1" format="color"/>
+
+    <attr name="attr_drawable_1" format="reference|color"/>
+    <attr name="attr_drawable_2" format="reference"/>
+    <attr name="attr_drawable_3" format="reference"/>
   </declare-styleable>
 
   <item name="boolean1" format="boolean" type="bool">true</item>
@@ -63,6 +70,13 @@
     <item name="attr_color_1">#ff0000ff</item>
     <item name="attr_color_2">@color/color1</item>
     <item name="attr_color_3">?attr/attr_color_2</item>
+    <item name="attr_color_4">@color/color4</item>
+
+    <item name="attr_color_state_list_1">@color/color4</item>
+
+    <item name="attr_drawable_1">#ff0000ff</item>
+    <item name="attr_drawable_2">@drawable/drawable2</item>
+    <item name="attr_drawable_3">@drawable/drawable3</item>
   </style>
 
 </resources>

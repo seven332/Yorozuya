@@ -22,11 +22,18 @@ package com.hippo.yorozuya.android;
 
 import static com.hippo.yorozuya.android.Utils.assertEqualsFloat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.DisplayMetrics;
@@ -150,10 +157,36 @@ public class ResourcesUtilsTest {
     assertEquals(Color.BLUE, ResourcesUtils.getAttrColor(app, R.attr.attr_color_1));
     assertEquals(Color.RED, ResourcesUtils.getAttrColor(app, R.attr.attr_color_2));
     assertEquals(Color.RED, ResourcesUtils.getAttrColor(app, R.attr.attr_color_3));
+    assertEquals(Color.GREEN, ResourcesUtils.getAttrColor(app, R.attr.attr_color_4));
     try {
       assertEquals(Color.BLUE, ResourcesUtils.getAttrColor(app, R.attr.attr_float_1));
     } catch (Resources.NotFoundException e) {
       // Ignore
     }
+  }
+
+  @Test
+  public void testGetAttrColorStateList() {
+    Context app = InstrumentationRegistry.getTargetContext();
+    ColorStateList colorStateList = ResourcesUtils.getAttrColorStateList(app, R.attr.attr_color_state_list_1);
+    assertNotNull(colorStateList);
+    assertEquals(Color.GREEN, colorStateList.getDefaultColor());
+    assertEquals(Color.RED, colorStateList.getColorForState(new int[]{android.R.attr.state_pressed}, Color.BLACK));
+    assertEquals(Color.BLUE, colorStateList.getColorForState(new int[]{android.R.attr.state_focused}, Color.BLACK));
+  }
+
+  @Test
+  public void testGetAttrDrawable() {
+    Context app = InstrumentationRegistry.getTargetContext();
+
+    Drawable drawable1 = ResourcesUtils.getAttrDrawable(app, R.attr.attr_drawable_1);
+    assertTrue(drawable1 instanceof ColorDrawable);
+    assertEquals(Color.BLUE, ((ColorDrawable) drawable1).getColor());
+
+    Drawable drawable2 = ResourcesUtils.getAttrDrawable(app, R.attr.attr_drawable_2);
+    assertTrue(drawable2 instanceof GradientDrawable);
+
+    Drawable drawable3 = ResourcesUtils.getAttrDrawable(app, R.attr.attr_drawable_3);
+    assertTrue(drawable3 instanceof BitmapDrawable);
   }
 }
