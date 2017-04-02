@@ -22,6 +22,8 @@ package com.hippo.yorozuya.android;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.AttrRes;
+import android.support.annotation.NonNull;
 import android.util.TypedValue;
 
 public final class ResourcesUtils {
@@ -74,11 +76,9 @@ public final class ResourcesUtils {
    * @return the floating-point value contained in the resource
    * @throws Resources.NotFoundException if the given ID does
    *         not exist or is not a floating-point value
-   * @throws NullPointerException if {@code resources == null}
    */
-  public static float getFloat(Resources resources, int id)
-      throws Resources.NotFoundException, NullPointerException {
-    if (resources == null) throw new NullPointerException("resources == null");
+  public static float getFloat(@NonNull Resources resources, int id)
+      throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
       resources.getValue(id, value, true);
@@ -116,11 +116,9 @@ public final class ResourcesUtils {
    * @param id the desired attribute identifier
    * @return the boolean value
    * @throws Resources.NotFoundException if the given ID does not exist
-   * @throws NullPointerException if {@code context == null}
    */
-  public static boolean getAttrBoolean(Context context, int id)
-      throws Resources.NotFoundException, NullPointerException {
-    if (context == null) throw new NullPointerException("context == null");
+  public static boolean getAttrBoolean(@NonNull Context context, @AttrRes int id)
+      throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
       resolveAttribute(context, id, value);
@@ -142,11 +140,9 @@ public final class ResourcesUtils {
    * @param id the desired attribute identifier
    * @return the integer value
    * @throws Resources.NotFoundException if the given ID does not exist
-   * @throws NullPointerException if {@code context == null}
    */
-  public static int getAttrInteger(Context context, int id)
-      throws Resources.NotFoundException, NullPointerException {
-    if (context == null) throw new NullPointerException("context == null");
+  public static int getAttrInteger(@NonNull Context context, @AttrRes int id)
+      throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
       resolveAttribute(context, id, value);
@@ -168,11 +164,9 @@ public final class ResourcesUtils {
    * @param id the desired attribute identifier
    * @return the floating-point value
    * @throws Resources.NotFoundException if the given ID does not exist
-   * @throws NullPointerException if {@code context == null}
    */
-  public static float getAttrFloat(Context context, int id)
-      throws Resources.NotFoundException, NullPointerException {
-    if (context == null) throw new NullPointerException("context == null");
+  public static float getAttrFloat(@NonNull Context context, @AttrRes int id)
+      throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
       resolveAttribute(context, id, value);
@@ -195,11 +189,9 @@ public final class ResourcesUtils {
    * @param id the desired attribute identifier
    * @return resource dimension value multiplied by the appropriate
    * @throws Resources.NotFoundException if the given ID does not exist
-   * @throws NullPointerException if {@code context == null}
    */
-  public static float getAttrDimension(Context context, int id)
-      throws Resources.NotFoundException, NullPointerException {
-    if (context == null) throw new NullPointerException("context == null");
+  public static float getAttrDimension(@NonNull Context context, @AttrRes int id)
+      throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
       resolveAttribute(context, id, value);
@@ -226,11 +218,9 @@ public final class ResourcesUtils {
    * @return resource dimension value multiplied by the appropriate
    *         metric and truncated to integer pixels
    * @throws Resources.NotFoundException if the given ID does not exist
-   * @throws NullPointerException if {@code context == null}
    */
-  public static int getAttrDimensionPixelOffset(Context context, int id)
-      throws Resources.NotFoundException, NullPointerException {
-    if (context == null) throw new NullPointerException("context == null");
+  public static int getAttrDimensionPixelOffset(@NonNull Context context, @AttrRes int id)
+      throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
       resolveAttribute(context, id, value);
@@ -258,11 +248,9 @@ public final class ResourcesUtils {
    * @return resource dimension value multiplied by the appropriate
    *         metric and truncated to integer pixels.
    * @throws Resources.NotFoundException if the given ID does not exist
-   * @throws NullPointerException if {@code context == null}
    */
-  public static int getAttrDimensionPixelSize(Context context, int id)
-      throws Resources.NotFoundException, NullPointerException {
-    if (context == null) throw new NullPointerException("context == null");
+  public static int getAttrDimensionPixelSize(@NonNull Context context, @AttrRes int id)
+      throws Resources.NotFoundException {
     final TypedValue value = obtainTempTypedValue();
     try {
       resolveAttribute(context, id, value);
@@ -286,10 +274,9 @@ public final class ResourcesUtils {
    * @param id the desired attribute identifier
    * @return a single color value in the form 0xAARRGGBB
    * @throws Resources.NotFoundException if the given ID does not exist
-   * @throws NullPointerException if {@code context == null}
    */
-  public static int getAttrColor(Context context, int id)
-      throws Resources.NotFoundException, NullPointerException {
+  public static int getAttrColor(@NonNull Context context, @AttrRes int id)
+      throws Resources.NotFoundException {
     return getAttrInteger(context, id);
   }
 }
