@@ -149,6 +149,7 @@ public class ResourcesUtilsTest {
     Context app = InstrumentationRegistry.getTargetContext();
     assertEquals(Color.BLUE, ResourcesUtils.getAttrColor(app, R.attr.attr_color_1));
     assertEquals(Color.RED, ResourcesUtils.getAttrColor(app, R.attr.attr_color_2));
+    assertEquals(Color.RED, ResourcesUtils.getAttrColor(app, R.attr.attr_color_3));
     try {
       assertEquals(Color.BLUE, ResourcesUtils.getAttrColor(app, R.attr.attr_float_1));
     } catch (Resources.NotFoundException e) {
