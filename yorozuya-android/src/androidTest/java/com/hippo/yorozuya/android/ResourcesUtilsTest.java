@@ -54,10 +54,7 @@ public class ResourcesUtilsTest {
       assertEqualsFloat(5.6f, ResourcesUtils.getFloat(resources, R.integer.integer1));
       fail();
     } catch (Resources.NotFoundException e) {
-    }
-    try {
-      assertEqualsFloat(5.6f, ResourcesUtils.getFloat(null, R.integer.float1));
-    } catch (NullPointerException e) {
+      // Ignore
     }
   }
 
@@ -70,11 +67,7 @@ public class ResourcesUtilsTest {
       assertEquals(false, ResourcesUtils.getAttrBoolean(app, R.attr.attr_float_1));
       fail();
     } catch (Resources.NotFoundException e) {
-    }
-    try {
-      assertEquals(false, ResourcesUtils.getAttrBoolean(null, R.attr.attr_boolean_1));
-      fail();
-    } catch (NullPointerException e) {
+      // Ignore
     }
   }
 
@@ -87,11 +80,7 @@ public class ResourcesUtilsTest {
       assertEquals(12345, ResourcesUtils.getAttrInteger(app, R.attr.attr_float_1));
       fail();
     } catch (Resources.NotFoundException e) {
-    }
-    try {
-      assertEquals(54321, ResourcesUtils.getAttrInteger(null, R.attr.attr_integer_1));
-      fail();
-    } catch (NullPointerException e) {
+      // Ignore
     }
   }
 
@@ -104,11 +93,7 @@ public class ResourcesUtilsTest {
       assertEqualsFloat(6.5f, ResourcesUtils.getAttrFloat(app, R.attr.attr_integer_1));
       fail();
     } catch (Resources.NotFoundException e) {
-    }
-    try {
-      assertEqualsFloat(6.5f, ResourcesUtils.getAttrFloat(null, R.attr.attr_float_1));
-      fail();
-    } catch (NullPointerException e) {
+      // Ignore
     }
   }
 
@@ -122,11 +107,7 @@ public class ResourcesUtilsTest {
       assertEqualsFloat(20 * metrics.density, ResourcesUtils.getAttrDimension(app, R.attr.attr_float_1));
       fail();
     } catch (Resources.NotFoundException e) {
-    }
-    try {
-      assertEqualsFloat(20 * metrics.density, ResourcesUtils.getAttrDimension(null, R.attr.attr_dimension_1));
-      fail();
-    } catch (NullPointerException e) {
+      // Ignore
     }
   }
 
@@ -140,11 +121,7 @@ public class ResourcesUtilsTest {
       assertEquals((int) (20 * metrics.density), ResourcesUtils.getAttrDimensionPixelOffset(app, R.attr.attr_float_1));
       fail();
     } catch (Resources.NotFoundException e) {
-    }
-    try {
-      assertEquals((int) (20 * metrics.density), ResourcesUtils.getAttrDimensionPixelOffset(null, R.attr.attr_dimension_1));
-      fail();
-    } catch (NullPointerException e) {
+      // Ignore
     }
   }
 
@@ -163,11 +140,7 @@ public class ResourcesUtilsTest {
     try {
       assertEquals(size(20 * metrics.density), ResourcesUtils.getAttrDimensionPixelSize(app, R.attr.attr_float_1));      fail();
     } catch (Resources.NotFoundException e) {
-    }
-    try {
-      assertEquals(size(20 * metrics.density), ResourcesUtils.getAttrDimensionPixelSize(null, R.attr.attr_dimension_1));      fail();
-      fail();
-    } catch (NullPointerException e) {
+      // Ignore
     }
   }
 
@@ -179,11 +152,7 @@ public class ResourcesUtilsTest {
     try {
       assertEquals(Color.BLUE, ResourcesUtils.getAttrColor(app, R.attr.attr_float_1));
     } catch (Resources.NotFoundException e) {
-    }
-    try {
-      assertEquals(Color.BLUE, ResourcesUtils.getAttrColor(null, R.attr.attr_color_1));
-      fail();
-    } catch (NullPointerException e) {
+      // Ignore
     }
   }
 }
