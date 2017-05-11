@@ -21,22 +21,12 @@ package com.hippo.yorozuya.android;
  */
 
 import static com.hippo.yorozuya.android.Utils.assertEqualsFloat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.DisplayMetrics;
 import com.hippo.yorozuya.android.test.R;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,130 +53,5 @@ public class ResourcesUtilsTest {
     } catch (Resources.NotFoundException e) {
       // Ignore
     }
-  }
-
-  @Test
-  public void testGetAttrBoolean() {
-    Context app = InstrumentationRegistry.getTargetContext();
-    assertEquals(false, ResourcesUtils.getAttrBoolean(app, R.attr.attr_boolean_1));
-    assertEquals(true, ResourcesUtils.getAttrBoolean(app, R.attr.attr_boolean_2));
-    try {
-      assertEquals(false, ResourcesUtils.getAttrBoolean(app, R.attr.attr_float_1));
-      fail();
-    } catch (Resources.NotFoundException e) {
-      // Ignore
-    }
-  }
-
-  @Test
-  public void testGetAttrInteger() {
-    Context app = InstrumentationRegistry.getTargetContext();
-    assertEquals(54321, ResourcesUtils.getAttrInteger(app, R.attr.attr_integer_1));
-    assertEquals(12345, ResourcesUtils.getAttrInteger(app, R.attr.attr_integer_2));
-    try {
-      assertEquals(12345, ResourcesUtils.getAttrInteger(app, R.attr.attr_float_1));
-      fail();
-    } catch (Resources.NotFoundException e) {
-      // Ignore
-    }
-  }
-
-  @Test
-  public void testGetAttrFloat() {
-    Context app = InstrumentationRegistry.getTargetContext();
-    assertEqualsFloat(6.5f, ResourcesUtils.getAttrFloat(app, R.attr.attr_float_1));
-    assertEqualsFloat(5.6f, ResourcesUtils.getAttrFloat(app, R.attr.attr_float_2));
-    try {
-      assertEqualsFloat(6.5f, ResourcesUtils.getAttrFloat(app, R.attr.attr_integer_1));
-      fail();
-    } catch (Resources.NotFoundException e) {
-      // Ignore
-    }
-  }
-
-  @Test
-  public void testGetAttrDimension() {
-    Context app = InstrumentationRegistry.getTargetContext();
-    DisplayMetrics metrics = app.getResources().getDisplayMetrics();
-    assertEqualsFloat(20 * metrics.density, ResourcesUtils.getAttrDimension(app, R.attr.attr_dimension_1));
-    assertEqualsFloat(10 * metrics.density, ResourcesUtils.getAttrDimension(app, R.attr.attr_dimension_2));
-    try {
-      assertEqualsFloat(20 * metrics.density, ResourcesUtils.getAttrDimension(app, R.attr.attr_float_1));
-      fail();
-    } catch (Resources.NotFoundException e) {
-      // Ignore
-    }
-  }
-
-  @Test
-  public void testGetAttrDimensionPixelOffset() {
-    Context app = InstrumentationRegistry.getTargetContext();
-    DisplayMetrics metrics = app.getResources().getDisplayMetrics();
-    assertEquals((int) (20 * metrics.density), ResourcesUtils.getAttrDimensionPixelOffset(app, R.attr.attr_dimension_1));
-    assertEquals((int) (10 * metrics.density), ResourcesUtils.getAttrDimensionPixelOffset(app, R.attr.attr_dimension_2));
-    try {
-      assertEquals((int) (20 * metrics.density), ResourcesUtils.getAttrDimensionPixelOffset(app, R.attr.attr_float_1));
-      fail();
-    } catch (Resources.NotFoundException e) {
-      // Ignore
-    }
-  }
-
-  private static int size(float f) {
-    final int res = (int) (f + 0.5f);
-    if (res != 0) return res;
-    return -1;
-  }
-
-  @Test
-  public void testGetAttrDimensionPixelSize() {
-    Context app = InstrumentationRegistry.getTargetContext();
-    DisplayMetrics metrics = app.getResources().getDisplayMetrics();
-    assertEquals(size(20 * metrics.density), ResourcesUtils.getAttrDimensionPixelSize(app, R.attr.attr_dimension_1));
-    assertEquals(size(10 * metrics.density), ResourcesUtils.getAttrDimensionPixelSize(app, R.attr.attr_dimension_2));
-    try {
-      assertEquals(size(20 * metrics.density), ResourcesUtils.getAttrDimensionPixelSize(app, R.attr.attr_float_1));      fail();
-    } catch (Resources.NotFoundException e) {
-      // Ignore
-    }
-  }
-
-  @Test
-  public void testGetAttrColor() {
-    Context app = InstrumentationRegistry.getTargetContext();
-    assertEquals(Color.BLUE, ResourcesUtils.getAttrColor(app, R.attr.attr_color_1));
-    assertEquals(Color.RED, ResourcesUtils.getAttrColor(app, R.attr.attr_color_2));
-    assertEquals(Color.RED, ResourcesUtils.getAttrColor(app, R.attr.attr_color_3));
-    assertEquals(Color.GREEN, ResourcesUtils.getAttrColor(app, R.attr.attr_color_4));
-    try {
-      assertEquals(Color.BLUE, ResourcesUtils.getAttrColor(app, R.attr.attr_float_1));
-    } catch (Resources.NotFoundException e) {
-      // Ignore
-    }
-  }
-
-  @Test
-  public void testGetAttrColorStateList() {
-    Context app = InstrumentationRegistry.getTargetContext();
-    ColorStateList colorStateList = ResourcesUtils.getAttrColorStateList(app, R.attr.attr_color_state_list_1);
-    assertNotNull(colorStateList);
-    assertEquals(Color.GREEN, colorStateList.getDefaultColor());
-    assertEquals(Color.RED, colorStateList.getColorForState(new int[]{android.R.attr.state_pressed}, Color.BLACK));
-    assertEquals(Color.BLUE, colorStateList.getColorForState(new int[]{android.R.attr.state_focused}, Color.BLACK));
-  }
-
-  @Test
-  public void testGetAttrDrawable() {
-    Context app = InstrumentationRegistry.getTargetContext();
-
-    Drawable drawable1 = ResourcesUtils.getAttrDrawable(app, R.attr.attr_drawable_1);
-    assertTrue(drawable1 instanceof ColorDrawable);
-    assertEquals(Color.BLUE, ((ColorDrawable) drawable1).getColor());
-
-    Drawable drawable2 = ResourcesUtils.getAttrDrawable(app, R.attr.attr_drawable_2);
-    assertTrue(drawable2 instanceof GradientDrawable);
-
-    Drawable drawable3 = ResourcesUtils.getAttrDrawable(app, R.attr.attr_drawable_3);
-    assertTrue(drawable3 instanceof BitmapDrawable);
   }
 }

@@ -17,66 +17,7 @@
 
 <resources>
 
-  <string name="app_name">Yorozuya-Android-Test</string>
-
-  <declare-styleable name="Theme">
-    <attr name="attr_boolean_1" format="boolean"/>
-    <attr name="attr_boolean_2" format="boolean"/>
-
-    <attr name="attr_integer_1" format="integer"/>
-    <attr name="attr_integer_2" format="integer"/>
-
-    <attr name="attr_float_1" format="float"/>
-    <attr name="attr_float_2" format="float"/>
-
-    <attr name="attr_dimension_1" format="dimension"/>
-    <attr name="attr_dimension_2" format="dimension"/>
-
-    <attr name="attr_color_1" format="color"/>
-    <attr name="attr_color_2" format="color"/>
-    <attr name="attr_color_3" format="color"/>
-    <attr name="attr_color_4" format="color"/>
-
-    <attr name="attr_color_state_list_1" format="color"/>
-
-    <attr name="attr_drawable_1" format="reference|color"/>
-    <attr name="attr_drawable_2" format="reference"/>
-    <attr name="attr_drawable_3" format="reference"/>
-  </declare-styleable>
-
-  <item name="boolean1" format="boolean" type="bool">true</item>
-
   <item name="integer1" format="integer" type="integer">12345</item>
-
   <item name="float1" format="float" type="integer">5.6</item>
-
-  <item name="dimension1" format="dimension" type="dimen">10dp</item>
-
-  <item name="color1" format="color" type="color">#ffff0000</item>
-
-  <style name="AppTheme" parent="android:Theme.Light">
-    <item name="attr_boolean_1">false</item>
-    <item name="attr_boolean_2">@bool/boolean1</item>
-
-    <item name="attr_integer_1">54321</item>
-    <item name="attr_integer_2">@integer/integer1</item>
-
-    <item name="attr_float_1">6.5</item>
-    <item name="attr_float_2">@integer/float1</item>
-
-    <item name="attr_dimension_1">20dp</item>
-    <item name="attr_dimension_2">@dimen/dimension1</item>
-
-    <item name="attr_color_1">#ff0000ff</item>
-    <item name="attr_color_2">@color/color1</item>
-    <item name="attr_color_3">?attr/attr_color_2</item>
-    <item name="attr_color_4">@color/color4</item>
-
-    <item name="attr_color_state_list_1">@color/color4</item>
-
-    <item name="attr_drawable_1">#ff0000ff</item>
-    <item name="attr_drawable_2">@drawable/drawable2</item>
-    <item name="attr_drawable_3">@drawable/drawable3</item>
-  </style>
 
 </resources>
